@@ -2639,7 +2639,7 @@ SPEC CHECKSUMS:
   Delegate: 0ff4467868095239ff578ab531efd8af46e62881
   FBLazyVector: e97c19a5a442429d1988f182a1940fb08df514da
   Gifu: 9f7e52357d41c0739709019eb80a71ad9aab1b6d
-  hermes-engine: d66c90ac50aaa0eeb447ea56982b18013ae7dcc7
+  hermes-engine: 052b10cfcc4622ad435f2ad23119ba7f5f77e2e3
   NitroFetch: 854e43538dc56cab319c1ff87997d08f040990fd
   NitroHaptics: c9afb8ce5f3c46949f3c834fa6cf7994f7385e23
   NitroModules: 76063cb7bc1a21cf46d11b25abfcf1759bf0be47
@@ -2651,7 +2651,7 @@ SPEC CHECKSUMS:
   React: 1ba7d364ade7d883a1ec055bfc3606f35fdee17b
   React-callinvoker: bc2a26f8d84fb01f003fc6de6c9337b64715f95b
   React-Core: 7840d3a80b43a95c5e80ef75146bd70925ebab0f
-  React-Core-prebuilt: 821c8c24cf92784b3a8446381434dc18ef5580e7
+  React-Core-prebuilt: 1acca21d2d6e6815d0c2d1e12be5fa1d558361ec
   React-CoreModules: 2eb010400b63b89e53a324ffb3c112e4c7c3ce42
   React-cxxreact: a558e92199d26f145afa9e62c4233cf8e7950efe
   React-debug: 755200a6e7f5e6e0a40ff8d215493d43cce285fc
@@ -2718,7 +2718,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 797de5178718324c6eba3327b07f9a423fbd5787
   ReactCommon: 07572bf9e687c8a52fbe4a3641e9e3a1a477c78e
   ReactNativeBlur: 3b47d92ee6fd8544aa42eb7e43362f51d8f44160
-  ReactNativeDependencies: 59f07fd5325321f9ec1a7f785835843432a57f15
+  ReactNativeDependencies: 8715ec4fa21d973af827acdf7575123d9ebc76c6
   ReactNativeVideo: ae8c3a8b70584fc46a85925707ec6bed39dbab83
   RNDeviceInfo: 4c852998208b60dc192ae3529e5867817719ad1e
   RNGestureHandler: 07de6f059e0ee5744ae9a56feb07ee345338cc31

@@ -5,21 +5,20 @@
  * @format
  */
 
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+// import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import {
-  SafeAreaProvider
+    SafeAreaProvider
 } from 'react-native-safe-area-context';
-import News from './src/Screens/News/IndexView'
+import AppNavigator from './src/Navigator/AppNavigator.tsx';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+    // const isDarkMode = useColorScheme() === 'dark';
 
-  return (
-    <SafeAreaProvider>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <News />
-    </SafeAreaProvider>
-  );
+    return (
+        <SafeAreaProvider>
+            <AppNavigator />
+        </SafeAreaProvider>
+    );
 }
 
 

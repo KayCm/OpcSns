@@ -1,10 +1,15 @@
-import {View,Text} from "react-native";
+import {View,Text, TouchableOpacity} from "react-native";
+import WebView from 'react-native-webview';
 
-function IndexView() {
+function IndexView(props: any) {
 
-    return(<View style={{flex:1}}>
-        <Text>Index</Text>
-    </View>)
+    const html = props?.route?.params?.html
+
+    return (
+        <View style={{ flex: 1 }}>
+            <WebView source={{ html }} style={{ flex: 1, width: '100%' }} />
+        </View>
+    );
 }
 
 export default IndexView;

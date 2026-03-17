@@ -1,21 +1,29 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-// import { theme } from '../theme'; // 假设你有主题配置
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AppBottomTab from './AppMainTab.tsx';
+import Detail from './../Screens/News/Detail/IndexView.tsx'
+const Stack = createNativeStackNavigator();
 
-export const AppNavigator = () => {
+
+const AppNavigator = () => {
     return (
-        <NavigationContainer
-            // theme={theme.navigationTheme} // 适配深色模式
-            linking={{
-                prefixes: ['myapp://', 'https://myapp.com'],
-                config: {
-                    screens: {
-                        Home: '',
-                        Profile: 'user/:userId',
-                    },
-                },
-            }}>
-            {/*<RootNavigator />*/}
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="AppBottomTab">
+                <Stack.Group>
+                    <Stack.Screen
+                        name="AppBottomTab"
+                        component={AppBottomTab}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="Detail"
+                        component={Detail}
+                        options={{ headerShown: true, animation: 'slide_from_right' }}
+                    />
+                </Stack.Group>
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };
+export default AppNavigator
