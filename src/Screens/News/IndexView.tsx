@@ -15,7 +15,7 @@ function IndexView() {
     const [html, setHtml] = useState<string>(initHtml);
 
     return (
-      <View style={{ flex: 1, backgroundColor: '',padding:10,alignItems:'center' }}>
+      <View style={{ flex: 1,padding:10,alignItems:'center' }}>
         <TextInput
           style={{ borderWidth: 1,
               borderColor: '#ccc',

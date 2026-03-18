@@ -7,10 +7,11 @@ import Map from '../Screens/Map/IndexView'
 import Mine from '../Screens/Mine/IndexView'
 import {useLinkBuilder} from "@react-navigation/native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import { Text, View } from 'react-native';
+import {Platform, Text, View} from 'react-native';
 import {PlatformPressable} from "@react-navigation/elements";
 import {Route} from "@react-navigation/routers";
 import { BlurView } from '@sbaiahmed1/react-native-blur';
+import { Shadow } from 'react-native-shadow-2';
 
 
 function AppBottomTabBar({ state, descriptors, navigation }) {
@@ -31,19 +32,20 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
           height: 64 + insets.bottom,
         }}
       >
+
+      <Shadow distance={3}>
         <BlurView
           blurType="light"
           blurAmount={10}
           style={{
             flexDirection: 'row',
             height: 64,
-            width: '80%',
+            width: 300,
             borderRadius: 32,
             borderWidth: 2,
-            borderColor: '#12345670',
+            borderColor: 'red',
             padding: 5,
-          }}
-        >
+          }}>
           {state.routes.map((route: Route<any>, index: number) => {
             const { options } = descriptors[route.key];
             const label =
@@ -93,23 +95,25 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
                 testID={options.tabBarButtonTestID}
+                pressOpacity={1}
+                pressColor={'#00000000'}
                 onPress={onPress}
                 onLongPress={onLongPress}
                 style={{
                   flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  backgroundColor: isFocused ? '#12345670' : '',
+                  backgroundColor: isFocused ? 'red' : '#ffffff00',
                   borderRadius: 30,
                 }}
               >
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+                {/*<View*/}
+                {/*  style={{*/}
+                {/*    flex: 1,*/}
+                {/*    justifyContent: 'center',*/}
+                {/*    alignItems: 'center',*/}
+                {/*  }}*/}
+                {/*>*/}
                   {/*{Icon}*/}
                   <Text
                     style={{
@@ -121,11 +125,13 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                   >
                     {label}
                   </Text>
-                </View>
+                {/*</View>*/}
               </PlatformPressable>
             );
           })}
         </BlurView>
+      </Shadow>
+
       </View>
     );
 
@@ -189,12 +195,13 @@ export default function AppBottomTab() {
             <Tab.Screen name="VIP"
                         component={VIP}
                         options={{ headerShown: true }} />
-            <Tab.Screen name="MAP"
-                        component={Map}
-                        options={{ headerShown: false }} />
+            {Platform.os == 'ios' && (<Tab.Screen name="MAP"
+                                                  component={Map}
+                                                  options={{ headerShown: false }} />)}
+
             <Tab.Screen name="MINE"
                         component={Mine}
-                        options={{ headerShown: true }}
+                        options={{ headerShown: false }}
             />
         </Tab.Navigator>
     );

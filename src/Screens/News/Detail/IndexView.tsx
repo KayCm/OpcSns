@@ -6,7 +6,7 @@ function IndexView(props: any) {
     const html = props?.route?.params?.html
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 ,padding:10,backgroundColor:'#fff'}}>
             <WebView source={{ html }} style={{ flex: 1, width: '100%' }} />
         </View>
     );
