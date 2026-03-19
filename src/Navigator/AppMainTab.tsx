@@ -15,24 +15,23 @@ import { Shadow } from 'react-native-shadow-2';
 
 
 function AppBottomTabBar({ state, descriptors, navigation }) {
-    // const { colors } = useTheme();
-    const { buildHref } = useLinkBuilder();
-    const insets = useSafeAreaInsets();
+  // const { colors } = useTheme();
+  const { buildHref } = useLinkBuilder();
+  const insets = useSafeAreaInsets();
 
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          paddingBottom: insets.bottom,
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: 64 + insets.bottom,
-        }}
-      >
-
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        paddingBottom: insets.bottom,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 64 + insets.bottom,
+      }}
+    >
       <Shadow distance={3}>
         <BlurView
           blurType="light"
@@ -45,7 +44,8 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
             borderWidth: 2,
             borderColor: 'red',
             padding: 5,
-          }}>
+          }}
+        >
           {state.routes.map((route: Route<any>, index: number) => {
             const { options } = descriptors[route.key];
             const label =
@@ -114,74 +114,73 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                 {/*    alignItems: 'center',*/}
                 {/*  }}*/}
                 {/*>*/}
-                  {/*{Icon}*/}
-                  <Text
-                    style={{
-                      color: isFocused ? '#ffffff' : '#1C1C1E',
-                      // marginTop: 6,
-                      fontSize: 12,
-                      fontWeight: isFocused ? '600' : '400',
-                    }}
-                  >
-                    {label}
-                  </Text>
+                {/*{Icon}*/}
+                <Text
+                  style={{
+                    color: isFocused ? '#ffffff' : '#1C1C1E',
+                    // marginTop: 6,
+                    fontSize: 12,
+                    fontWeight: isFocused ? '600' : '400',
+                  }}
+                >
+                  {label}
+                </Text>
                 {/*</View>*/}
               </PlatformPressable>
             );
           })}
         </BlurView>
       </Shadow>
+    </View>
+  );
 
-      </View>
-    );
-
-    // return (<View style={{ flexDirection: 'row',height:64,backgroundColor:'#fff',borderTopColor:'#808080',borderTopWidth:StyleSheet.hairlineWidth }}>
-    //         {state.routes.map((route, index) => {
-    //             const { options } = descriptors[route.key];
-    //             const label =
-    //                 options.tabBarLabel !== undefined
-    //                     ? options.tabBarLabel
-    //                     : options.title !== undefined
-    //                         ? options.title
-    //                         : route.name;
-    //
-    //             const isFocused = state.index === index;
-    //
-    //             const onPress = () => {
-    //                 const event = navigation.emit({
-    //                     type: 'tabPress',
-    //                     target: route.key,
-    //                     canPreventDefault: true,
-    //                 });
-    //
-    //                 if (!isFocused && !event.defaultPrevented) {
-    //                     navigation.navigate(route.name, route.params);
-    //                 }
-    //             };
-    //
-    //             const onLongPress = () => {
-    //                 navigation.emit({
-    //                     type: 'tabLongPress',
-    //                     target: route.key,
-    //                 });
-    //             };
-    //
-    //             return (<PlatformPressable key={index} href={buildHref(route.name, route.params)}
-    //                                        accessibilityState={isFocused ? { selected: true } : {}}
-    //                                        accessibilityLabel={options.tabBarAccessibilityLabel}
-    //                                        testID={options.tabBarButtonTestID}
-    //                                        onPress={onPress}
-    //                                        onLongPress={onLongPress}
-    //                                        style={{ flex: 1,justifyContent:'center',alignItems:'center'}}>
-    //                     <View style={{height:20,width:20,backgroundColor:'#123'}}></View>
-    //                     <Text style={{ color: isFocused ? colors.primary : colors.text,marginTop:5}}>
-    //                         {label}
-    //                     </Text>
-    //                 </PlatformPressable>
-    //             );
-    //         })}
-    //     </View>
-    // );
+  // return (<View style={{ flexDirection: 'row',height:64,backgroundColor:'#fff',borderTopColor:'#808080',borderTopWidth:StyleSheet.hairlineWidth }}>
+  //         {state.routes.map((route, index) => {
+  //             const { options } = descriptors[route.key];
+  //             const label =
+  //                 options.tabBarLabel !== undefined
+  //                     ? options.tabBarLabel
+  //                     : options.title !== undefined
+  //                         ? options.title
+  //                         : route.name;
+  //
+  //             const isFocused = state.index === index;
+  //
+  //             const onPress = () => {
+  //                 const event = navigation.emit({
+  //                     type: 'tabPress',
+  //                     target: route.key,
+  //                     canPreventDefault: true,
+  //                 });
+  //
+  //                 if (!isFocused && !event.defaultPrevented) {
+  //                     navigation.navigate(route.name, route.params);
+  //                 }
+  //             };
+  //
+  //             const onLongPress = () => {
+  //                 navigation.emit({
+  //                     type: 'tabLongPress',
+  //                     target: route.key,
+  //                 });
+  //             };
+  //
+  //             return (<PlatformPressable key={index} href={buildHref(route.name, route.params)}
+  //                                        accessibilityState={isFocused ? { selected: true } : {}}
+  //                                        accessibilityLabel={options.tabBarAccessibilityLabel}
+  //                                        testID={options.tabBarButtonTestID}
+  //                                        onPress={onPress}
+  //                                        onLongPress={onLongPress}
+  //                                        style={{ flex: 1,justifyContent:'center',alignItems:'center'}}>
+  //                     <View style={{height:20,width:20,backgroundColor:'#123'}}></View>
+  //                     <Text style={{ color: isFocused ? colors.primary : colors.text,marginTop:5}}>
+  //                         {label}
+  //                     </Text>
+  //                 </PlatformPressable>
+  //             );
+  //         })}
+  //     </View>
+  // );
 }
 
 export default function AppBottomTab() {
