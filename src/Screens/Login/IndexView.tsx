@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import {View, Text, Alert, TouchableOpacity, TextInput} from "react-native";
+import {View, Text, Alert, TouchableOpacity, TextInput, Platform } from "react-native";
 import NavHeader from "../../Components/NavHeader";
 import CountdownButton, {CountdownButtonHandle} from "../../Components/CountdownButton";
 import {useNavigation} from "@react-navigation/native";
@@ -48,38 +48,48 @@ function IndexView() {
 
 
 
-    return(<View style={[GStyles.ph12,{flex:1,paddingTop:useSafeAreaInsets().top}]}>
-
-        <View style={[GStyles.row,GStyles.flexEnd,{width:'100%'}]}>
-            <TouchableOpacity onPress={()=>{
-                nav.goBack()
-            }} >
-                <IconNavClose />
-            </TouchableOpacity>
+    return (
+      <View
+        style={[GStyles.ph12, { flex: 1, paddingTop: Platform.OS=='ios'?20:useSafeAreaInsets().top }]}
+      >
+        <View style={[GStyles.row, GStyles.flexEnd, { width: '100%' }]}>
+          <TouchableOpacity
+            onPress={() => {
+              nav.goBack();
+            }}
+          >
+            <IconNavClose />
+          </TouchableOpacity>
         </View>
 
-        <Text style={{fontSize:50,fontWeight:'800'}}>Login</Text>
+        <Text style={{ fontSize: 50, fontWeight: '800' }}>Login</Text>
 
         <Text>Email</Text>
-        <TextInput  value={loginEmail}
-                    onChangeText={setLoginEmail}
-                    style={{backgroundColor:'#fff',borderRadius:5}}/>
+        <TextInput
+          value={loginEmail}
+          onChangeText={setLoginEmail}
+          placeholder={'Email'}
+          style={{ backgroundColor: '#fff', borderRadius: 5, height: 44 }}
+        />
         <Text>Password</Text>
-        <TextInput value={loginPassword}
-                   onChangeText={setLoginPassword}
-                   secureTextEntry={true}
-                   style={{backgroundColor:'#fff',borderRadius:5}}/>
-        <TouchableOpacity style={[GStyles.jc,GStyles.ac,{height:44}]}>
-            <Text>Login</Text>
+        <TextInput
+          value={loginPassword}
+          onChangeText={setLoginPassword}
+          secureTextEntry={true}
+          placeholder={'Password'}
+          style={{ backgroundColor: '#fff', borderRadius: 5, height: 44 }}
+        />
+        <TouchableOpacity style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
+          <Text>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[GStyles.jc,GStyles.ac,{height:44}]}>
-            <Text>Register</Text>
+        <TouchableOpacity onPress={()=>{
+          nav.navigate('Register');
+        }} style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
+          <Text>Register</Text>
         </TouchableOpacity>
 
         {/*<NavHeader showClose={true} />*/}
-
-
 
         {/*<TouchableOpacity onPress={()=>{*/}
         {/*    loginAct()*/}
@@ -93,7 +103,8 @@ function IndexView() {
         {/*    normalText="获取验证码"*/}
         {/*    countingText="剩余{time}秒"*/}
         {/*/>*/}
-    </View>)
+      </View>
+    );
 }
 
 export default IndexView;

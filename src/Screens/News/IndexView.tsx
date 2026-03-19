@@ -1,36 +1,67 @@
 import {View, Text, TouchableOpacity, TextInput, Image} from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import {useState} from "react";
+import { Dispatch, useState} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../Redux/persistedReducer';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import GStyles, {NAVIGATOR_HEIGHT, TRUE_ONE_LINE} from "../../Components/GStyles";
+import GStyles, {
+  NAVIGATOR_HEIGHT,
+  TRUE_ONE_LINE,
+  WINDOW_WIDTH,
+} from '../../Components/GStyles';
 import IconAvatar from "../../Assets/Svgs/IconAvatar";
 import IconSearch from "../../Assets/Svgs/IconSearch";
 import DataList from "../../Components/DataList";
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 
 function IndexView() {
     const navigation = useNavigation();
 
-    const dispatch = useDispatch();
+    // const dispatch :Dispatch<any> = useDispatch();
+
 
     const particleUserInfo = useSelector(state => state?.userInfo);
 
     const NewsHeader = () => {
         const insets = useSafeAreaInsets()
-        return(<View style={{height:insets.top+NAVIGATOR_HEIGHT,width:'100%',paddingTop:insets.top,backgroundColor:'#ffffff',borderBottomColor:'#00000030',borderBottomWidth:TRUE_ONE_LINE}}>
-            <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.ph12,{height:NAVIGATOR_HEIGHT,width:'100%'}]}>
-                <Text style={{fontSize:18,fontWeight:'800'}}>OPC NEWS</Text>
-                <View style={[GStyles.row,GStyles.ac,GStyles.ac,{gap:10}]}>
-                    <IconSearch />
-                    <IconAvatar />
-                </View>
+        return (
+          <View
+            style={{
+              height: insets.top + NAVIGATOR_HEIGHT,
+              width: '100%',
+              paddingTop: insets.top,
+              backgroundColor: '#ffffff',
+              borderBottomColor: '#00000030',
+              borderBottomWidth: TRUE_ONE_LINE,
+            }}
+          >
+            <View
+              style={[
+                GStyles.row,
+                GStyles.ac,
+                GStyles.jcBetween,
+                GStyles.ph12,
+                { height: NAVIGATOR_HEIGHT, width: '100%' },
+              ]}
+            >
+              <Text style={{ fontSize: 18, fontWeight: '800' }}>OPC NEWS</Text>
+              <View style={[GStyles.row, GStyles.ac, GStyles.ac, { gap: 10 }]}>
+                <TouchableOpacity>
+                  <IconSearch />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  navigation.navigate('Login')
+                }}>
+                  <IconAvatar />
+                </TouchableOpacity>
+              </View>
             </View>
-        </View>)
+          </View>
+        );
     }
 
 
-    function renderRow(item) {
+    function renderRow(item:Element) {
         return (<TouchableOpacity activeOpacity={0.5} onPress={()=>{
             navigation.navigate('Detail')
         }} style={[GStyles.ph12,GStyles.pv12]}>
@@ -54,23 +85,79 @@ function IndexView() {
 
     const renderHeader = () => {
 
-        return(<View style={[GStyles.ph12,{marginTop:10}]}>
-            <View style={{height:160,width:'100%',backgroundColor:'#213',borderRadius:2}}>
-
+        return (
+          <View style={[ { marginTop: 0,marginBottom:20}]}>
+            <View
+              style={{
+                height: 220,
+                width: '100%',
+                borderRadius: 2,
+              }}
+            >
+              <SwiperFlatList
+                autoplay
+                autoplayDelay={2}
+                autoplayLoop
+                index={2}
+                // showPagination
+                data={['tomato', 'thistle', 'skyblue', 'teal']}
+                renderItem={({ item }) => (
+                  <View
+                    style={[
+                      GStyles.jc,
+                      GStyles.ac,
+                      {
+                        height: 220,
+                        width: WINDOW_WIDTH,
+                        borderRadius: 2,
+                      },
+                    ]}
+                  >
+                    <Image
+                      style={{
+                        backgroundColor: item,
+                        height: 200,
+                        width: WINDOW_WIDTH,
+                      }}
+                    />
+                    <View style={[GStyles.ph10]}>
+                      <Text
+                        style={{ marginTop: 2, fontSize: 14 }}
+                        numberOfLines={1}
+                      >
+                        “中国大陆并未计划在2027年‘入侵’台湾”的说法，明确台湾问题是中国内政，不容外部干涉，要求美方恪
+                      </Text>
+                    </View>
+                  </View>
+                )}
+              />
             </View>
 
-            <View style={{width:'100%',borderRadius:2,gap:10,marginTop:10}}>
-                {[1,2,3].map((value, index, array)=>{
-
-                    return(<View key={index}>
-                        <Text numberOfLines={3} style={{fontSize:12}}><Text style={{backgroundColor:'red',borderRadius:2,color:'#fff'}}> HOT </Text> 3月19日，外交部发言人林剑回应美情报官员所谓“中国大陆并未计划在2027年‘入侵’台湾”的说法，明确台湾问题是中国内政，不容外部干涉，要求美方恪守一个中国原则，停止炒作“中国威胁论</Text>
-                    </View>)
-
-                })}
+            <View
+              style={[GStyles.ph12,{ width: '100%', borderRadius: 2, gap: 10, marginTop: 20 }]}
+            >
+              {[1, 2, 3].map((value, index, array) => {
+                return (
+                  <View key={index}>
+                    <Text numberOfLines={3} style={{ fontSize: 12 }}>
+                      <Text
+                        style={{
+                          backgroundColor: 'red',
+                          borderRadius: 2,
+                          color: '#fff',
+                        }}
+                      >
+                        {' '}
+                        HOT{' '}
+                      </Text>{' '}
+                      3月19日，外交部发言人林剑回应美情报官员所谓“中国大陆并未计划在2027年‘入侵’台湾”的说法，明确台湾问题是中国内政，不容外部干涉，要求美方恪守一个中国原则，停止炒作“中国威胁论
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
-
-
-        </View>)
+          </View>
+        );
     }
 
     return (
