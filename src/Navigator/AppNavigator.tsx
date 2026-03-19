@@ -3,7 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppBottomTab from './AppMainTab.tsx';
 import Detail from './../Screens/News/Detail/IndexView.tsx'
+import Login from './../Screens/Login/IndexView'
+import Register from './../Screens/Register/IndexView'
 const Stack = createNativeStackNavigator();
+
 
 
 const AppNavigator = () => {
@@ -19,9 +22,24 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name="Detail"
                         component={Detail}
-                        options={{ headerShown: true, animation: 'slide_from_right' }}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="Register"
+                        component={Register}
+                        options={{ headerShown: false,animation: 'slide_from_bottom' }}
                     />
                 </Stack.Group>
+
+
+                <Stack.Group screenOptions={{ presentation: 'modal' }}>
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ headerShown: false,animation: 'slide_from_bottom' }}
+                    />
+                </Stack.Group>
+
             </Stack.Navigator>
         </NavigationContainer>
     );

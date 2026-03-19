@@ -190,13 +190,13 @@ export default function AppBottomTab() {
                        tabBar={props => <AppBottomTabBar {...props} />}>
             <Tab.Screen name="NEWS"
                         component={News}
-                        options={{ headerShown: true }} />
+                        options={{ headerShown: false }} />
             <Tab.Screen name="VIP"
                         component={VIP}
                         options={{ headerShown: true }} />
-            {Platform.os == 'ios' && (<Tab.Screen name="MAP"
+            <Tab.Screen name="MAP"
                                                   component={Map}
-                                                  options={{ headerShown: false }} />)}
+                                                  options={{ headerShown: false }} />
 
             <Tab.Screen name="MINE"
                         component={Mine}

@@ -1,8 +1,10 @@
-import {Dimensions, StyleSheet} from "react-native";
+import {Dimensions, Platform, StyleSheet} from "react-native";
 
 export const WINDOW_WIDTH = Dimensions.get('window').width //这个手机 的屏幕宽度
 export const WINDOW_HEIGHT = Dimensions.get('window').height //这个手机 的屏幕高度
 export const APP_SCALE = WINDOW_WIDTH / 375
+export let NAVIGATOR_HEIGHT = Platform.OS == 'ios' ? appSize(45):appSize(64); //导航栏
+export let TRUE_ONE_LINE = StyleSheet.hairlineWidth
 
 export function appSize(num){
     return num ? Math.floor(num * APP_SCALE) : num
