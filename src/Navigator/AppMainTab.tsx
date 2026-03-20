@@ -188,21 +188,33 @@ export default function AppBottomTab() {
     const Tab = createBottomTabNavigator();
     const { t } = useTranslation();
     return (
-        <Tab.Navigator initialRouteName={t('tabs.news')}
+        <Tab.Navigator initialRouteName={'News'}
                        tabBar={props => <AppBottomTabBar {...props} />}>
-            <Tab.Screen name={t('tabs.news')}
+            {/*<Tab.Screen name={t('tabs.news')}*/}
+            {/*            component={News}*/}
+            {/*            options={{ headerShown: false }} />*/}
+            {/*<Tab.Screen name={t('tabs.vip')}*/}
+            {/*            component={VIP}*/}
+            {/*            options={{ headerShown: true }} />*/}
+            {/*<Tab.Screen name={t('tabs.map')}*/}
+            {/*            component={Map}*/}
+            {/*            options={{ headerShown: false }} />*/}
+            {/*<Tab.Screen name={t('tabs.mine')}*/}
+            {/*            component={Mine}*/}
+            {/*            options={{ headerShown: false }}*/}
+            {/*/>*/}
+            <Tab.Screen name={'News'}
                         component={News}
                         options={{ headerShown: false }} />
-            <Tab.Screen name={t('tabs.vip')}
+            <Tab.Screen name={'VIP'}
                         component={VIP}
-                        options={{ headerShown: true }} />
-            <Tab.Screen name={t('tabs.map')}
-                        component={Map}
                         options={{ headerShown: false }} />
-            <Tab.Screen name={t('tabs.mine')}
+            <Tab.Screen name={'Map'}
+                        component={News}
+                        options={{ headerShown: false }} />
+            <Tab.Screen name={'Mine'}
                         component={Mine}
-                        options={{ headerShown: false }}
-            />
+                        options={{ headerShown: false }} />
         </Tab.Navigator>
     );
 }

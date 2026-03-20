@@ -1,8 +1,6 @@
-import {View, Text, TouchableOpacity, TextInput, Image} from "react-native";
+import {View, Text, TouchableOpacity, Image} from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import { Dispatch, useState} from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../Redux/persistedReducer';
+import { useSelector } from 'react-redux';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {
   NAVIGATOR_HEIGHT,
@@ -14,6 +12,12 @@ import IconSearch from "../../Assets/Svgs/IconSearch";
 import DataList from "../../Components/DataList";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import {useTranslation} from "react-i18next";
+import Animated from 'react-native-reanimated';
+import PagerView from 'react-native-pager-view';
+import DynamicWidthTabMenu from "../../Components/TabMenu";
+import {useRef} from "react";
+const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
+
 
 function IndexView() {
     const navigation = useNavigation();
@@ -63,7 +67,6 @@ function IndexView() {
         );
     }
 
-
     function renderRow(item:Element) {
         return (<TouchableOpacity activeOpacity={0.5} onPress={()=>{
             navigation.navigate('Detail')
@@ -89,12 +92,12 @@ function IndexView() {
     const renderHeader = () => {
 
         return (
-          <View style={[ { marginTop: 0,marginBottom:20}]}>
+          <View style={[ {marginBottom:20}]}>
             <View
               style={{
                 height: 220,
                 width: '100%',
-                borderRadius: 2,
+                borderRadius: 2
               }}
             >
               <SwiperFlatList
@@ -125,7 +128,7 @@ function IndexView() {
                     />
                     <View style={[GStyles.ph10]}>
                       <Text
-                        style={{ marginTop: 2, fontSize: 14 }}
+                        style={{ marginTop: 1, fontSize: 14 }}
                         numberOfLines={1}
                       >
                         “中国大陆并未计划在2027年‘入侵’台湾”的说法，明确台湾问题是中国内政，不容外部干涉，要求美方恪
@@ -163,16 +166,32 @@ function IndexView() {
         );
     }
 
+    const TopTabsMenu = () => {
+      return(<View style={{height:44,width:'100%',backgroundColor:'#fff'}}>
+          {}
+      </View>)
+    }
+
+    const pagerRef = useRef(null)
+    const menuRef = useRef(null)
+
     return (
       <View style={{ flex: 1 }}>
-
           <NewsHeader />
-
-          <DataList renderHeader={renderHeader} renderRow={renderRow} />
-
-
-
-
+          <DynamicWidthTabMenu ref={menuRef} onTabChange={(index)=>{
+              pagerRef.current?.setPage(index)
+          }} />
+          <AnimatedPagerView ref={pagerRef} style={{flex: 1}} onPageSelected={(e)=>{
+              const position = e.nativeEvent.position;
+              menuRef.current?.switchToTab(position);
+          }}  initialPage={0}>
+              <DataList renderHeader={renderHeader} renderRow={renderRow} />
+              <DataList renderHeader={null} renderRow={renderRow} />
+              <DataList renderHeader={null} renderRow={renderRow} />
+              <DataList renderHeader={null} renderRow={renderRow} />
+              <DataList renderHeader={null} renderRow={renderRow} />
+              <DataList renderHeader={null} renderRow={renderRow} />
+          </AnimatedPagerView>
       </View>);
 }
 

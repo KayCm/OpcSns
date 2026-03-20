@@ -12,22 +12,20 @@ function NavHeader({onPressLeft=null,title='Title',showClose=false}) {
     const area = useSafeAreaInsets()
 
     return(<View style={{borderBottomColor:'#00000030',borderBottomWidth:TURE_ONE_LINE}}>
-        <View style={{height:area.top,backgroundColor:'#fff'}} />
-        <View style={[GStyles.row,GStyles.ph12,GStyles.jcBetween,GStyles.ac,{height:NAVIGATOR_HEIGHT,width:'100%',backgroundColor:'#fff'}]}>
-            <TouchableOpacity onPress={()=>{
-                if (!onPressLeft)nav.goBack();
-            }}>
-                {showClose?<IconNavClose />:<IconNavBack />}
-            </TouchableOpacity>
+        <Shadow distance={3}>
+            <View style={{height:area.top,backgroundColor:'#fff'}} />
+            <View style={[GStyles.row,GStyles.ph12,GStyles.jcBetween,GStyles.ac,{height:NAVIGATOR_HEIGHT,width:'100%',backgroundColor:'#fff'}]}>
+                <TouchableOpacity onPress={()=>{
+                    if (!onPressLeft)nav.goBack();
+                }}>
+                    {showClose?<IconNavClose />:<IconNavBack />}
+                </TouchableOpacity>
 
-            <Text style={{fontSize:appSize(18),fontWeight:'600',color:'#000000'}}>{title}</Text>
+                <Text style={{fontSize:appSize(18),fontWeight:'600',color:'#000000'}}>{title}</Text>
 
-            <View style={{width:32}} />
-
-
-        </View>
-        {/*<Shadow distance={3}>*/}
-        {/*</Shadow>*/}
+                <View style={{width:32}} />
+            </View>
+        </Shadow>
 
     </View>)
 

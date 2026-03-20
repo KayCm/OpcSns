@@ -7,7 +7,12 @@ import Login from './../Screens/Login/IndexView'
 import Register from './../Screens/Register/IndexView'
 const Stack = createNativeStackNavigator();
 
-
+import About from './../Screens/Mine/About/IndexView'
+import Purchase from './../Screens/Mine/Purchase/IndexView'
+import Faq from './../Screens/Mine/Faq/IndexView'
+import FeedBack from './../Screens/Mine/FeedBack/IndexView'
+import Settings from './../Screens/Mine/Settings/IndexView'
+import ProfileSettings from './../Screens/Mine/ProfileSettings/IndexView'
 
 const AppNavigator = () => {
     return (
@@ -29,6 +34,42 @@ const AppNavigator = () => {
                         component={Register}
                         options={{ headerShown: false,animation: 'slide_from_bottom' }}
                     />
+
+                    <Stack.Screen
+                        name="ProfileSettings"
+                        component={ProfileSettings}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="About"
+                        component={About}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="Purchase"
+                        component={Purchase}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="Faq"
+                        component={Faq}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="FeedBack"
+                        component={FeedBack}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="Settings"
+                        component={Settings}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+
+
+
                 </Stack.Group>
 
 

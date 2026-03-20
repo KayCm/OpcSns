@@ -12,5 +12,12 @@
     "vip":"VIP",
     "map":"MAP",
     "mine":"MINE"
+  },
+  "profile": {
+    "aboutUs": 'About US',
+    "purchase": 'Purchase History',
+    "faq": 'FAQ / Common Questions',
+    "feedback": 'Feedback',
+    "settings": 'Settings',
   }
 }

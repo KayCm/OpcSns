@@ -39,6 +39,9 @@ function IndexView() {
         }
     };
 
+
+    // /open-api/mobile/register/sendEmailCode
+
     // 假设 sendVerificationCode 是异步函数
     const sendVerificationCode = () => {
         return new Promise((resolve) => {
@@ -79,7 +82,9 @@ function IndexView() {
           placeholder={'Password'}
           style={{ backgroundColor: '#fff', borderRadius: 5, height: 44 }}
         />
-        <TouchableOpacity style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
+        <TouchableOpacity onPress={()=>{
+            loginAct()
+        }} style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
           <Text>Login</Text>
         </TouchableOpacity>
 

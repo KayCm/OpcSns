@@ -7,12 +7,13 @@ export const LoginViewModel = () => {
     const [loginPassword,setLoginPassword] = useState()
 
     const loginAct = async () => {
-        const url = 'https://api.freeapi.app/api/v1/users/login';
+        // const url = 'https://api.freeapi.app/api/v1/users/login';
+        const url = 'https://vps-sg-aws-opc.43046721.xyz/open-api/mobile/register/sendEmailCode';
 
         const options = {
             method: 'POST',
             headers: {accept: 'application/json', 'content-type': 'application/json'},
-            body: '{"password":"test@123","username":"doejohn"}'
+            body: '{"email":"123@456.com","username":"doejohn"}'
         };
 
         try {

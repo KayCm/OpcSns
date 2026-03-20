@@ -1,6 +1,10 @@
 import {View, Text, Image} from "react-native";
 import DataList from "../../Components/DataList";
-import GStyles, {TRUE_ONE_LINE, TURE_ONE_LINE} from "../../Components/GStyles";
+import GStyles, {TRUE_ONE_LINE} from "../../Components/GStyles";
+import Animated from 'react-native-reanimated';
+import PagerView from 'react-native-pager-view';
+
+const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 function IndexView() {
 
@@ -24,11 +28,20 @@ function IndexView() {
         </View>)
     }
 
+
+
     return(<View style={[{flex:1}]}>
 
         {/*{renderRow(null)}*/}
 
-        <DataList renderRow={renderRow}/>
+        <AnimatedPagerView
+            style={{flex: 1}}
+            initialPage={0}>
+            <DataList renderRow={renderRow}/>
+            <DataList renderRow={renderRow}/>
+        </AnimatedPagerView>
+
+
     </View>)
 }
 

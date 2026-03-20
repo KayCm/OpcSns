@@ -12,5 +12,12 @@
     "vip":"会员",
     "map":"地图",
     "mine":"我的"
+  },
+  "profile": {
+    "aboutUs": '关于我们',
+    "purchase": '购买记录',
+    "faq": '常见问题',
+    "feedback": '意见反馈',
+    "settings": '设置',
   }
 }
