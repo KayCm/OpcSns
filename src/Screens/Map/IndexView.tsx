@@ -1,8 +1,9 @@
-import {View,Text} from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import MapView,{ Marker } from 'react-native-maps';
 import GStyles, { WINDOW_WIDTH } from '../../Components/GStyles.ts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import IconNavClose from "../../Assets/Svgs/IconNavClose";
 
 function IndexView() {
 
@@ -34,7 +35,14 @@ function IndexView() {
              padding: 10,
            }}
          >
-           <Text style={{ fontSize: 24, fontWeight: '600' }}>Title</Text>
+             <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{marginBottom:10}]}>
+                 <Text style={{ fontSize: 24, fontWeight: '600' }}>Title</Text>
+                 <TouchableOpacity onPress={()=>{
+                     setShowDetail(false)
+                 }}>
+                     <IconNavClose />
+                 </TouchableOpacity>
+             </View>
            <Text>
              TextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextTextText
            </Text>

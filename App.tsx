@@ -4,8 +4,7 @@
  *
  * @format
  */
-
-// import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import './src/Components/i18n';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AppNavigator from './src/Navigator/AppNavigator.tsx';
 import {asyncStoragePersister} from "./src/Components/Storage";

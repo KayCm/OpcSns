@@ -13,11 +13,14 @@ import IconAvatar from "../../Assets/Svgs/IconAvatar";
 import IconSearch from "../../Assets/Svgs/IconSearch";
 import DataList from "../../Components/DataList";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import {useTranslation} from "react-i18next";
 
 function IndexView() {
     const navigation = useNavigation();
 
     // const dispatch :Dispatch<any> = useDispatch();
+
+    const { t, i18n } = useTranslation();
 
 
     const particleUserInfo = useSelector(state => state?.userInfo);

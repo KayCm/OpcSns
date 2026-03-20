@@ -1,0 +1,16 @@
+{
+  "welcome": "Welcome",
+  "description": "This is a {{framework}} application.",
+  "button": {
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "notifications": "You have {{count}} new message",
+  "notifications_plural": "You have {{count}} new messages",
+  "tabs": {
+    "news":"NEWS",
+    "vip":"VIP",
+    "map":"MAP",
+    "mine":"MINE"
+  }
+}

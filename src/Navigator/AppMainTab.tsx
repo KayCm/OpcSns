@@ -12,6 +12,7 @@ import {PlatformPressable} from "@react-navigation/elements";
 import {Route} from "@react-navigation/routers";
 import { BlurView } from '@sbaiahmed1/react-native-blur';
 import { Shadow } from 'react-native-shadow-2';
+import {useTranslation} from "react-i18next";
 
 
 function AppBottomTabBar({ state, descriptors, navigation }) {
@@ -41,7 +42,7 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
             height: 64,
             width: 300,
             borderRadius: 32,
-            borderWidth: 2,
+            // borderWidth: 2,
             borderColor: 'red',
             padding: 5,
           }}
@@ -185,20 +186,20 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
 
 export default function AppBottomTab() {
     const Tab = createBottomTabNavigator();
+    const { t } = useTranslation();
     return (
-        <Tab.Navigator initialRouteName={'NEWS'}
+        <Tab.Navigator initialRouteName={t('tabs.news')}
                        tabBar={props => <AppBottomTabBar {...props} />}>
-            <Tab.Screen name="NEWS"
+            <Tab.Screen name={t('tabs.news')}
                         component={News}
                         options={{ headerShown: false }} />
-            <Tab.Screen name="VIP"
+            <Tab.Screen name={t('tabs.vip')}
                         component={VIP}
                         options={{ headerShown: true }} />
-            <Tab.Screen name="MAP"
-                                                  component={Map}
-                                                  options={{ headerShown: false }} />
-
-            <Tab.Screen name="MINE"
+            <Tab.Screen name={t('tabs.map')}
+                        component={Map}
+                        options={{ headerShown: false }} />
+            <Tab.Screen name={t('tabs.mine')}
                         component={Mine}
                         options={{ headerShown: false }}
             />

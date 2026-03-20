@@ -1,0 +1,16 @@
+{
+  "welcome": "欢迎",
+  "description": "这是一个 {{framework}} 应用。",
+  "button": {
+    "submit": "提交",
+    "cancel": "取消"
+  },
+  "notifications": "你有 {{count}} 条新消息",
+  "notifications_plural": "你有 {{count}} 条新消息",
+  "tabs": {
+    "news":"资讯",
+    "vip":"会员",
+    "map":"地图",
+    "mine":"我的"
+  }
+}
