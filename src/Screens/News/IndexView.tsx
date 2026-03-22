@@ -145,17 +145,19 @@ function IndexView() {
               {[1, 2, 3].map((value, index, array) => {
                 return (
                   <View key={index}>
-                    <Text numberOfLines={3} style={{ fontSize: 12 }}>
-                      <Text
+                    <Text numberOfLines={3} style={{ fontSize: 14,lineHeight: 20 }}>
+                      <View
                         style={{
                           backgroundColor: 'red',
-                          borderRadius: 2,
-                          color: '#fff',
+                          borderRadius: 10,
+                          overflow: 'hidden',
+                          paddingHorizontal:8,
+                          justifyContent:'center',
+                          alignItems: 'center',
                         }}
                       >
-                        {' '}
-                        HOT{' '}
-                      </Text>{' '}
+                        <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>资讯</Text>
+                      </View>{' '}
                       3月19日，外交部发言人林剑回应美情报官员所谓“中国大陆并未计划在2027年‘入侵’台湾”的说法，明确台湾问题是中国内政，不容外部干涉，要求美方恪守一个中国原则，停止炒作“中国威胁论
                     </Text>
                   </View>

@@ -16,7 +16,7 @@ function NavHeader({onPressLeft=null,title='Title',showClose=false}) {
             <View style={{height:area.top,backgroundColor:'#fff'}} />
             <View style={[GStyles.row,GStyles.ph12,GStyles.jcBetween,GStyles.ac,{height:NAVIGATOR_HEIGHT,width:'100%',backgroundColor:'#fff'}]}>
                 <TouchableOpacity onPress={()=>{
-                    if (!onPressLeft)nav.goBack();
+                    if (!onPressLeft)nav.goBack();9878
                 }}>
                     {showClose?<IconNavClose />:<IconNavBack />}
                 </TouchableOpacity>

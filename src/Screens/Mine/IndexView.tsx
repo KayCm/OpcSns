@@ -1,10 +1,20 @@
-import {View, Text, ScrollView, TouchableOpacity} from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {TRUE_ONE_LINE} from "../../Components/GStyles";
 import { Shadow } from 'react-native-shadow-2';
 import {useTranslation} from "react-i18next";
 import IconNext from "../../Assets/Svgs/IconNext";
 import {useNavigation} from "@react-navigation/native";
+import CarouselWithScale from "./Card.tsx";
+import ReanimatedCarousel from "./Card.tsx";
+import Carousel from "./Card.tsx";
+import SimpleCarousel from "./Card.tsx";
 
 function IndexView() {
 
@@ -48,46 +58,124 @@ function IndexView() {
         </View>)
     }
 
-    return(<View style={{flex:1,paddingTop:area.top}}>
+
+    return (
+      <View style={{ flex: 1, paddingTop: area.top }}>
         <ScrollView style={[GStyles.ph12]}>
+          <View
+            style={[
+              GStyles.row,
+              GStyles.ac,
+              GStyles.jcBetween,
+              { height: 80, width: '100%' },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                Nav.navigate('ProfileSettings');
+              }}
+              style={[GStyles.row, GStyles.ac, { marginBottom: 10 }]}
+            >
+              <View
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 32,
+                  backgroundColor: '#123',
+                }}
+              />
+              <View style={{ gap: 10, marginLeft: 10 }}>
+                <Text>NickName</Text>
+                <Text>2026-04-15</Text>
+              </View>
+            </TouchableOpacity>
+            <IconNext />
+          </View>
 
-            <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{height:80,width:'100%'}]}>
-                <TouchableOpacity onPress={()=>{
-                    Nav.navigate('ProfileSettings')
-                }} style={[GStyles.row,GStyles.ac,{marginBottom:10}]}>
-                    <View style={{width:64,height:64,borderRadius:32,backgroundColor:'#123'}}/>
-                    <View style={{gap:10,marginLeft:10}}>
-                        <Text>NickName</Text>
-                        <Text>2026-04-15</Text>
-                    </View>
-                </TouchableOpacity>
-                <IconNext />
-            </View>
+          <View
+            style={{
+              height: 160 * 1.1,
+              width: '100%',
+            }}
+          >
+            <SimpleCarousel />
+          </View>
 
-            <View style={[GStyles.jc,GStyles.ac,{width:'100%',height:160}]}>
-                <MemberCard />
-            </View>
+          {/*<View*/}
+          {/*  style={[GStyles.jc, GStyles.ac, { width: '100%', height: 160 }]}*/}
+          {/*>*/}
+          {/*  <MemberCard />*/}
+          {/*</View>*/}
 
-            <MenuBar title={t('profile.aboutUs')} onPress={()=>{
-                Nav.navigate('About')
-            }} />
-            <MenuBar title={t('profile.purchase')} onPress={()=>{
-                Nav.navigate('Purchase')
-            }} />
-            <MenuBar title={t('profile.faq')} onPress={()=>{
-                Nav.navigate('Faq')
-            }} />
-            <MenuBar title={t('profile.feedback')} onPress={()=>{
-                Nav.navigate('FeedBack')
-            }} />
-            <MenuBar title={t('profile.settings')} onPress={()=>{
-                Nav.navigate('Settings')
-            }} />
-
-
-
+          <MenuBar
+            title={t('profile.aboutUs')}
+            onPress={() => {
+              Nav.navigate('About');
+            }}
+          />
+          <MenuBar
+            title={t('profile.purchase')}
+            onPress={() => {
+              Nav.navigate('Purchase');
+            }}
+          />
+          <MenuBar
+            title={t('profile.faq')}
+            onPress={() => {
+              Nav.navigate('Faq');
+            }}
+          />
+          <MenuBar
+            title={t('profile.feedback')}
+            onPress={() => {
+              Nav.navigate('FeedBack');
+            }}
+          />
+          <MenuBar
+            title={t('profile.settings')}
+            onPress={() => {
+              Nav.navigate('Settings');
+            }}
+          />
         </ScrollView>
-    </View>)
+      </View>
+    );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    width: 300,
+    height: 160,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 3,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  desc: {
+    fontSize: 14,
+    color: 'white',
+    marginTop: 8,
+  },
+  badge: {
+    marginTop: 12,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  badgeText: {
+    color: 'white',
+    fontSize: 12,
+  },
+});
 
 export default IndexView;

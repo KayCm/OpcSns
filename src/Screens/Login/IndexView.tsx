@@ -53,7 +53,13 @@ function IndexView() {
 
     return (
       <View
-        style={[GStyles.ph12, { flex: 1, paddingTop: Platform.OS=='ios'?20:useSafeAreaInsets().top }]}
+        style={[
+          GStyles.ph12,
+          {
+            flex: 1,
+            paddingTop: Platform.OS == 'ios' ? 20 : useSafeAreaInsets().top,
+          },
+        ]}
       >
         <View style={[GStyles.row, GStyles.flexEnd, { width: '100%' }]}>
           <TouchableOpacity
@@ -66,31 +72,66 @@ function IndexView() {
         </View>
 
         <Text style={{ fontSize: 50, fontWeight: '800' }}>Login</Text>
+        <View
+          style={[
+            GStyles.row,
+            GStyles.ph12,
+            {
+              width: '100%',
+              backgroundColor: '#fff',
+              marginTop: 10,
+              borderRadius: 5,
+            },
+          ]}
+        >
+          <TextInput
+            value={loginEmail}
+            onChangeText={setLoginEmail}
+            secureTextEntry={true}
+            placeholder={'Email'}
+            style={{
+              height: 44,
+            }}
+          />
+        </View>
+        <View
+          style={[
+            GStyles.row,
+            GStyles.ph12,
+            {
+              width: '100%',
+              backgroundColor: '#fff',
+              marginTop: 10,
+              borderRadius: 5,
+            },
+          ]}
+        >
+          <TextInput
+            value={loginPassword}
+            onChangeText={setLoginPassword}
+            secureTextEntry={true}
+            placeholder={'Password'}
+            style={{
+              height: 44,
+            }}
+          />
+        </View>
 
-        <Text>Email</Text>
-        <TextInput
-          value={loginEmail}
-          onChangeText={setLoginEmail}
-          placeholder={'Email'}
-          style={{ backgroundColor: '#fff', borderRadius: 5, height: 44 }}
-        />
-        <Text>Password</Text>
-        <TextInput
-          value={loginPassword}
-          onChangeText={setLoginPassword}
-          secureTextEntry={true}
-          placeholder={'Password'}
-          style={{ backgroundColor: '#fff', borderRadius: 5, height: 44 }}
-        />
-        <TouchableOpacity onPress={()=>{
-            loginAct()
-        }} style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
+        <TouchableOpacity
+          onPress={() => {
+            loginAct();
+          }}
+          style={[GStyles.jc, GStyles.ac, { height: 44 }]}
+        >
           <Text>Login</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>{
-          nav.navigate('Register');
-        }} style={[GStyles.jc, GStyles.ac, { height: 44 }]}>
+        <TouchableOpacity
+          onPress={() => {
+            nav.navigate('Register');
+          }}
+          style={[GStyles.jc, GStyles.ac, { height: 44 }]}
+        >
           <Text>Register</Text>
         </TouchableOpacity>
 
