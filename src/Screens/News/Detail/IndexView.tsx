@@ -5,6 +5,7 @@ import GStyles, {NAVIGATOR_HEIGHT, TRUE_ONE_LINE} from "../../../Components/GSty
 import IconNavBack from "../../../Assets/Svgs/IconNavBack";
 import IconMore from "../../../Assets/Svgs/IconMore";
 import {useNavigation} from "@react-navigation/native";
+import {Video } from 'react-native-video';
 
 function IndexView(props: any) {
 
@@ -94,13 +95,33 @@ function IndexView(props: any) {
       </View>)
     }
 
-    return (
-        <View style={{ flex: 1,paddingBottom:54+insets.bottom}}>
-            <DetailHeader />
+    const DetailWithVideo = () => {
+
+        return(<View>
+            <Video
+                source={{uri:'https://www.w3schools.com/html/mov_bbb.mp4'}}
+                style={{ width: '100%', aspectRatio: 16 / 9 }}
+            />
             <View style={[GStyles.ph12]}>
                 <Text style={{fontSize:24}}>每天工作2小时，年人500万美元，Dan Koe的"人生操作系统"</Text>
             </View>
-            <WebView source={{ html }} style={{ flex: 1, width: '100%' }} />
+        </View>)
+    }
+
+    const DetailWithHtml = () => {
+      return (<View>
+              <View style={[GStyles.ph12]}>
+                  <Text style={{fontSize:24}}>每天工作2小时，年人500万美元，Dan Koe的"人生操作系统"</Text>
+              </View>
+              <WebView source={{ html }} style={{ flex: 1, width: '100%' }} />
+        </View>)
+    }
+
+    return (
+        <View style={{ flex: 1,paddingBottom:54+insets.bottom}}>
+            <DetailHeader />
+
+            <DetailWithVideo />
 
             <VipBanner />
         </View>

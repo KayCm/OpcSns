@@ -149,7 +149,7 @@ const CountdownButton = forwardRef<CountdownButtonHandle, CountdownButtonProps>(
 const styles = StyleSheet.create({
     button: {
         paddingHorizontal: 12,
-        paddingVertical: 8,
+        height:40,
         backgroundColor: '#1890ff',
         borderRadius: 4,
         alignItems: 'center',

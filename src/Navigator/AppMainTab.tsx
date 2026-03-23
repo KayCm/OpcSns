@@ -210,7 +210,7 @@ export default function AppBottomTab() {
                         component={VIP}
                         options={{ headerShown: false }} />
             <Tab.Screen name={'Map'}
-                        component={News}
+                        component={Map}
                         options={{ headerShown: false }} />
             <Tab.Screen name={'Mine'}
                         component={Mine}

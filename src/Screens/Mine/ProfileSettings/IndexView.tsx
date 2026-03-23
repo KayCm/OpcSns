@@ -23,6 +23,7 @@ function IndexView(props: any) {
                 <MenuBar title={'昵称'} LeftDom={<Text style={{}}>XXX</Text>} />
                 <MenuBar title={'性别'} LeftDom={<Text style={{}}>男</Text>} />
                 <MenuBar title={'绑定账号'} LeftDom={<Text style={{}}>1@2.com</Text>} />
+                <MenuBar title={'修改密码'}  />
             </View>
 
             <TouchableOpacity onPress={()=>{}} style={[GStyles.jc,GStyles.ac,{marginTop:100,width:'100%',height:64,backgroundColor:'#fff'}]}>

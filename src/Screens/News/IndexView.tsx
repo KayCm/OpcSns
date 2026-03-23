@@ -53,7 +53,9 @@ function IndexView() {
             >
               <Text style={{ fontSize: 18, fontWeight: '800' }}>OPC NEWS</Text>
               <View style={[GStyles.row, GStyles.ac, GStyles.ac, { gap: 10 }]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                    navigation.navigate('Search')
+                }}>
                   <IconSearch />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{

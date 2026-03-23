@@ -3,8 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppBottomTab from './AppMainTab.tsx';
 import Detail from './../Screens/News/Detail/IndexView.tsx'
-import Login from './../Screens/Login/IndexView'
-import Register from './../Screens/Register/IndexView'
+import Search from './../Screens/News/Search/IndexView'
+import Login from '../Screens/UserManager/Login/IndexView'
+// import Register from '../Screens/UserManager/Register/IndexView'
 const Stack = createNativeStackNavigator();
 
 import About from './../Screens/Mine/About/IndexView'
@@ -24,16 +25,23 @@ const AppNavigator = () => {
                         component={AppBottomTab}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
+
+                    <Stack.Screen
+                        name="Search"
+                        component={Search}
+                        options={{ headerShown: false, animation: 'fade_from_bottom' }}
+                    />
+
                     <Stack.Screen
                         name="Detail"
                         component={Detail}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
-                    <Stack.Screen
-                        name="Register"
-                        component={Register}
-                        options={{ headerShown: false,animation: 'slide_from_bottom' }}
-                    />
+                    {/*<Stack.Screen*/}
+                    {/*    name="Register"*/}
+                    {/*    component={Register}*/}
+                    {/*    options={{ headerShown: false,animation: 'slide_from_bottom' }}*/}
+                    {/*/>*/}
 
                     <Stack.Screen
                         name="ProfileSettings"
@@ -66,10 +74,6 @@ const AppNavigator = () => {
                         component={Settings}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
-
-
-
-
                 </Stack.Group>
 
 
