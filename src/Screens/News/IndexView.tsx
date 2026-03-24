@@ -15,7 +15,7 @@ import {useTranslation} from "react-i18next";
 import Animated from 'react-native-reanimated';
 import PagerView from 'react-native-pager-view';
 import DynamicWidthTabMenu from "../../Components/TabMenu";
-import {useRef} from "react";
+import {useEffect, useRef} from "react";
 const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 
@@ -27,7 +27,14 @@ function IndexView() {
     const { t, i18n } = useTranslation();
 
 
-    const particleUserInfo = useSelector(state => state?.userInfo);
+    // const userInfo = useSelector(state => state?.userInfo);
+    const appData = useSelector(state => state?.appData);
+
+    useEffect(()=>{
+
+        global.token = appData.token
+
+    },[])
 
     const NewsHeader = () => {
         const insets = useSafeAreaInsets()
@@ -60,6 +67,7 @@ function IndexView() {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{
                   navigation.navigate('Login')
+                  // navigation.navigate('ForgetPassword')
                 }}>
                   <IconAvatar />
                 </TouchableOpacity>
@@ -70,16 +78,17 @@ function IndexView() {
     }
 
     function renderRow(item:Element) {
+
         return (<TouchableOpacity activeOpacity={0.5} onPress={()=>{
             navigation.navigate('Detail')
         }} style={[GStyles.ph12,GStyles.pv12]}>
             <View style={[GStyles.row,{gap:10,borderBottomWidth:TRUE_ONE_LINE,borderColor:'#00000030',paddingBottom:10}]}>
                 <View style={[GStyles.jcBetween,{flex:1}]}>
-                    <Text style={{fontSize:18}}>{item?.item?.id}-{item?.item?.volumeInfo?.title}</Text>
+                    <Text style={{fontSize:18}}>{item?.item?.id}-{item?.item?.title}</Text>
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
                         <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:5}]}>
-                            <View style={[GStyles.jc,GStyles.ac,{height:20,width:40,backgroundColor:'red',borderRadius:2}]}>
-                                <Text style={{color:'#fff'}}>VIP</Text>
+                            <View style={[GStyles.jc,GStyles.ac,GStyles.ph10,{height:20,backgroundColor:'red',borderRadius:2}]}>
+                                <Text style={{color:'#fff'}}></Text>
                             </View>
                             <Text>1小时前</Text>
                         </View>
@@ -189,12 +198,13 @@ function IndexView() {
               const position = e.nativeEvent.position;
               menuRef.current?.switchToTab(position);
           }}  initialPage={0}>
-              <DataList renderHeader={renderHeader} renderRow={renderRow} />
-              <DataList renderHeader={null} renderRow={renderRow} />
-              <DataList renderHeader={null} renderRow={renderRow} />
-              <DataList renderHeader={null} renderRow={renderRow} />
-              <DataList renderHeader={null} renderRow={renderRow} />
-              <DataList renderHeader={null} renderRow={renderRow} />
+              <DataList renderHeader={renderHeader} queryKey={'indexAll'} renderRow={renderRow} param={{}} url={'/open-api/mobile/home/material/normal/list'} />
+              <DataList renderRow={renderRow} queryKey={'indexTag-'+2} param={{tagId:2}} url={'/open-api/mobile/home/material/byTag/list'} />
+              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
           </AnimatedPagerView>
       </View>);
 }

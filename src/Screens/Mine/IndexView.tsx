@@ -15,6 +15,7 @@ import CarouselWithScale from "./Card.tsx";
 import ReanimatedCarousel from "./Card.tsx";
 import Carousel from "./Card.tsx";
 import SimpleCarousel from "./Card.tsx";
+import MineViewModel from "./MineViewModel";
 
 function IndexView() {
 
@@ -27,6 +28,9 @@ function IndexView() {
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
+
+    const {userInfo} = MineViewModel()
+
 
     const MenuBar = ({title='title',onPress}) => {
         return(<TouchableOpacity onPress={onPress} style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{height:64,width:'100%',borderBottomWidth:TRUE_ONE_LINE,borderColor:'#2c2c2c50'}]}>
@@ -72,7 +76,8 @@ function IndexView() {
           >
             <TouchableOpacity
               onPress={() => {
-                Nav.navigate('ProfileSettings');
+                  console.log('userInfo',userInfo)
+                // Nav.navigate('ProfileSettings');
               }}
               style={[GStyles.row, GStyles.ac, { marginBottom: 10 }]}
             >
@@ -85,7 +90,7 @@ function IndexView() {
                 }}
               />
               <View style={{ gap: 10, marginLeft: 10 }}>
-                <Text>NickName</Text>
+                <Text>{userInfo?.nickname}</Text>
                 <Text>2026-04-15</Text>
               </View>
             </TouchableOpacity>

@@ -1,28 +1,49 @@
 import {useState} from "react";
+import {R_POST} from "../../../Services/NetRequestService";
+import {useDispatch} from "react-redux";
+import {updateToken, updateUserInfo} from "../../../Redux/persistedReducer";
 
 
 export const LoginViewModel = () => {
 
-    const [loginEmail,setLoginEmail] = useState()
-    const [loginPassword,setLoginPassword] = useState()
+    const dispatch =  useDispatch()
+
+    const [loginEmail,setLoginEmail] = useState('1@2.com')
+    const [loginPassword,setLoginPassword] = useState('123456')
 
     const loginAct = async () => {
-        // const url = 'https://api.freeapi.app/api/v1/users/login';
-        const url = 'https://vps-sg-aws-opc.43046721.xyz/open-api/mobile/register/sendEmailCode';
 
-        const options = {
-            method: 'POST',
-            headers: {accept: 'application/json', 'content-type': 'application/json'},
-            body: '{"email":"123@456.com","username":"doejohn"}'
-        };
-
-        try {
-            const response = await fetch(url, options);
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error(error);
+        let url = '/open-api/mobile/member/login'
+        let params = {
+            "email": loginEmail,
+            "password": loginPassword
         }
+        const res = await R_POST(url,params)
+
+        console.log(res)
+
+        if (res?.code == 200 && res?.token){
+            dispatch(updateToken(res))
+            global.token = res?.token
+            getUserInfo()
+            return {res:true}
+        }else{
+            return {res:false,msg:res?.msg}
+        }
+    }
+
+    const getUserInfo = async () => {
+
+        let url = '/open-api/mobile/member/getMemberInfo'
+
+        const res = await R_POST(url, {})
+
+        if (res?.code == 200 && res?.data){
+            dispatch(updateUserInfo(res?.data))
+        }
+
+        console.log('userInfo',res)
+
     }
 
     return{
@@ -30,7 +51,8 @@ export const LoginViewModel = () => {
         setLoginEmail,
         loginPassword,
         setLoginPassword,
-        loginAct
+        loginAct,
+        getUserInfo
     }
 
 }

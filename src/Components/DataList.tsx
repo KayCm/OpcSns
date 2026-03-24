@@ -1,16 +1,26 @@
 import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query";
-import {View, Text, ActivityIndicator, RefreshControl, TouchableOpacity} from "react-native";
+import {View, Text, ActivityIndicator, RefreshControl} from "react-native";
 import { FlashList } from '@shopify/flash-list';
-import axios from "axios";
+import {R_POST} from "../Services/NetRequestService";
 
-const fetchPopularMovies = (URL,pageParam=1) => {
-    const url = 'https://api.freeapi.app/api/v1/public/books?page='+pageParam+'&limit=10';
-    // const url = URL+'?page='+pageParam+'&size=10&c='+Category;
+const fetchList = (URL,pageParam=1,param={}) => {
+
 
     const promise = new Promise((resolve, reject) => {
-        axios.get(url, null).then(function (response) {
-            response.data.page = pageParam
-            resolve(response.data.data)
+
+        let url = URL
+        let params = {
+            "pageNum": pageParam,
+            "pageSize": 10,
+            ...param
+        }
+        R_POST(url,params).then(function (response) {
+            if (response?.code == 200){
+                response.page = pageParam
+                resolve(response)
+            }else{
+                reject(response);
+            }
         }).catch(function (error) {
             reject(error);
         }).finally(function () {
@@ -20,23 +30,27 @@ const fetchPopularMovies = (URL,pageParam=1) => {
     return promise;
 }
 
-function DataList({renderRow,renderHeader=null,queryKey="Digest",url=''}) {
+function DataList({renderRow,renderHeader=null,queryKey="Digest",param,url=''}) {
 
     const queryClient = useQueryClient()
 
-    const { data, isLoading, isFetchingNextPage, refetch,fetchNextPage, hasNextPage } =
+    const { data, isLoading,isError, isFetchingNextPage, refetch,fetchNextPage, hasNextPage } =
         useInfiniteQuery({
             queryKey: [queryKey],
             initialPageParam: 1,
-            queryFn: ({ pageParam = 1 }) => fetchPopularMovies(url,pageParam),
+            queryFn: ({ pageParam = 1 }) => fetchList(url,pageParam,param),
             getNextPageParam: (lastPage) => {
+                if (lastPage?.rows?.length == 0 ) {
+                    return undefined;
+                }
                 return lastPage.page + 1;
             },
-            // staleTime: 1000 * 60 * 30, // 5分钟内认为数据是新鲜的
-            // cacheTime: 1000 * 60 * 60, // 缓存保留1小时
-            // refetchOnWindowFocus: true, // 应用聚焦时重新验证
-            // refetchOnReconnect: true, // 网络恢复时重新验证
+            staleTime: 1000 * 60 * 30, // 5分钟内认为数据是新鲜的
+            cacheTime: 1000 * 60 * 60, // 缓存保留1小时
+            refetchOnWindowFocus: true, // 应用聚焦时重新验证
+            refetchOnReconnect: true, // 网络恢复时重新验证
         });
+
 
     if (isLoading)return null
 
@@ -49,12 +63,15 @@ function DataList({renderRow,renderHeader=null,queryKey="Digest",url=''}) {
         );
     }
 
+    if (isError){
+        return <Text>error</Text>
+    }
 
     return (<View style={{flex:1,width:'100%'}}>
         <FlashList
             showsVerticalScrollIndicator={false}
-            data={data?.pages.flatMap(page => page?.data)  || []}
-            // keyExtractor={(item) => item.id.toString()}
+            data={data?.pages.flatMap(page => page?.rows)  || []}
+            // keyExtractor={(item) => item?.id.toString()}
             renderItem={renderRow}
             refreshControl={<RefreshControl refreshing={isLoading}
                                             progressBackgroundColor={'#fff'}
@@ -66,11 +83,7 @@ function DataList({renderRow,renderHeader=null,queryKey="Digest",url=''}) {
                                                 queryClient.invalidateQueries(queryKey)
                                             }}
             />}
-            onEndReached={() => {
-                if (hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage();
-                }
-            }}
+            onEndReached={() => fetchNextPage()}
             onEndReachedThreshold={0.5}
             ListHeaderComponent={renderHeader}
             ListFooterComponent={

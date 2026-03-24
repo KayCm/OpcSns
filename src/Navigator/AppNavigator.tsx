@@ -5,7 +5,11 @@ import AppBottomTab from './AppMainTab.tsx';
 import Detail from './../Screens/News/Detail/IndexView.tsx'
 import Search from './../Screens/News/Search/IndexView'
 import Login from '../Screens/UserManager/Login/IndexView'
-// import Register from '../Screens/UserManager/Register/IndexView'
+import Register from '../Screens/UserManager/Register/IndexView'
+import ForgetPassword from '../Screens/UserManager/ForgetPassWord/IndexView'
+import ResetPassword from '../Screens/UserManager/ResetPassWord/IndexView'
+
+
 const Stack = createNativeStackNavigator();
 
 import About from './../Screens/Mine/About/IndexView'
@@ -37,11 +41,28 @@ const AppNavigator = () => {
                         component={Detail}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
-                    {/*<Stack.Screen*/}
-                    {/*    name="Register"*/}
-                    {/*    component={Register}*/}
-                    {/*    options={{ headerShown: false,animation: 'slide_from_bottom' }}*/}
-                    {/*/>*/}
+
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ headerShown: false,animation: 'slide_from_bottom' }}
+                    />
+
+                    <Stack.Screen
+                        name="Register"
+                        component={Register}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="ForgetPassword"
+                        component={ForgetPassword}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
+                    <Stack.Screen
+                        name="ResetPassword"
+                        component={ResetPassword}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
 
                     <Stack.Screen
                         name="ProfileSettings"
@@ -77,13 +98,13 @@ const AppNavigator = () => {
                 </Stack.Group>
 
 
-                <Stack.Group screenOptions={{ presentation: 'modal' }}>
-                    <Stack.Screen
-                        name="Login"
-                        component={Login}
-                        options={{ headerShown: false,animation: 'slide_from_bottom' }}
-                    />
-                </Stack.Group>
+                {/*<Stack.Group screenOptions={{ presentation: 'modal' }}>*/}
+                {/*    <Stack.Screen*/}
+                {/*        name="Login"*/}
+                {/*        component={Login}*/}
+                {/*        options={{ headerShown: false,animation: 'slide_from_bottom' }}*/}
+                {/*    />*/}
+                {/*</Stack.Group>*/}
 
             </Stack.Navigator>
         </NavigationContainer>

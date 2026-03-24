@@ -19,8 +19,8 @@ export const USER_AGENT = Platform.OS === "ios" ? USER_AGENT_IOS : USER_AGENT_AN
  * @param opts {object} 配置
  * @returns {*}
  */
-function R_GET(url: any, params = {}, opts = {}) {
-    return _FETCH(url, params, optionsMerge(opts, {method: 'GET'}));
+function R_GET(url: any, params = {},showLog=false, opts = {}) {
+    return _FETCH(url, params, optionsMerge(opts, {method: 'GET'}),showLog);
 }
 
 /**
@@ -30,8 +30,8 @@ function R_GET(url: any, params = {}, opts = {}) {
  * @param opts {object} 配置
  * @returns {*}
  */
-function R_POST(url: any, params = {}, opts = {}) {
-    return _FETCH(url, params, optionsMerge(opts, {method: 'POST'}));
+function R_POST(url: any, params = {}, opts = {},showLog=false) {
+    return _FETCH(url, params, optionsMerge(opts, {method: 'POST'}),showLog);
 }
 
 /**
@@ -68,20 +68,25 @@ function optionsMerge(opts1: any, opts2: any) {
  * @returns {Promise<{aoh_err: *}|{aoh_opts: {headers: {}, url: *}}>}
  */
 async function axiosOptsHandler(url: any, params: any, opts: any) {
+
+    url = "https://vps-sg-aws-opc.43046721.xyz" + url
+
+
     try {
         let aoh_opts = {
             headers: {},
             url,
             ...opts,
         };
-        // const globalToken = global.token;
-        //
-        // if (globalToken) {
-        //     aoh_opts.headers = {
-        //         Authorization:'Bearer '+globalToken,
-        //         ...aoh_opts.headers,
-        //     };
-        // }
+
+        const globalToken = global.token;
+
+        if (globalToken) {
+            aoh_opts.headers = {
+                'Member-Authorization':globalToken,
+                ...aoh_opts.headers,
+            };
+        }
         if (opts.method === 'GET') {
             aoh_opts.params = params;
             aoh_opts.headers = {
@@ -170,7 +175,7 @@ const axiosInstance = axios.create({
  * @returns {Promise<never>|Promise<unknown>}
  * @private
  */
-function _FETCH(url, param = {}, options = {}) {
+function _FETCH(url, param = {}, options = {},showLog=false) {
 
     if (url == undefined) {
         return Promise.reject("请求地址为空")
@@ -185,14 +190,15 @@ function _FETCH(url, param = {}, options = {}) {
         }
 
         axiosInstance.request(aoh_opts).then((res)=>{
-            console.log('NetService------------------->>') //headers  data
-            console.log(url)
-            console.log(aoh_opts.headers)
-            console.log(params)
-            console.log(res.data)
-            console.log('<<-------------------NetService')
 
-
+            if (showLog){
+                console.log('NetService------------------->>') //headers  data
+                console.log(url)
+                console.log(aoh_opts.headers)
+                console.log(params)
+                console.log(res.data)
+                console.log('<<-------------------NetService')
+            }
 
             const {data} = res;
             const {rh_res, rh_err} = responseHandler(data);
@@ -205,8 +211,8 @@ function _FETCH(url, param = {}, options = {}) {
             console.log(url)
             console.log(err)
             console.log('<<-------------------err NetService')
-            const {errMsg} = errorHandler(err);
-            reject(errMsg);
+            // const {errMsg} = errorHandler(err);
+            reject(err);
 
         })
 
