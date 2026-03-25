@@ -61,8 +61,9 @@ const particleSlice = createSlice({
             state.appData.language = payload?.language;
             return state;
         },
-        loginClear: (state) => {
+        logout: (state) => {
             state.userInfo = initialState.userInfo;
+            state.appData = initialState.appData;
             return state
         },
         appData_trendList_update:(state,param)=>{
@@ -73,7 +74,7 @@ const particleSlice = createSlice({
 });
 
 export const { login,
-    loginClear,
+    logout,
     updateLanguage,
     updateToken,
     updateUserInfo,

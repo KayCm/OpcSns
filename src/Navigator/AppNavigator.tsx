@@ -8,7 +8,7 @@ import Login from '../Screens/UserManager/Login/IndexView'
 import Register from '../Screens/UserManager/Register/IndexView'
 import ForgetPassword from '../Screens/UserManager/ForgetPassWord/IndexView'
 import ResetPassword from '../Screens/UserManager/ResetPassWord/IndexView'
-
+import AppInitial from '../Screens/AppInitial'
 
 const Stack = createNativeStackNavigator();
 
@@ -18,15 +18,22 @@ import Faq from './../Screens/Mine/Faq/IndexView'
 import FeedBack from './../Screens/Mine/FeedBack/IndexView'
 import Settings from './../Screens/Mine/Settings/IndexView'
 import ProfileSettings from './../Screens/Mine/ProfileSettings/IndexView'
+import enhanceScreen from "./enhanceScreen";
 
 const AppNavigator = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="AppBottomTab">
+            <Stack.Navigator initialRouteName="AppInitial">
                 <Stack.Group>
                     <Stack.Screen
                         name="AppBottomTab"
-                        component={AppBottomTab}
+                        component={enhanceScreen(AppBottomTab)}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="AppInitial"
+                        component={enhanceScreen(AppInitial)}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
 
@@ -44,7 +51,7 @@ const AppNavigator = () => {
 
                     <Stack.Screen
                         name="Login"
-                        component={Login}
+                        component={enhanceScreen(Login)}
                         options={{ headerShown: false,animation: 'slide_from_bottom' }}
                     />
 

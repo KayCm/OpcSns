@@ -16,6 +16,7 @@ import Animated from 'react-native-reanimated';
 import PagerView from 'react-native-pager-view';
 import DynamicWidthTabMenu from "../../Components/TabMenu";
 import {useEffect, useRef} from "react";
+import DataList2 from "../../Components/DataList2/Index";
 const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 
@@ -198,8 +199,10 @@ function IndexView() {
               const position = e.nativeEvent.position;
               menuRef.current?.switchToTab(position);
           }}  initialPage={0}>
-              <DataList renderHeader={renderHeader} queryKey={'indexAll'} renderRow={renderRow} param={{}} url={'/open-api/mobile/home/material/normal/list'} />
-              <DataList renderRow={renderRow} queryKey={'indexTag-'+2} param={{tagId:2}} url={'/open-api/mobile/home/material/byTag/list'} />
+
+              <DataList2 renderHeader={renderHeader} renderItem={renderRow}/>
+              {/*<DataList renderHeader={renderHeader} queryKey={'indexAll111'} renderRow={renderRow} param={{}} url={'/open-api/mobile/home/material/normal/list'} />*/}
+              {/*<DataList renderRow={renderRow} queryKey={'indexTag-'+2} param={{tagId:2}} url={'/open-api/mobile/home/material/byTag/list'} />*/}
               {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
               {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
               {/*<DataList renderHeader={null} renderRow={renderRow} />*/}

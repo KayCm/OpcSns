@@ -23,11 +23,11 @@ function IndexView() {
 
     const Nav = useNavigation();
 
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-    };
+    // const changeLanguage = (lng) => {
+    //     i18n.changeLanguage(lng);
+    // };
 
     const {userInfo} = MineViewModel()
 
@@ -76,8 +76,8 @@ function IndexView() {
           >
             <TouchableOpacity
               onPress={() => {
-                  console.log('userInfo',userInfo)
-                // Nav.navigate('ProfileSettings');
+                  // console.log('userInfo',userInfo)
+                Nav.navigate('ProfileSettings');
               }}
               style={[GStyles.row, GStyles.ac, { marginBottom: 10 }]}
             >

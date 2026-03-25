@@ -3,10 +3,14 @@ import NavHeader from "../../../Components/NavHeader";
 import GStyles, {TRUE_ONE_LINE} from "../../../Components/GStyles";
 import IconNext from "../../../Assets/Svgs/IconNext";
 import {useNavigation} from "@react-navigation/native";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../../Redux/persistedReducer";
 
 function IndexView(props: any) {
 
-    const nav = useNavigation()
+    const dispatch = useDispatch()
+
+    const userInfo = useSelector(state => state?.userInfo);
 
     const MenuBar = ({title='title',LeftDom,onPress}) => {
         return(<TouchableOpacity onPress={onPress} style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{height:64,width:'100%',borderBottomWidth:TRUE_ONE_LINE,borderColor:'#2c2c2c50'}]}>
@@ -23,15 +27,23 @@ function IndexView(props: any) {
             <NavHeader title={'个人资料'} />
             <View style={[GStyles.ph12]}>
                 <MenuBar title={'头像'} LeftDom={<View style={{height:44,width:44,backgroundColor:'#123',borderRadius:22}}></View>} />
-                <MenuBar title={'昵称'} LeftDom={<Text style={{}}>XXX</Text>} />
-                <MenuBar title={'性别'} LeftDom={<Text style={{}}>男</Text>} />
-                <MenuBar title={'绑定账号'} LeftDom={<Text style={{}}>1@2.com</Text>} />
+                <MenuBar title={'昵称'} LeftDom={<Text style={{}}>{userInfo?.nickname}</Text>} />
+                <MenuBar title={'绑定账号'} LeftDom={<Text style={{}}>{userInfo?.email}</Text>} />
                 <MenuBar title={'修改密码'} onPress={()=>{
-                    nav.navigate('ResetPassword')
+                    // nav.navigate('ResetPassword')
                 }}  />
             </View>
 
-            <TouchableOpacity onPress={()=>{}} style={[GStyles.jc,GStyles.ac,{marginTop:100,width:'100%',height:64,backgroundColor:'#fff'}]}>
+            <TouchableOpacity onPress={()=>{
+
+                dispatch(logout(null))
+
+                props?.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
+
+            }} style={[GStyles.jc,GStyles.ac,{marginTop:100,width:'100%',height:64,backgroundColor:'#fff'}]}>
               <Text style={{color:'red',fontSize:14}}>注销</Text>
             </TouchableOpacity>
         </View>

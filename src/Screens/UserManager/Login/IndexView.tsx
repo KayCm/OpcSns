@@ -11,7 +11,7 @@ import RegisterView from "./Component/RegisterView";
 import {useSelector} from "react-redux";
 // import CountdownButton, { CountdownButtonHandle } from '';
 
-function IndexView() {
+function IndexView(props) {
 
     const {loginAct,
         loginEmail,
@@ -21,7 +21,9 @@ function IndexView() {
         getUserInfo
     } = LoginViewModel()
 
-    const nav = useNavigation()
+    // const nav = useNavigation()
+
+    const nav = props?.navigation
 
     const userInfo = useSelector(state => state?.userInfo);
 
@@ -84,7 +86,7 @@ function IndexView() {
                         loginAct().then(res=>{
 
                             if (res.res){
-                                nav.goBack()
+                                nav.replace('AppBottomTab')
                             }else{
                                 Alert.alert(res?.msg)
                             }
@@ -99,11 +101,11 @@ function IndexView() {
                 <TouchableOpacity
                     onPress={() => {
 
-                        console.log('userInfo',global.token)
+                        // console.log('userInfo',global.token)
 
-                        getUserInfo()
+                        // getUserInfo()
 
-                        // nav.navigate('Register',{},'replace')
+                        nav.navigate('Register',{},'replace')
                     }}
                     style={[GStyles.jc, GStyles.ac, { height: 44 }]}
                 >
