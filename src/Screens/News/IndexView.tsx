@@ -191,25 +191,75 @@ function IndexView() {
 
     return (
       <View style={{ flex: 1 }}>
-          <NewsHeader />
-          <DynamicWidthTabMenu ref={menuRef} onTabChange={(index)=>{
-              pagerRef.current?.setPage(index)
-          }} />
-          <AnimatedPagerView ref={pagerRef} style={{flex: 1}} onPageSelected={(e)=>{
-              const position = e.nativeEvent.position;
-              menuRef.current?.switchToTab(position);
-          }}  initialPage={0}>
+        <NewsHeader />
+        <DynamicWidthTabMenu
+          ref={menuRef}
+          onTabChange={index => {
+            pagerRef.current?.setPage(index);
+          }}
+        />
+        <AnimatedPagerView
+          ref={pagerRef}
+          style={{ flex: 1 }}
+          onPageSelected={e => {
+            const position = e.nativeEvent.position;
+            menuRef.current?.switchToTab(position);
+          }}
+          initialPage={0}
+        >
+          <DataList2
+            renderHeader={renderHeader}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/normal/list'}
+            CACHE_KEY={'main'}
+          />
 
-              <DataList2 renderHeader={renderHeader} renderItem={renderRow}/>
-              {/*<DataList renderHeader={renderHeader} queryKey={'indexAll111'} renderRow={renderRow} param={{}} url={'/open-api/mobile/home/material/normal/list'} />*/}
-              {/*<DataList renderRow={renderRow} queryKey={'indexTag-'+2} param={{tagId:2}} url={'/open-api/mobile/home/material/byTag/list'} />*/}
-              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
-              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
-              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
-              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
-              {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
-          </AnimatedPagerView>
-      </View>);
+          <DataList2
+            renderHeader={null}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/byTag/list'}
+            params={{ tagId: 1 }}
+            CACHE_KEY={'tag2'}
+          />
+
+          <DataList2
+            renderHeader={null}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/byTag/list'}
+            params={{ tagId: 2 }}
+            CACHE_KEY={'tag2'}
+          />
+          <DataList2
+            renderHeader={null}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/byTag/list'}
+            params={{ tagId: 3 }}
+            CACHE_KEY={'tag2'}
+          />
+          <DataList2
+            renderHeader={null}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/byTag/list'}
+            params={{ tagId: 4 }}
+            CACHE_KEY={'tag2'}
+          />
+          <DataList2
+            renderHeader={null}
+            renderItem={renderRow}
+            url={'/open-api/mobile/home/material/byTag/list'}
+            params={{ tagId: 5 }}
+            CACHE_KEY={'tag2'}
+          />
+          {/*<DataList renderHeader={renderHeader} queryKey={'indexAll111'} renderRow={renderRow} param={{}} url={'/open-api/mobile/home/material/normal/list'} />*/}
+          {/*<DataList renderRow={renderRow} queryKey={'indexTag-'+2} param={{tagId:2}} url={'/open-api/mobile/home/material/byTag/list'} />*/}
+          {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+          {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+          {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+          {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+          {/*<DataList renderHeader={null} renderRow={renderRow} />*/}
+        </AnimatedPagerView>
+      </View>
+    );
 }
 
 export default IndexView;
