@@ -286,9 +286,9 @@ const fetchItems = async (page = 1, url = '', params={}) => {
     R_POST(url, { pageNum: page, pageSize: 5, ...params })
       .then(response => {
         resolve(response);
-      })
-      .catch(error => {
-        console.log(error);
+      }).catch(error => {
+        console.log("error<->:",error);
+        return error;
       });
   });
 
@@ -448,6 +448,8 @@ const DataList2 = ({
       // 清除缓存（可选，但为了保持一致性，先清除）
       await AsyncStorage.removeItem(CACHE_KEY);
       const response = await fetchItems(1, url, params);
+
+
       setItems(response.data);
       setHasNextPage(response.hasNextPage);
       setPage(1);

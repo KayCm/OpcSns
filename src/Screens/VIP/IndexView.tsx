@@ -10,15 +10,22 @@ function IndexView() {
     const inset = useSafeAreaInsets()
 
 
-    const { isPending, isError, data, error } = useQuery({
-        queryKey: ['todos'],
-        queryFn: ()=> R_POST('/open-api/mobile/home/tag/list'),
-    })
+    // const { isPending, isError, data, error } = useQuery({
+    //     queryKey: ['todos'],
+    //     queryFn: ()=> R_POST('/open-api/mobile/home/tag/list'),
+    // })
+
+
+
 
     return(<View style={{flex:1,paddingTop:inset.top}}>
 
         <TouchableOpacity onPress={()=>{
-            console.log(data)
+            R_POST("/open-api/mobile/home/material/normal/list", { pageNum: 2, pageSize: 5}).then(response => {
+                console.log('response',response)
+            }).catch(error => {
+                console.log('error',error)
+            });
         }}><Text>123123</Text></TouchableOpacity>
 
     </View>)
