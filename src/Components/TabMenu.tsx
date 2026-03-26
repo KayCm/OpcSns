@@ -15,7 +15,7 @@ import Animated, {
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const DynamicWidthTabMenu = forwardRef(({tabs=[ '今日热点', 'AI', '机器人', 'OPC', 'AI训练', '科普'],onTabChange}, ref) => {
+const DynamicWidthTabMenu = forwardRef(({tabs=[''],onTabChange}, ref) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
 
@@ -110,7 +110,7 @@ const DynamicWidthTabMenu = forwardRef(({tabs=[ '今日热点', 'AI', '机器人
                             <Text
                                 style={[styles.tabText, activeIndex === index && styles.activeTabText]}
                                 numberOfLines={1}>
-                                {tab}
+                                {tab?.tagName}
                             </Text>
                         </TouchableOpacity>
                     ))}

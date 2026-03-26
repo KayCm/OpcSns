@@ -238,7 +238,7 @@ function AppBottomTab(props) {
         //     <BlurView tint="light" intensity={100} style={{flex:1}} />
         // ),
         tabBarLabelStyle: {
-            marginTop:12,
+            marginTop:2,
         },
         tabBarIcon: ({ focused, color, size }) => {
             let iconSource;
@@ -262,7 +262,7 @@ function AppBottomTab(props) {
             // }
 
             // You can return any component that you like here!
-            return <Image style={{marginTop:10,height:24,width:24,backgroundColor:'#123',borderRadius:5}} source={iconSource} />;
+            return <Image style={{height:20,width:20,backgroundColor:'#123',borderRadius:5}} source={iconSource} />;
         },
     })}>
         <Tab.Screen name={t('tabs.news')} component={enhanceScreen(News,{isNeedSafeArea:false})} options={{ headerShown: false }}/>

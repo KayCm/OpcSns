@@ -2,14 +2,15 @@ import {View, Text, TouchableOpacity} from "react-native";
 import MapView,{ Marker } from 'react-native-maps';
 import GStyles, { WINDOW_WIDTH } from '../../Components/GStyles.ts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useState } from 'react';
+import {useRef, useState} from 'react';
 import IconNavClose from "../../Assets/Svgs/IconNavClose";
-
 function IndexView() {
 
   const insets = useSafeAreaInsets()
 
   const [showDetail, setShowDetail] = useState(false);
+
+  const [cam,setCam] = useState(null)
 
    const DetailCard = () => {
 
@@ -20,7 +21,7 @@ function IndexView() {
            GStyles.jc,
            GStyles.ac,
            {
-             bottom: 64 + insets.bottom + 10,
+             bottom: 10,
              width: WINDOW_WIDTH,
              height: 200,
            },
@@ -52,27 +53,52 @@ function IndexView() {
 
    }
 
+   const mapRef = useRef(null)
+
+    const LATITUDE = 30.16
+    const LONGITUDE = 120.17
+
+    const initialCamera = {
+        center: {
+            latitude: LATITUDE,
+            longitude: LONGITUDE,
+        },
+        pitch: 45,
+        heading: 90,
+        altitude: 1000,
+        zoom: 1,
+    }
+
+    const getLoacl = () => {
+
+        mapRef?.current.getCamera().then(res=>{
+            setCam(res)
+        })
+
+    }
+
     return (
       <View style={{ flex: 1 }}>
+
         <MapView
           style={{ flex: 1 }}
-          initialRegion={{
-            latitude: 30.16,
-            longitude: 120.12,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
+          ref={mapRef}
+          initialCamera={initialCamera}
+          showsCompass={true}
         >
           <Marker
+              onPress={()=>{
+                  setShowDetail(true);
+              }}
             onSelect={e => {
               console.log(e.nativeEvent);
-              setShowDetail(true);
+
             }}
             onCalloutPress={()=>{
               console.log('onCalloutPress');
             }}
             identifier={'abc123123123'}
-            coordinate={{ latitude: 30.16, longitude: 120.12 }}
+            coordinate={{ latitude: LATITUDE, longitude: LONGITUDE }}
           />
         </MapView>
 

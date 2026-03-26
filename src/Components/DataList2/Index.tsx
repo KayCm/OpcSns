@@ -297,10 +297,10 @@ const fetchItems = async (page = 1, url = '', params={}) => {
   // 模拟分页数据：每页 10 条，最多 5 页
   const totalPages = Math.ceil(abc?.total / 5);
 
-  console.log('abc-->', abc);
-  console.log('totalPages-->', totalPages);
+  // console.log('abc-->', abc);
+  // console.log('totalPages-->', totalPages);
 
-  if (abc?.rows.length <= 1 ) {
+  if (abc?.data.length <= 1 ) {
     return { data: [], hasNextPage: false };
   }
 
@@ -309,7 +309,7 @@ const fetchItems = async (page = 1, url = '', params={}) => {
   //     title: `Item ${page}-${i}`,
   // }));
   return {
-    data: abc.rows,
+    data: abc?.data,
     hasNextPage: page < totalPages,
   };
 };
@@ -506,7 +506,6 @@ const DataList2 = ({
       data={items}
       renderItem={renderItem}
       keyExtractor={item => item.id}
-      estimatedItemSize={80}
       onEndReached={loadMore}
       onEndReachedThreshold={0.5}
       onRefresh={onRefresh}
@@ -514,17 +513,14 @@ const DataList2 = ({
       ListHeaderComponent={renderHeader}
       ListFooterComponent={renderFooter}
       ListEmptyComponent={renderEmpty}
-      contentContainerStyle={styles.list}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingTop: 0 }}
     />
   );
 };
 
 const styles = StyleSheet.create({
-    list: {
-        paddingVertical: 10,
-    },
     item: {
         padding: 20,
         borderBottomWidth: 1,

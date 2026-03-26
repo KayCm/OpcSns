@@ -37,7 +37,7 @@ function App() {
                                             // 可以在这里实现错误恢复逻辑
                                         }}>
               <Provider store={store}>
-                <StatusBar barStyle={'light-content'} />
+                <StatusBar backgroundColor="#fff"  barStyle={'dark-content'} />
                 <AppNavigator />
               </Provider>
             </PersistQueryClientProvider>
