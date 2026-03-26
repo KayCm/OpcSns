@@ -68,7 +68,6 @@
 //
 // export default Index
 
-
 // import React, { useState, useEffect, useCallback } from 'react';
 // import {
 //     View,
@@ -254,25 +253,25 @@
 //
 // export default InfiniteScrollExample;
 
-
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-    View,
-    Text,
-    ActivityIndicator,
-    StyleSheet,
-    Button,
-    Alert, TouchableOpacity,
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  Button,
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {R_POST} from "../../Services/NetRequestService";
+import { R_POST } from '../../Services/NetRequestService';
 
 // 缓存 key
 // const CACHE_KEY = 'infinite_list_cache';
 
 // 模拟 API 调用（实际使用时替换为真实接口）
-const fetchItems = async (page = 1, url = '', params={}) => {
+const fetchItems = async (page = 1, url = '', params = {}) => {
   // await new Promise(resolve => setTimeout(resolve, 1000));
   //
   //
@@ -286,13 +285,12 @@ const fetchItems = async (page = 1, url = '', params={}) => {
     R_POST(url, { pageNum: page, pageSize: 5, ...params })
       .then(response => {
         resolve(response);
-      }).catch(error => {
-        console.log("error<->:",error);
+      })
+      .catch(error => {
+        console.log('error<->:', error);
         return error;
       });
   });
-
-
 
   // 模拟分页数据：每页 10 条，最多 5 页
   const totalPages = Math.ceil(abc?.total / 5);
@@ -300,7 +298,7 @@ const fetchItems = async (page = 1, url = '', params={}) => {
   // console.log('abc-->', abc);
   // console.log('totalPages-->', totalPages);
 
-  if (abc?.data.length <= 1 ) {
+  if (abc?.data.length <= 1) {
     return { data: [], hasNextPage: false };
   }
 
@@ -319,7 +317,7 @@ const DataList2 = ({
   renderHeader,
   url,
   params = {},
-  CACHE_KEY="",
+  CACHE_KEY = '',
 }) => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -449,7 +447,6 @@ const DataList2 = ({
       await AsyncStorage.removeItem(CACHE_KEY);
       const response = await fetchItems(1, url, params);
 
-
       setItems(response.data);
       setHasNextPage(response.hasNextPage);
       setPage(1);
@@ -523,31 +520,31 @@ const DataList2 = ({
 };
 
 const styles = StyleSheet.create({
-    item: {
-        padding: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
-    title: {
-        fontSize: 16,
-    },
-    footer: {
-        paddingVertical: 20,
-        alignItems: 'center',
-    },
-    empty: {
-        padding: 50,
-        alignItems: 'center',
-    },
-    errorContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    errorText: {
-        color: 'red',
-        marginBottom: 10,
-    },
+  item: {
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  title: {
+    fontSize: 16,
+  },
+  footer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  empty: {
+    padding: 50,
+    alignItems: 'center',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+  },
 });
 
 export default DataList2;
