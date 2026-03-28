@@ -49,18 +49,25 @@ function IndexView(props: any) {
             marginTop: 10,
           }}
         />
-        <MenuBar
-          title={'跟随系统外观'}
-          style={{ backgroundColor: '#ffffff', marginTop: 10 }}
-          LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}
-          showRightIcon={false}
-        />
+        {/*<MenuBar*/}
+        {/*  title={'跟随系统外观'}*/}
+        {/*  style={{ backgroundColor: '#ffffff', marginTop: 10 }}*/}
+        {/*  LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}*/}
+        {/*  showRightIcon={false}*/}
+        {/*/>*/}
         <MenuBar
           title={'消息推送'}
           style={{ backgroundColor: '#ffffff' }}
           LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}
           showRightIcon={false}
         />
+
+          <MenuBar
+              title={'语言'}
+              style={{ backgroundColor: '#ffffff' }}
+              LeftDom={<Text>中文</Text>}
+              showRightIcon={false}
+          />
         <MenuBar title={'隐私协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar title={'用户协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar

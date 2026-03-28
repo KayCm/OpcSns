@@ -4,9 +4,7 @@ import GStyles, {WINDOW_WIDTH} from "../../../Components/GStyles";
 import {useQuery} from "@tanstack/react-query/build/modern/index";
 import {R_POST} from "../../../Services/NetRequestService";
 
-function NewsHeader() {
-
-
+function NewsHeader({BannerClick,HotInfoClick}) {
 
     // /open-api/mobile/home/banner/list
 
@@ -39,7 +37,9 @@ function NewsHeader() {
                     // showPagination
                     data={bannerDatra?.data}
                     renderItem={({ item }) => (
-                        <View
+                        <TouchableOpacity onPress={()=>{
+                            if (BannerClick)BannerClick(item)
+                        }}
                             style={[
                                 GStyles.jc,
                                 GStyles.ac,
@@ -67,16 +67,19 @@ function NewsHeader() {
                                     {item?.title}
                                 </Text>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     )}
                 />
             </View>
 
             <View style={[GStyles.ph12,{ width: '100%', borderRadius: 2, gap: 10, marginTop: 20 }]}>
                 {topData?.data?.map((value, index, array) => {
+
+                    if (index>2)return null
+
                     return (
                         <TouchableOpacity onPress={()=>{
-                            console.log(value)
+                            if (HotInfoClick)HotInfoClick(value)
                         }} key={index}>
                             <Text numberOfLines={3} style={{ fontSize: 14,lineHeight: 20 }}>
                                 <View

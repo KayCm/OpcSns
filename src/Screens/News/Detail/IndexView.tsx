@@ -11,7 +11,11 @@ function IndexView(props: any) {
 
    const nav = useNavigation()
 
+    const item = props?.route?.params?.item
+
     const insets = useSafeAreaInsets();
+
+   console.log('props',props?.route?.params?.item)
 
     // const html = props?.route?.params?.html
 
@@ -109,19 +113,19 @@ function IndexView(props: any) {
     }
 
     const DetailWithHtml = () => {
-      return (<View>
+      return (<View style={{flex:1}}>
               <View style={[GStyles.ph12]}>
-                  <Text style={{fontSize:24}}>每天工作2小时，年人500万美元，Dan Koe的"人生操作系统"</Text>
+                  <Text style={{fontSize:24}}>{item?.title}</Text>
               </View>
-              <WebView source={{ html }} style={{ flex: 1, width: '100%' }} />
+              <WebView source={{ html:item?.content}} style={{ flex: 1,height:200, width: '100%' }} />
         </View>)
     }
 
     return (
-        <View style={{ flex: 1,paddingBottom:54+insets.bottom}}>
+        <View style={{ flex: 1,paddingBottom:54+insets.bottom,backgroundColor:'#fff'}}>
             <DetailHeader />
 
-            <DetailWithVideo />
+            <DetailWithHtml />
 
             <VipBanner />
         </View>

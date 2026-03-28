@@ -1,9 +1,8 @@
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import GStyles, {TRUE_ONE_LINE} from "../../../Components/GStyles";
+import {formatTimeAgo} from "../../../Components/Tools";
 
 function NewsRenderRow({item,onPress}) {
-
-    console.log(item)
 
     return (<TouchableOpacity activeOpacity={0.5} onPress={()=>{
         if (onPress)onPress(item)
@@ -16,9 +15,9 @@ function NewsRenderRow({item,onPress}) {
                         <View style={[GStyles.jc,GStyles.ac,GStyles.ph10,{height:20,backgroundColor:'red',borderRadius:2}]}>
                             <Text style={{color:'#fff'}}></Text>
                         </View>
-                        <Text>1小时前</Text>
+                        <Text>{formatTimeAgo(item?.item?.publishTime)}</Text>
                     </View>
-                    <Text>Foxs News</Text>
+                    <Text>{item?.item?.source}</Text>
                 </View>
             </View>
             <Image style={{height:100,width:100,backgroundColor:'#123',borderRadius:5}}/>

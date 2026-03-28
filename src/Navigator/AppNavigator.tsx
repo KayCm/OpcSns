@@ -10,6 +10,8 @@ import ForgetPassword from '../Screens/UserManager/ForgetPassWord/IndexView'
 import ResetPassword from '../Screens/UserManager/ResetPassWord/IndexView'
 import AppInitial from '../Screens/AppInitial'
 
+import CommunityList from '../Screens/Map/CommunityListView'
+
 const Stack = createNativeStackNavigator();
 
 import About from './../Screens/Mine/About/IndexView'
@@ -46,6 +48,12 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name="Detail"
                         component={Detail}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="CommunityList"
+                        component={CommunityList}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
 
