@@ -5,13 +5,14 @@ import {
     TouchableOpacity,
     StyleSheet,
     Dimensions,
-    ScrollView,
+    ScrollView, Image,
 } from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
     withTiming,
 } from 'react-native-reanimated';
+import {appSize} from "./GStyles";
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -85,6 +86,9 @@ const DynamicWidthTabMenu = forwardRef(({tabs=[''],onTabChange}, ref) => {
         <View style={styles.container}>
             {/* 标签栏容器 */}
             <View style={styles.tabBarContainer}>
+
+                <Image source={require('../Assets/menuTag.png')} style={{position: 'absolute',left:appSize(12),bottom:appSize(5),height:appSize(39),width:appSize(39)}} />
+
                 <ScrollView
                     ref={scrollViewRef}
                     horizontal
@@ -149,14 +153,14 @@ const styles = StyleSheet.create({
         color: '#666',
     },
     activeTabText: {
-        color: '#ff6b6b',
+        color: '#A5885F',
         fontWeight: 'bold',
     },
     indicator: {
         position: 'absolute',
         bottom: 0,
         height: 3,
-        backgroundColor: '#ff6b6b',
+        backgroundColor: '#A5885F',
         borderRadius: 2,
     },
     content: {

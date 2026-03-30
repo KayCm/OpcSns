@@ -232,7 +232,7 @@ function AppBottomTab(props) {
         //     duration: 150,
         //     easing: Easing.inOut(Easing.ease),
         // },
-        tabBarActiveTintColor: '#d81e06',
+        tabBarActiveTintColor: '#121212',
         tabBarInactiveTintColor: '#8a8a8a',
         // tabBarBackground: () => (
         //     <BlurView tint="light" intensity={100} style={{flex:1}} />
@@ -243,30 +243,37 @@ function AppBottomTab(props) {
         tabBarIcon: ({ focused, color, size }) => {
             let iconSource;
 
-            // if (route.name === '首页') {
-            //     iconSource = focused
-            //         ? require('../Resources/Common/Tabs/index_on.png')
-            //         :  require('../Resources/Common/Tabs/index.png');
-            // } else if (route.name === '动态') {
-            //     iconSource = focused
-            //         ? require('../Resources/Common/Tabs/rec_on.png')
-            //         :  require('../Resources/Common/Tabs/rec.png');
-            // } else if (route.name === '消息') {
-            //     iconSource = focused
-            //         ? require('../Resources/Common/Tabs/msg_on.png')
-            //         :  require('../Resources/Common/Tabs/msg.png');
-            // } else if (route.name === '我的') {
-            //     iconSource = focused
-            //         ? require('../Resources/Common/Tabs/mine_on.png')
-            //         :  require('../Resources/Common/Tabs/mine.png');
-            // }
+            if (route.name === t('tabs.news')) {
+                iconSource = focused
+                    ? require('../Assets/Tabs/news_on.png')
+                    :  require('../Assets/Tabs/news_on.png');
+            } else if (route.name === t('tabs.vip')) {
+                iconSource = focused
+                    ? require('../Assets/Tabs/vip_off.png')
+                    :  require('../Assets/Tabs/vip_off.png');
+            } else if (route.name === t('tabs.map')) {
+                iconSource = focused
+                    ? require('../Assets/Tabs/map_off.png')
+                    :  require('../Assets/Tabs/map_off.png');
+            } else if (route.name === t('tabs.make')) {
+                iconSource = focused
+                    ? require('../Assets/Tabs/map_off.png')
+                    :  require('../Assets/Tabs/map_off.png');
+
+                return <Image style={{height:24,width:24}} source={iconSource} />;
+            } else if (route.name === t('tabs.mine')) {
+                iconSource = focused
+                    ? require('../Assets/Tabs/mine_off.png')
+                    :  require('../Assets/Tabs/mine_off.png');
+            }
 
             // You can return any component that you like here!
-            return <Image style={{height:20,width:20,backgroundColor:'#123',borderRadius:5}} source={iconSource} />;
+            return <Image style={{height:24,width:24}} source={iconSource} />;
         },
     })}>
         <Tab.Screen name={t('tabs.news')} component={enhanceScreen(News,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
         <Tab.Screen name={t('tabs.vip')} component={enhanceScreen(VIP,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
+        <Tab.Screen name={t('tabs.make')} component={enhanceScreen(Map,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
         <Tab.Screen name={t('tabs.map')} component={enhanceScreen(Map,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
         <Tab.Screen name={t('tabs.mine')} component={enhanceScreen(Mine,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
     </Tab.Navigator>)

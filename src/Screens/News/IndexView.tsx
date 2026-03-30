@@ -40,7 +40,7 @@ function IndexView(props) {
       />
       <AnimatedPagerView
         ref={pagerRef}
-        style={{ flex: 1, backgroundColor: '#ffffff' }}
+        style={{ flex: 1, backgroundColor: '' }}
         onPageSelected={e => {
           const position = e.nativeEvent.position;
           menuRef.current?.switchToTab(position);
