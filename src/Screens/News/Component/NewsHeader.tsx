@@ -1,7 +1,7 @@
 import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {SwiperFlatList} from "react-native-swiper-flatlist/index";
-import GStyles, {appSize, WINDOW_WIDTH} from "../../../Components/GStyles";
-import {useQuery} from "@tanstack/react-query/build/modern/index";
+import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../../Components/GStyles";
+import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../../Services/NetRequestService";
 
 function NewsHeader({BannerClick,HotInfoClick}) {
@@ -50,9 +50,34 @@ function NewsHeader({BannerClick,HotInfoClick}) {
       </View>)
     }
 
+    const NewsCard = ({style}) => {
+
+        return(<View style={{...style}}>
+            <Text numberOfLines={3} style={[GStyles.ffb,{fontSize: 14,lineHeight: 20 }]}>
+                <View
+                    style={{
+                        backgroundColor: 'red',
+                        // borderRadius: 10,
+                        borderTopLeftRadius:appSize(3),
+                        borderTopRightRadius:appSize(3),
+                        borderBottomLeftRadius:appSize(3),
+                        overflow: 'hidden',
+                        paddingHorizontal:appSize(4),
+                        justifyContent:'center',
+                        alignItems: 'center',
+                        marginRight:appSize(5)
+                    }}
+                >
+                    <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>1</Text>
+                </View>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场，交易员如梦初醒！</Text>
+            <Text numberOfLines={1} style={{marginTop:appSize(5)}}>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场，交易员如梦初醒！</Text>
+        </View>)
+
+    }
+
     const News2 = () => {
 
-      return(<View style={[GStyles.ph12,{marginTop:appSize(20)}]}>
+      return(<View style={[GStyles.ph12,{marginTop:appSize(20),backgroundColor: '#fff'}]}>
 
           <View style={{height:appSize(200)}}>
 
@@ -62,22 +87,32 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                       <Image source={require('../../../Assets/News/news_txt2.png')} style={{height:appSize(14.5),width:appSize(38.5)}} />
                   </ImageBackground>
 
-                  <View style={[GStyles.row,GStyles.jc,GStyles.ac,{paddingHorizontal: appSize(5),paddingVertical:appSize(5),backgroundColor:'#F0EBE4',borderColor:'#E0CAAA',borderWidth:1}]} >
-                      <View style={{alignItems:'flex-end',paddingRight: appSize(5),borderRightWidth:1,borderRightColor:'#123'}}>
-                          <Text style={{}}>周日</Text>
-                          <Text>3月</Text>
+                  <View style={[GStyles.row,GStyles.jc,GStyles.ac,{width:appSize(55),height:appSize(28),backgroundColor:'#F0EBE4',borderColor:'#E0CAAA',borderWidth:1}]} >
+
+                      <View style={{alignItems:'flex-end',paddingRight:appSize(3)}}>
+                          <Text style={[GStyles.ffb,{fontSize:appSize(10)}]}>周日</Text>
+                          <Text style={[GStyles.ffb,{fontSize:appSize(10)}]}>3月</Text>
                       </View>
-                      <Text style={{fontSize:18,paddingLeft: appSize(5)}}>29</Text>
+
+                      <View style={{height:appSize(20),width:1,backgroundColor:'#E0CAAA'}} />
+
+                      <Text style={[GStyles.ffb,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>29</Text>
                   </View>
               </View>
+
+
               <View style={{backgroundColor: '#fff',height:appSize(180),marginTop:appSize(10),width:'100%'}}>
                   <ScrollView horizontal={true} pagingEnabled={true} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
 
-                      <View style={{height:appSize(180),width:WINDOW_WIDTH-appSize(24)}}>
+                      <View style={{height:appSize(160),marginTop:appSize(20),width:WINDOW_WIDTH-appSize(24)}}>
+
+                         <NewsCard style={{marginTop:appSize(20)}} />
+                         <NewsCard style={{marginTop:appSize(15)}} />
+
 
                       </View>
 
-                      <View style={{height:appSize(180),backgroundColor:'#123',width:WINDOW_WIDTH-appSize(24)}}>
+                      <View style={{height:appSize(180),backgroundColor:'#123',width:WINDOW_WIDTH-appSize(48)}}>
 
                       </View>
 

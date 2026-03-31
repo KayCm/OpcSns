@@ -5,11 +5,12 @@ import PagerView from 'react-native-pager-view';
 import DynamicWidthTabMenu from '../../Components/TabMenu';
 import { useEffect, useRef } from 'react';
 import DataList2 from '../../Components/DataList2/Index';
-import { useQuery } from '@tanstack/react-query/build/modern';
+import { useQuery } from '@tanstack/react-query';
 import { R_POST } from '../../Services/NetRequestService';
 import NewsHeader from './Component/NewsHeader';
 import NewsNav from './Component/NewsNav';
 import NewsRenderRow from './Component/NewsRenderRow';
+import DataList3 from "../../Components/DataList3/Index";
 const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 function IndexView(props) {
@@ -45,43 +46,59 @@ function IndexView(props) {
           const position = e.nativeEvent.position;
           menuRef.current?.switchToTab(position);
         }}
-        initialPage={0}
-      >
-        <DataList2
-          renderHeader={()=>NewsHeader((v)=>{
-              console.log(v)
-          },(v)=>{
-              console.log(v)
-          })}
-          renderItem={item =>
-            NewsRenderRow({
-              item: item,
-              onPress: item => {
-                  Nav.push('Detail',{item:item?.item})
-              },
-            })
-          }
-          url={'/open-api/mobile/home/material/normal/list'}
-          CACHE_KEY={'main'}
-        />
-        {data?.data?.map((value, index, array) => {
-          return (
-            <DataList2
-              key={index}
-              renderHeader={null}
-              renderItem={item =>
-                NewsRenderRow({
+        initialPage={0}>
+
+          <DataList3 key={1}  renderHeader={()=>NewsHeader({BannerClick:(v)=>{
+                  Nav.push('Detail',{item:v})
+              },HotInfoClick:(v)=>{
+
+              }})}
+                renderRow={item =>
+              NewsRenderRow({
                   item: item,
                   onPress: item => {
                       Nav.push('Detail',{item:item?.item})
                   },
-                })
-              }
-              url={'/open-api/mobile/home/material/byTag/list'}
-              params={{ tagId: value.id }}
-              CACHE_KEY={'tag_' + value.id}
-            />
-          );
+              })} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />
+
+
+
+          {/*<DataList2*/}
+          {/*    key={index}*/}
+          {/*    renderHeader={null}*/}
+          {/*    renderItem={item =>*/}
+          {/*        NewsRenderRow({*/}
+          {/*            item: item,*/}
+          {/*            onPress: item => {*/}
+          {/*                Nav.push('Detail',{item:item?.item})*/}
+          {/*            },*/}
+          {/*        })*/}
+          {/*    }*/}
+          {/*    url={'/open-api/mobile/home/material/byTag/list'}*/}
+          {/*    params={{ tagId: value.id }}*/}
+          {/*    CACHE_KEY={'tag_' + value.id}*/}
+          {/*/>*/}
+
+          {/*<DataList2*/}
+          {/*renderHeader={()=>NewsHeader((v)=>{*/}
+          {/*    console.log(v)*/}
+          {/*},(v)=>{*/}
+          {/*    console.log(v)*/}
+          {/*})}*/}
+          {/*renderItem={*/}
+          {/*}*/}
+        {/*  url={'/open-api/mobile/home/material/normal/list'}*/}
+        {/*  CACHE_KEY={'main'}*/}
+        {/*/>*/}
+        {data?.data?.map((value, index, array) => {
+          return (<DataList3 key={index+1} renderHeader={null} renderRow={item =>
+              NewsRenderRow({
+                  item: item,
+                  onPress: item => {
+                      Nav.push('Detail',{item:item?.item})
+                  },
+              })} url={'/open-api/mobile/home/material/byTag/list'} params={{ tagId: value.id }} queryKey={'tag-list'+value.id}
+          />);
         })}
       </AnimatedPagerView>
     </View>

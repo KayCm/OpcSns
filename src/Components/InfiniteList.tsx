@@ -10,6 +10,7 @@ import {
 import { FlashList } from '@shopify/flash-list';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import {R_POST} from "../Services/NetRequestService";
+import GStyles from "./GStyles";
 
 // ==================== 类型定义 ====================
 export interface Item {
@@ -26,10 +27,9 @@ interface PageData {
 
 // ==================== API 请求函数 ====================
 // 请根据实际接口替换 URL 和参数
-const fetchItems = async ({ pageParam = 1 ,params}): Promise<PageData> => {
-
+const fetchItems = async ({ pageParam = 1,url ,params}): Promise<PageData> => {
     const response = await new Promise(resolve => {
-        R_POST("/open-api/mobile/home/material/normal/list", { pageNum: pageParam, pageSize: 10, ...params })
+        R_POST(url, { pageNum: pageParam, pageSize: 10, ...params })
             .then(response => {
                 resolve(response);
             })
@@ -38,8 +38,6 @@ const fetchItems = async ({ pageParam = 1 ,params}): Promise<PageData> => {
                 return error;
             });
     });
-
-    console.log('response:',response)
 
     if (response.code != 200) throw new Error('Network response was not ok');
 
@@ -62,10 +60,10 @@ const fetchItems = async ({ pageParam = 1 ,params}): Promise<PageData> => {
 };
 
 // ==================== 自定义 Hook ====================
-const useInfiniteItems = () => {
+const useInfiniteItems = ({url,params}) => {
     return useInfiniteQuery({
         queryKey: ['items'],
-        queryFn: fetchItems,
+        queryFn:({ pageParam = 1 }) =>  fetchItems({pageParam,url,params}),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => lastPage.nextPage,
         staleTime: 10000, // 5 分钟内数据视为新鲜
@@ -84,7 +82,7 @@ const InfiniteList: React.FC = () => {
         isError,
         error,
         refetch,
-    } = useInfiniteItems();
+    } = useInfiniteItems({url:"/open-api/mobile/home/material/normal/list",params:{tagId:8}});
 
     // 将所有页的数据展平为一维数组
     const allItems = data?.pages.flatMap((page) => page.data) ?? [];
@@ -100,7 +98,7 @@ const InfiniteList: React.FC = () => {
     const renderItem = useCallback(({ item }: { item: Item }) => {
         return (
             <View style={styles.itemContainer}>
-                <Text style={styles.itemText}>{item?.title}</Text>
+                <Text style={[GStyles.ffb,styles.itemText]}>{item?.title}</Text>
             </View>
         );
     }, []);
@@ -163,8 +161,6 @@ const InfiniteList: React.FC = () => {
             data={allItems}
             renderItem={renderItem}
             keyExtractor={(item) => {
-                console.log('item+++',item)
-
                 return "list-"+item.id
             }}
             onEndReached={loadMore}

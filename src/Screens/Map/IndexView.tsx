@@ -21,6 +21,7 @@ function IndexView({navigation}) {
     })
 
 
+
     // {
     //     "createBy": "",
     //     "createTime": null,
@@ -42,68 +43,6 @@ function IndexView({navigation}) {
     //     "sortOrder": 0
     // }
 
-  const DetailCard = () => {
-
-    const {name,address,rating} = data?.data[select]
-
-    //  console.log(data?.data[select])
-
-    return (
-      <View
-        style={[
-          GStyles.pa,
-          GStyles.ac,
-          {
-              left:10,
-            bottom: 10,
-            width: WINDOW_WIDTH-20,
-            height: 330,
-            justifyContent:'flex-end'
-          },
-        ]}
-      >
-          <View style={{zIndex:2,borderRadius:10,borderColor:'#000',borderWidth:1,position: 'absolute',left:12,top:0,backgroundColor:'#8a8a8a',width:120,height:160}}>
-
-          </View>
-
-          <View style={[GStyles.ph12,{width:'100%',borderRadius:10,backgroundColor:'#fff',height:280}]}>
-
-              <View style={{alignItems:'flex-end',width:'100%',height:110,backgroundColor:''}} >
-                  <View style={{width:WINDOW_WIDTH-180,paddingTop:12,height:110,backgroundColor:''}}>
-                      <Text numberOfLines={1} style={{fontSize:30,fontWeight:'600'}}>{name}</Text>
-                      <Text numberOfLines={2} style={{fontSize:14}}>{address}</Text>
-                  </View>
-              </View>
-
-              <View style={{width:'100%',marginTop:10,height:100,backgroundColor:''}} >
-                <Text style={{fontSize:14}}>address</Text>
-              </View>
-
-              <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{flex:1,gap:12}]}>
-                  <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
-
-                  }}>
-                      <Text style={{color:'#fff'}}>想去</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
-
-                  }}>
-                      <Text style={{color:'#fff'}}>去过</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
-
-                  }}>
-                      <Text style={{color:'#fff'}}>评价</Text>
-                  </TouchableOpacity>
-              </View>
-
-          </View>
-
-      </View>
-    );
-  };
 
 
 
@@ -149,10 +88,75 @@ function IndexView({navigation}) {
 
   }
 
-  if (isPending)return null
+    if (isPending)return null
+
+    const mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
+
+    const DetailCard = () => {
+
+        const {name,address,rating} = mapArray[select]
+
+        //  console.log(data?.data[select])
+
+        return (
+            <View
+                style={[
+                    GStyles.pa,
+                    GStyles.ac,
+                    {
+                        left:10,
+                        bottom: 10,
+                        width: WINDOW_WIDTH-20,
+                        height: 330,
+                        justifyContent:'flex-end'
+                    },
+                ]}
+            >
+                <View style={{zIndex:2,borderRadius:10,borderColor:'#000',borderWidth:1,position: 'absolute',left:12,top:0,backgroundColor:'#8a8a8a',width:120,height:160}}>
+
+                </View>
+
+                <View style={[GStyles.ph12,{width:'100%',borderRadius:10,backgroundColor:'#fff',height:280}]}>
+
+                    <View style={{alignItems:'flex-end',width:'100%',height:110,backgroundColor:''}} >
+                        <View style={{width:WINDOW_WIDTH-180,paddingTop:12,height:110,backgroundColor:''}}>
+                            <Text numberOfLines={1} style={{fontSize:30,fontWeight:'600'}}>{name}</Text>
+                            <Text numberOfLines={2} style={{fontSize:14}}>{address}</Text>
+                        </View>
+                    </View>
+
+                    <View style={{width:'100%',marginTop:10,height:100,backgroundColor:''}} >
+                        <Text style={{fontSize:14}}>address</Text>
+                    </View>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{flex:1,gap:12}]}>
+                        <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
+
+                        }}>
+                            <Text style={{color:'#fff'}}>想去</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
+
+                        }}>
+                            <Text style={{color:'#fff'}}>去过</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={[GStyles.jc,GStyles.ac,{borderRadius:10,backgroundColor:'#000',flex:1,height:44}]} onPress={()=>{
+
+                        }}>
+                            <Text style={{color:'#fff'}}>评价</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+
+            </View>
+        );
+    };
 
 
-  return (
+    return (
     <View style={{ flex: 1 }}>
         <TouchableOpacity style={{width:80,height:30,zIndex:9,borderRadius:5,justifyContent:'center',alignItems:'center',position: 'absolute',right:12,backgroundColor:'#fff',top:insets.top+10}} onPress={()=>{
             navigation.push('CommunityList',{list:data?.data,click:(item,index)=>{
@@ -172,11 +176,11 @@ function IndexView({navigation}) {
         pitchEnabled={false}
         showsCompass={false}
         initialCamera={initialCamera}>
-          {data?.data.map((v,index)=>{
+          {mapArray.map((v,index)=>{
               return <Marker
                   key={index}
                   onPress={(e) => {
-                      console.log(e?.nativeEvent)
+                      // console.log(e?.nativeEvent)
                       setSelect(e?.nativeEvent?.id)
                       moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
                       setShowDetail(true);
