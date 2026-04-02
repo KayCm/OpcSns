@@ -29,7 +29,7 @@ function IndexView(props) {
 
 
     return (<View style={{ flex: 1}}>
-            <NavHeader title={'登录'} />
+            <NavHeader showLeft={false} title={'登录'} />
 
             <View style={[GStyles.ph12,{}]}>
                 <Text style={{ fontSize: 50, fontWeight: '800' }}>Login</Text>

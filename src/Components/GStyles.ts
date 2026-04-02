@@ -16,8 +16,25 @@ const STYLE = StyleSheet.create({
         overflow: 'hidden',
         flex:1,
     },
+    ffh1:{
+
+    },
+    ffh2:{
+
+    },
+    ffh3:{
+        ...Platform.select({
+            ios:{fontFamily:'SourceHanSerifCN-Medium'},
+            android:{fontFamily:'SourceHanSerifCN-Medium-6'}
+        }),
+        fontSize:appSize(14),
+        fontWeight:'500'
+    },
     ff:{
-        fontFamily:'Urbanist',
+
+    },
+    ffsmall:{
+
     },
     ffb:{
         ...Platform.select({

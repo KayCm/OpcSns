@@ -1,14 +1,16 @@
 import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {SwiperFlatList} from "react-native-swiper-flatlist/index";
+import {SwiperFlatList} from "react-native-swiper-flatlist";
 import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../../Components/GStyles";
 import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../../Services/NetRequestService";
+import {useState} from "react";
+import {getDateInfo} from "../../../Components/Tools";
 
 function NewsHeader({BannerClick,HotInfoClick}) {
 
     // /open-api/mobile/home/banner/list
 
-    const { isPending, isError, data:bannerDatra, error } = useQuery({
+    const { isPending, isError, data:bannerDatra, error,isSuccess } = useQuery({
         queryKey: ['banner'],
         queryFn: ()=> R_POST('/open-api/mobile/home/banner/list'),
     })
@@ -53,9 +55,8 @@ function NewsHeader({BannerClick,HotInfoClick}) {
     const NewsCard = ({style}) => {
 
         return(<View style={{...style}}>
-            <Text numberOfLines={3} style={[GStyles.ffb,{fontSize: 14,lineHeight: 20 }]}>
-                <View
-                    style={{
+            <Text numberOfLines={3} style={[GStyles.ffb,{fontSize: 14,lineHeight: 20,fontWeight: '800' }]}>
+                <View style={{
                         backgroundColor: 'red',
                         // borderRadius: 10,
                         borderTopLeftRadius:appSize(3),
@@ -66,16 +67,17 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                         justifyContent:'center',
                         alignItems: 'center',
                         marginRight:appSize(5)
-                    }}
-                >
+                    }}>
                     <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>1</Text>
-                </View>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场，交易员如梦初醒！</Text>
-            <Text numberOfLines={1} style={{marginTop:appSize(5)}}>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场，交易员如梦初醒！</Text>
+                </View>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场！</Text>
+            <Text numberOfLines={1} style={{marginTop:appSize(5),color:'#909090'}}>{' '}降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场！</Text>
         </View>)
 
     }
 
     const News2 = () => {
+
+        const dateObj = getDateInfo('zh')
 
       return(<View style={[GStyles.ph12,{marginTop:appSize(20),backgroundColor: '#fff'}]}>
 
@@ -87,17 +89,20 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                       <Image source={require('../../../Assets/News/news_txt2.png')} style={{height:appSize(14.5),width:appSize(38.5)}} />
                   </ImageBackground>
 
+
                   <View style={[GStyles.row,GStyles.jc,GStyles.ac,{width:appSize(55),height:appSize(28),backgroundColor:'#F0EBE4',borderColor:'#E0CAAA',borderWidth:1}]} >
 
                       <View style={{alignItems:'flex-end',paddingRight:appSize(3)}}>
-                          <Text style={[GStyles.ffb,{fontSize:appSize(10)}]}>周日</Text>
-                          <Text style={[GStyles.ffb,{fontSize:appSize(10)}]}>3月</Text>
+                          <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.weekday}</Text>
+                          <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.month}</Text>
                       </View>
 
                       <View style={{height:appSize(20),width:1,backgroundColor:'#E0CAAA'}} />
 
-                      <Text style={[GStyles.ffb,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>29</Text>
+                      <Text style={[GStyles.ffh1,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>{dateObj?.day}</Text>
                   </View>
+
+
               </View>
 
 
@@ -124,56 +129,64 @@ function NewsHeader({BannerClick,HotInfoClick}) {
       </View>)
     }
 
+    const Banner = () => {
+
+        return(<View
+            style={[GStyles.ac,{
+                height: appSize(200),
+                width: '100%',
+                borderRadius: 2,
+            }]}>
+            <SwiperFlatList
+                autoplay={isSuccess}
+                autoplayDelay={5}
+                autoplayLoop
+                loop
+                style={{width:WINDOW_WIDTH-appSize(24),height: appSize(200)}}
+                getItemLayout={(data, index) => (
+                    {length: WINDOW_WIDTH-appSize(24), offset: (WINDOW_WIDTH-appSize(24)) * index, index: index}
+                )}
+                // showPagination
+                data={bannerDatra?.data}
+                renderItem={({ item }) => (
+                    <TouchableOpacity onPress={()=>{
+                        if (BannerClick)BannerClick(item)
+                    }}
+                                      style={[
+                                          GStyles.flexEnd,
+                                          {
+                                              height: appSize(200),
+                                              width:WINDOW_WIDTH-appSize(24),
+                                              borderRadius: 2,
+                                          },
+                                      ]}
+                    >
+                        <Image
+                            source={{uri:item?.imageUrl}}
+                            resizeMode={'cover'}
+                            style={{
+                                backgroundColor: '#123',
+                                height: appSize(200),
+                                width: WINDOW_WIDTH-appSize(24),
+                            }}
+                        />
+                        <View style={[GStyles.ph12,{position: 'absolute',justifyContent:'center',backgroundColor:'#03030350',zIndex:3,width:'100%',height:44}]}>
+                            <Text
+                                style={{fontSize: 14,color:'#fff' }}
+                                numberOfLines={1}>
+                                {item?.title}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                )}
+            />
+        </View>)
+
+    }
+
     return (
         <View style={[GStyles.pv12,{}]}>
-            <View
-                style={[GStyles.ph12,{
-                    height: 200,
-                    width: '100%',
-                    borderRadius: 2,
-                }]}
-            >
-                <SwiperFlatList
-                    autoplay
-                    autoplayDelay={2}
-                    autoplayLoop
-                    index={2}
-                    // showPagination
-                    data={bannerDatra?.data}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity onPress={()=>{
-                            if (BannerClick)BannerClick(item)
-                        }}
-                            style={[
-                                GStyles.flexEnd,
-                                {
-                                    height: 200,
-                                    width: WINDOW_WIDTH,
-                                    borderRadius: 2,
-                                },
-                            ]}
-                        >
-                            <Image
-                                source={{uri:item?.imageUrl}}
-                                resizeMode={'cover'}
-                                style={{
-                                    backgroundColor: '#123',
-                                    height: 200,
-                                    width: WINDOW_WIDTH,
-                                }}
-                            />
-                            <View style={[GStyles.ph12,{position: 'absolute',justifyContent:'center',backgroundColor:'#03030350',zIndex:3,width:'100%',height:44}]}>
-                                <Text
-                                    style={{fontSize: 14,color:'#fff' }}
-                                    numberOfLines={1}>
-                                    {item?.title}
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-
+            <Banner />
             <News2 />
         </View>
     );

@@ -1,9 +1,6 @@
 import {View, Text, Image, TouchableOpacity, ImageBackground} from "react-native";
-import DataList2 from "../../Components/DataList2/Index";
-import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../Components/GStyles";
+import GStyles, {appSize, WINDOW_WIDTH} from "../../Components/GStyles";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
-import {R_POST} from "../../Services/NetRequestService";
-import InfiniteList from "../../Components/InfiniteList";
 import DataList3 from '../../Components/DataList3/Index'
 import Animated from "react-native-reanimated";
 import PagerView from "react-native-pager-view";
@@ -37,10 +34,7 @@ function IndexView() {
                         <Text style={{color:'#fff',fontSize:appSize(14)}}>立即观看</Text>
                     </TouchableOpacity>
 
-
                 </ImageBackground>
-
-
 
                 <ImageBackground source={require('../../Assets/Vip/opc_news.png')} resizeMode={'center'} style={{alignItems:'center',justifyContent:'center',width:'100%',height:appSize(52)}} imageStyle={{width:appSize(199),height:appSize(52)}}>
                     <Text numberOfLines={1} style={[GStyles.ffb,{fontSize:appSize(16),color:'#121212'}]}>AI+OPC 成地方经济新增长极</Text>
@@ -58,6 +52,8 @@ function IndexView() {
     }
 
     const renderRow = ({item}) => {
+
+        console.log(item)
 
       return(<View key={item?.id} style={[GStyles.jc,GStyles.ac,{width:(WINDOW_WIDTH)/2,height:appSize(150)}]}>
           <View style={{width:appSize(168)}}>
@@ -94,7 +90,6 @@ function IndexView() {
         <AnimatedPagerView ref={pagerRef} style={{ flex: 1, backgroundColor: '' }} onPageSelected={e => {}} initialPage={0}>
 
             <DataList3 key={1} numColumns={2} estimatedItemSize={appSize(150)}  renderHeader={renderHeader} renderRow={renderRow} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />
-
 
         </AnimatedPagerView>
 

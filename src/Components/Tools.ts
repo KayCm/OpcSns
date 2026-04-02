@@ -31,6 +31,28 @@ export function formatTimeAgo(dateString: string): string {
         const day = targetDate.getDate();
         const hours = targetDate.getHours().toString().padStart(2, '0');
         const minutes = targetDate.getMinutes().toString().padStart(2, '0');
-        return `${year}/${month}/${day} ${hours}:${minutes}`;
+        return `${month}/${day}`;
+    }
+}
+
+
+
+export function getDateInfo(language: 'zh' | 'en', date: Date = new Date()): string {
+    // 月份映射（中文和英文）
+    const monthsZh = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+    const monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    // 星期几映射（中文完整，英文缩写）
+    const weekdaysZh = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    const weekdaysEnAbbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    const month = date.getMonth();      // 0-11
+    const day = date.getDate();         // 1-31
+    const weekday = date.getDay();      // 0-6 (0 表示星期日)
+
+    if (language === 'zh') {
+        return {month:monthsZh[month],day:day,weekday:weekdaysZh[weekday]}
+    } else {
+        return {month:monthsEn[month],day:day,weekday:weekdaysEnAbbr[weekday]}
     }
 }

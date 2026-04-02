@@ -12,7 +12,9 @@
 		3379D8F08048EE901405134A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8B81A73059694BACAA8F0F09 /* SourceHanSerifCN-Heavy-4.otf in Resources */ = {isa = PBXBuildFile; fileRef = C64A129C76774BA1A84BD883 /* SourceHanSerifCN-Heavy-4.otf */; };
+		3DB589BC340A43059AB14A37 /* SourceHanSerifCN-SemiBold-7.otf in Resources */ = {isa = PBXBuildFile; fileRef = FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */; };
+		B9495D55498748F49CC4BEA2 /* SourceHanSerifCN-Medium-6.otf in Resources */ = {isa = PBXBuildFile; fileRef = A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */; };
+		DF45F72A022A48EE802B3FBE /* SourceHanSerifCN-Heavy-4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +28,9 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = OpcSnsProj/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OpcSnsProj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		C64A129C76774BA1A84BD883 /* SourceHanSerifCN-Heavy-4.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-Heavy-4.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Heavy-4.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-SemiBold-7.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-SemiBold-7.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-Medium-6.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Medium-6.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-Heavy-4.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Heavy-4.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,16 @@
 				5DCACB8F33CDC322A6C60F78 /* libPods-OpcSnsProj.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		44FC24D7993E400B8550E134 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */,
+				A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */,
+				11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -100,15 +114,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		44FC24D7993E400B8550E134 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				C64A129C76774BA1A84BD883 /* SourceHanSerifCN-Heavy-4.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -173,7 +178,9 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3379D8F08048EE901405134A /* PrivacyInfo.xcprivacy in Resources */,
-				8B81A73059694BACAA8F0F09 /* SourceHanSerifCN-Heavy-4.otf in Resources */,
+				3DB589BC340A43059AB14A37 /* SourceHanSerifCN-SemiBold-7.otf in Resources */,
+				B9495D55498748F49CC4BEA2 /* SourceHanSerifCN-Medium-6.otf in Resources */,
+				DF45F72A022A48EE802B3FBE /* SourceHanSerifCN-Heavy-4.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,9 +211,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -243,9 +254,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -273,9 +288,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G3MC95Y7VH;
+				DEVELOPMENT_TEAM = TB677GV46A;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = OpcSnsProj/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NEXA;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -287,7 +303,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexaopc.app;
 				PRODUCT_NAME = OpcSnsProj;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -304,8 +320,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G3MC95Y7VH;
+				DEVELOPMENT_TEAM = TB677GV46A;
 				INFOPLIST_FILE = OpcSnsProj/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NEXA;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -317,7 +334,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nexaopc.app;
 				PRODUCT_NAME = OpcSnsProj;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SWIFT_VERSION = 5.0;

@@ -6,7 +6,7 @@ import GStyles from './GStyles';
 import IconNavBack from '../Assets/Svgs/IconNavBack';
 import { useNavigation } from '@react-navigation/native';
 import IconNavClose from '../Assets/Svgs/IconNavClose';
-function NavHeader({ onPressLeft = null, title = 'Title', showClose = false }) {
+function NavHeader({ onPressLeft = null, title = 'Title',showLeft=true, showClose = false }) {
   const nav = useNavigation();
   const area = useSafeAreaInsets();
 
@@ -32,14 +32,16 @@ function NavHeader({ onPressLeft = null, title = 'Title', showClose = false }) {
             },
           ]}
         >
-          <TouchableOpacity
-            onPress={() => {
-              if (!onPressLeft) nav.goBack();
-              9878;
-            }}
-          >
-            {showClose ? <IconNavClose /> : <IconNavBack />}
-          </TouchableOpacity>
+
+            {showLeft?<TouchableOpacity
+                onPress={() => {
+                    if (!onPressLeft) nav.goBack();
+                }}
+            >
+                {showClose ? <IconNavClose /> : <IconNavBack />}
+            </TouchableOpacity>:<View style={{ width: 32 }} />}
+
+
 
           <Text
             style={{

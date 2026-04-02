@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import {View, Text, TouchableOpacity, Platform} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import GStyles, { WINDOW_WIDTH } from '../../Components/GStyles.ts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -167,35 +167,38 @@ function IndexView({navigation}) {
         }}>
             <Text>社区列表</Text>
         </TouchableOpacity>
-      <MapView
-        style={{ flex: 1 }}
-        ref={mapRef}
-        onPanDrag={()=>{
-            setShowDetail(false)
-        }}
-        pitchEnabled={false}
-        showsCompass={false}
-        initialCamera={initialCamera}>
-          {mapArray.map((v,index)=>{
-              return <Marker
-                  key={index}
-                  onPress={(e) => {
-                      // console.log(e?.nativeEvent)
-                      setSelect(e?.nativeEvent?.id)
-                      moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
-                      setShowDetail(true);
-                  }}
-                  onSelect={e => {
-                      // console.log(e.nativeEvent);
-                  }}
-                  onCalloutPress={() => {
-                      // console.log('onCalloutPress');
-                  }}
-                  identifier={index+""}
-                  coordinate={{ latitude: v.latitude, longitude: v.longitude }}
-              />
-          })}
-      </MapView>
+
+        {Platform.OS == 'ios' && ( <MapView
+            style={{ flex: 1 }}
+            ref={mapRef}
+            onPanDrag={()=>{
+                setShowDetail(false)
+            }}
+            pitchEnabled={false}
+            showsCompass={false}
+            initialCamera={initialCamera}>
+            {mapArray.map((v,index)=>{
+                return <Marker
+                    key={index}
+                    onPress={(e) => {
+                        // console.log(e?.nativeEvent)
+                        setSelect(e?.nativeEvent?.id)
+                        moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                        setShowDetail(true);
+                    }}
+                    onSelect={e => {
+                        // console.log(e.nativeEvent);
+                    }}
+                    onCalloutPress={() => {
+                        // console.log('onCalloutPress');
+                    }}
+                    identifier={index+""}
+                    coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+                />
+            })}
+        </MapView>)}
+
+
       {showDetail && <DetailCard  />}
     </View>
   );

@@ -79,12 +79,12 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                 default:
                 case t('tabs.news'):{
                     Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
-                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
+                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_off.png')} />
                     break;
                 }
                 case t('tabs.vip'):{
-                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
-                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
+                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/vip_on.png')} />
+                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/vip_off.png')} />
                     break;
                 }
                 case t('tabs.make'):{
@@ -93,13 +93,13 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                     break;
                 }
                 case t('tabs.map'):{
-                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
-                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
+                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/map_on.png')} />
+                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/map_off.png')} />
                     break;
                 }
                 case t('tabs.mine'):{
-                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
-                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/news_on.png')} />
+                    Icon = isFocused ? <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/mine_on.png')} />
+                        : <Image style={{height:appSize(24),width:appSize(24)}} source={require('../Assets/Tabs/mine_off.png')} />
                     break;
                 }
             }

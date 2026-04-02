@@ -4,6 +4,14 @@
     {
       "path": "src/Assets/fonts/SourceHanSerifCN-Heavy-4.otf",
       "sha1": "3a0a419832455d748feb2d064b731c67ab3cb424"
+    },
+    {
+      "path": "src/Assets/fonts/SourceHanSerifCN-Medium-6.otf",
+      "sha1": "7a8b18e0a63136dd309829a9c917ce771f1637f9"
+    },
+    {
+      "path": "src/Assets/fonts/SourceHanSerifCN-SemiBold-7.otf",
+      "sha1": "3bfdc17b74f21b43d5b72b3c730e32479625c3f4"
     }
   ]
 }

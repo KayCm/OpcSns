@@ -52,8 +52,7 @@ function IndexView(props) {
                   Nav.push('Detail',{item:v})
               },HotInfoClick:(v)=>{
 
-              }})}
-                renderRow={item =>
+              }})} renderRow={item =>
               NewsRenderRow({
                   item: item,
                   onPress: item => {
@@ -61,35 +60,6 @@ function IndexView(props) {
                   },
               })} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />
 
-
-
-          {/*<DataList2*/}
-          {/*    key={index}*/}
-          {/*    renderHeader={null}*/}
-          {/*    renderItem={item =>*/}
-          {/*        NewsRenderRow({*/}
-          {/*            item: item,*/}
-          {/*            onPress: item => {*/}
-          {/*                Nav.push('Detail',{item:item?.item})*/}
-          {/*            },*/}
-          {/*        })*/}
-          {/*    }*/}
-          {/*    url={'/open-api/mobile/home/material/byTag/list'}*/}
-          {/*    params={{ tagId: value.id }}*/}
-          {/*    CACHE_KEY={'tag_' + value.id}*/}
-          {/*/>*/}
-
-          {/*<DataList2*/}
-          {/*renderHeader={()=>NewsHeader((v)=>{*/}
-          {/*    console.log(v)*/}
-          {/*},(v)=>{*/}
-          {/*    console.log(v)*/}
-          {/*})}*/}
-          {/*renderItem={*/}
-          {/*}*/}
-        {/*  url={'/open-api/mobile/home/material/normal/list'}*/}
-        {/*  CACHE_KEY={'main'}*/}
-        {/*/>*/}
         {data?.data?.map((value, index, array) => {
           return (<DataList3 key={index+1} renderHeader={null} renderRow={item =>
               NewsRenderRow({

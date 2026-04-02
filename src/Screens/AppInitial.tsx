@@ -19,10 +19,6 @@ function AppInitial(props) {
             nav.replace('Login')
         }
 
-
-
-
-
     },[appData])
 
     return(<View />)

@@ -9,6 +9,8 @@ function IndexView(props: any) {
 
   const [isEnabled, setIsEnabled] = useState(false);
 
+  const {navigation,route} = props
+
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   const MenuBar = ({ title = 'title', LeftDom, onPress,style,showRightIcon=true }) => {
@@ -43,6 +45,9 @@ function IndexView(props: any) {
         <NavHeader title={'设置'} />
         <MenuBar
           title={'账号管理'}
+          onPress={()=>{
+              navigation.push('')
+          }}
           style={{
             backgroundColor: '#ffffff',
             borderBottomWidth: 0,
@@ -61,13 +66,15 @@ function IndexView(props: any) {
           LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}
           showRightIcon={false}
         />
-
-          <MenuBar
-              title={'语言'}
-              style={{ backgroundColor: '#ffffff' }}
-              LeftDom={<Text>中文</Text>}
-              showRightIcon={false}
-          />
+        <MenuBar
+          title={'语言'}
+          onPress={()=>{
+              navigation.push('')
+          }}
+          style={{ backgroundColor: '#ffffff' }}
+          LeftDom={<Text>中文</Text>}
+          showRightIcon={false}
+        />
         <MenuBar title={'隐私协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar title={'用户协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar

@@ -5,7 +5,7 @@ function IndexView(props: any) {
 
     return (
         <View style={{ flex: 1,backgroundColor:'#fff'}}>
-            <NavHeader />
+            <NavHeader title={'常见问题'} />
         </View>
     );
 }
