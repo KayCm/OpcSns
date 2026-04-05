@@ -3,8 +3,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import News from '../Screens/News/IndexView'
 import VIP from '../Screens/VIP/IndexView'
+import Earn from '../Screens/Earn/IndexView'
 import Map from '../Screens/Map/IndexView'
 import Mine from '../Screens/Mine/IndexView'
+
 import {useLinkBuilder} from "@react-navigation/native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {Easing, Image, Platform, Text, View} from 'react-native';
@@ -232,7 +234,7 @@ export default function AppBottomTab() {
                        tabBar={props => <AppBottomTabBar {...props} />}>
             <Tab.Screen name={t('tabs.news')} component={enhanceScreen(News,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
             <Tab.Screen name={t('tabs.vip')} component={enhanceScreen(VIP,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
-            <Tab.Screen name={t('tabs.make')} component={enhanceScreen(Map,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.make')} component={enhanceScreen(Earn,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
             <Tab.Screen name={t('tabs.map')} component={enhanceScreen(Map,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
             <Tab.Screen name={t('tabs.mine')} component={enhanceScreen(Mine,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
         </Tab.Navigator>

@@ -9,8 +9,8 @@
   "notifications_plural": "You have {{count}} new messages",
   "tabs": {
     "news":"NEWS",
-    "vip":"VIP",
-    "make":"Make",
+    "vip":"Events",
+    "make":"Earn",
     "map":"MAP",
     "mine":"MINE"
   },

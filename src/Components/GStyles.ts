@@ -17,7 +17,12 @@ const STYLE = StyleSheet.create({
         flex:1,
     },
     ffh1:{
-
+        ...Platform.select({
+            ios:{fontFamily:'SourceHanSerifCN-SemiBold'},
+            android:{fontFamily:'SourceHanSerifCN-SemiBold-7'}
+        }),
+        fontSize:appSize(18),
+        fontWeight:'500'
     },
     ffh2:{
 

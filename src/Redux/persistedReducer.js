@@ -10,6 +10,7 @@ const initialState = {
     google_email: null,
     google_id: null,
     nickname: null,
+    username:null,
     uuid: null,
     token: null,
   },
@@ -33,6 +34,7 @@ const particleSlice = createSlice({
             state.userInfo.google_email = payload?.google_email;
             state.userInfo.google_id = payload?.google_id;
             state.userInfo.name = payload?.name;
+            state.userInfo.username = payload?.username;
             state.userInfo.token = payload?.token;
             state.userInfo.uuid = payload?.uuid;
             return state;
@@ -47,6 +49,7 @@ const particleSlice = createSlice({
             state.userInfo.google_email = payload?.google_email;
             state.userInfo.google_id = payload?.google_id;
             state.userInfo.nickname = payload?.nickname;
+            state.userInfo.username = payload?.username;
             state.userInfo.token = payload?.token;
             state.userInfo.uuid = payload?.uuid;
             return state;

@@ -1,11 +1,19 @@
-import {View, Text, TouchableOpacity, Platform} from 'react-native';
+import {View, Text, TouchableOpacity, Platform, ImageBackground, Image} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import GStyles, { WINDOW_WIDTH } from '../../Components/GStyles.ts';
+import GStyles, {appSize, WINDOW_WIDTH} from '../../Components/GStyles.ts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRef, useState } from 'react';
 import IconNavClose from '../../Assets/Svgs/IconNavClose';
 import {R_POST} from "../../Services/NetRequestService";
 import {useQuery} from "@tanstack/react-query";
+import TurboImage from "react-native-turbo-image/src/TurboImage";
+import Rating from "../../Components/Rating";
+
+
+const starFilled = require('../../Assets/map/score_on.png');
+const starOutline = require('../../Assets/map/score_off.png');
+
+
 function IndexView({navigation}) {
 
   const insets = useSafeAreaInsets();
@@ -62,11 +70,11 @@ function IndexView({navigation}) {
     zoom: 10,
   };
 
-  const getLoacl = () => {
-    mapRef?.current.getCamera().then(res => {
-      setCam(res);
-    });
-  };
+  // const getLoacl = () => {
+  //   mapRef?.current.getCamera().then(res => {
+  //     setCam(res);
+  //   });
+  // };
 
   const moveTo =(latitude,longitude)=>{
 
@@ -155,17 +163,78 @@ function IndexView({navigation}) {
         );
     };
 
+    const [score, setScore] = useState(3);
 
-    return (
-    <View style={{ flex: 1 }}>
-        <TouchableOpacity style={{width:80,height:30,zIndex:9,borderRadius:5,justifyContent:'center',alignItems:'center',position: 'absolute',right:12,backgroundColor:'#fff',top:insets.top+10}} onPress={()=>{
-            navigation.push('CommunityList',{list:data?.data,click:(item,index)=>{
+    const InfoCard = () => {
+
+        const {name,address,rating} = mapArray[select]
+
+        console.log(mapArray[select])
+
+        return(<ImageBackground source={require('../../Assets/map/bg.png')} style={[GStyles.pa,{bottom:0,right:0,width:appSize(380),height:appSize(260),overflow:'hidden'}]}>
+            <Image source={require('../../Assets/map/topleft.png')} style={[GStyles.pa,{width:appSize(380),height:appSize(260)}]} />
+
+            <View style={[GStyles.jcBetween,{flex:1,backgroundColor:"",paddingHorizontal:appSize(16),paddingTop:appSize(30),paddingBottom:appSize(15)}]}>
+
+                <View style={[GStyles.row,{}]}>
+                    <Image source={require('../../Assets/icon.png')} resizeMode={'contain'} style={{height:appSize(108),width:appSize(80),backgroundColor:'#000'}} />
+
+                    <View style={[GStyles.jcBetween,{flex:1,marginLeft:appSize(12),backgroundColor:''}]}>
+
+                        <Text style={GStyles.ffh1}>{name}</Text>
+
+                        <Rating value={score} onChange={setScore} activeImg={starFilled} inactiveImg={starOutline} size={appSize(20)} gap={appSize(4)}/>
+
+                        <Text numberOfLines={3} style={{fontSize:appSize(14),color:'#8A7E71'}}>{address}</Text>
+                    </View>
+                </View>
+
+                <Text numberOfLines={3} style={{fontSize:appSize(14),lineHeight:appSize(18),color:'#6E6E6E'}}>专注于OPC技术创新与人才培育的专业社区，依托OPC基金会标准体系，人才净流入持续领先聚焦OPC UA、TSN等核心技术的研发与应用，为开发者提供技术培训、项目孵化…</Text>
+
+
+                <View style={[GStyles.row,GStyles.flexEnd,{height:appSize(28),width:'100%',gap:appSize(10)}]}>
+
+                    <TouchableOpacity onPress={()=>{
+
+                    }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
+                        <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan1.png')} />
+                        <Text style={{color:'#fff'}}>想去</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>{
+
+                    }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
+                        <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan2.png')} />
+                        <Text style={{color:'#fff'}}>去过</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={()=>{
+
+                    }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
+                        <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan3.png')} />
+                        <Text style={{color:'#fff'}}>评价</Text>
+                    </TouchableOpacity>
+
+                </View>
+
+
+            </View>
+
+
+
+        </ImageBackground>)
+
+    }
+
+    return (<View style={{ flex: 1 }}>
+        <TouchableOpacity style={{zIndex:9,borderRadius:5,justifyContent:'center',alignItems:'center',position: 'absolute',right:0,backgroundColor:'#fff',bottom:insets.bottom+appSize(250)}} onPress={()=>{
+            navigation.push('CommunityList',{list:mapArray,click:(item,index)=>{
                     setSelect(index)
-                    moveTo(item?.latitude,item?.longitude)
+                    if (Platform.OS=='ios')moveTo(item?.latitude,item?.longitude)
                     setShowDetail(true);
             }})
         }}>
-            <Text>社区列表</Text>
+            <Image style={{width:appSize(44),height:appSize(44)}} source={require('../../Assets/map/listIcon.png')} />
         </TouchableOpacity>
 
         {Platform.OS == 'ios' && ( <MapView
@@ -198,10 +267,10 @@ function IndexView({navigation}) {
             })}
         </MapView>)}
 
+        {/*<InfoCard />*/}
 
-      {showDetail && <DetailCard  />}
-    </View>
-  );
+      {showDetail && <InfoCard  />}
+    </View>);
 }
 
 export default IndexView;

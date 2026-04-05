@@ -48,15 +48,35 @@ function IndexView(props) {
         }}
         initialPage={0}>
 
-          <DataList3 key={1}  renderHeader={()=>NewsHeader({BannerClick:(v)=>{
-                  Nav.push('Detail',{item:v})
-              },HotInfoClick:(v)=>{
+          <DataList3 key={1}  renderHeader={()=>NewsHeader({BannerClick:(value)=>{
+
+              console.log('value',value)
+
+                  if (value?.materialType == 'post'){
+                      Nav.push('DetailPost',{item: {id:value?.linkValue}})
+                  }else{
+                      Nav.push('Detail',{item:{id:value?.linkValue}})
+                  }
+
+              },HotInfoClick:(value)=>{
+
+                  if (value?.materialType == 'post'){
+                      Nav.push('DetailPost',{item:value})
+                  }else{
+                      Nav.push('Detail',{item:value})
+                  }
 
               }})} renderRow={item =>
               NewsRenderRow({
                   item: item,
                   onPress: item => {
-                      Nav.push('Detail',{item:item?.item})
+                      // Nav.push('Detail',{item:item?.item})
+                      // console.log(item?.item?.contentType)
+                      if (item?.item?.materialType == 'post'){
+                          Nav.push('DetailPost',{item:item?.item})
+                      }else{
+                          Nav.push('Detail',{item:item?.item})
+                      }
                   },
               })} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />
 
@@ -65,7 +85,14 @@ function IndexView(props) {
               NewsRenderRow({
                   item: item,
                   onPress: item => {
-                      Nav.push('Detail',{item:item?.item})
+
+                      // console.log(item?.item?.contentType)
+                      if (item?.item?.materialType == 'post'){
+                          Nav.push('DetailPost',{item:item?.item})
+                      }else{
+                          Nav.push('Detail',{item:item?.item})
+                      }
+
                   },
               })} url={'/open-api/mobile/home/material/byTag/list'} params={{ tagId: value.id }} queryKey={'tag-list'+value.id}
           />);

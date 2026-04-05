@@ -107,16 +107,16 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
     const renderFooter = () => {
         if (!hasNextPage && allItems.length > 0) {
             return (
-                <View >
-                    <Text >—— 已加载全部 ——</Text>
+                <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}>
+                    <Text style={{color:'#8a8a8a'}}>—— No More ——</Text>
                 </View>
             );
         }
         if (isFetchingNextPage) {
             return (
-                <View >
+                <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}>
                     <ActivityIndicator size="small" />
-                    <Text>加载更多...</Text>
+                    <Text style={{color:'#8a8a8a'}}>Load More...</Text>
                 </View>
             );
         }

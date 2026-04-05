@@ -21,6 +21,9 @@ import FeedBack from './../Screens/Mine/FeedBack/IndexView'
 import Settings from './../Screens/Mine/Settings/IndexView'
 import ProfileSettings from './../Screens/Mine/ProfileSettings/IndexView'
 import enhanceScreen from "./enhanceScreen";
+import ActivityDetailView from "../Screens/Events/ActivityDetailView";
+import EarnDetailView from "../Screens/Earn/EarnDetailView";
+import DetailPostView from "../Screens/News/Detail/DetailPostView";
 
 const AppNavigator = () => {
     return (
@@ -48,6 +51,24 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name="Detail"
                         component={Detail}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                    name="DetailPost"
+                    component={DetailPostView}
+                    options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="ActivityDetail"
+                        component={ActivityDetailView}
+                        options={{ headerShown: false, animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="EarnDetail"
+                        component={EarnDetailView}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
 

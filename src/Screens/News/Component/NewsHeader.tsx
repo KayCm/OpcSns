@@ -1,10 +1,11 @@
-import {Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {SwiperFlatList} from "react-native-swiper-flatlist";
 import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../../Components/GStyles";
 import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../../Services/NetRequestService";
 import {useState} from "react";
 import {getDateInfo} from "../../../Components/Tools";
+import BannerCarousel from "../../../Components/BannerCarousel";
 
 function NewsHeader({BannerClick,HotInfoClick}) {
 
@@ -77,56 +78,65 @@ function NewsHeader({BannerClick,HotInfoClick}) {
 
     const News2 = () => {
 
+
+        // console.log('topData',topData)
+        const result = [];
+        for (let i = 0; i < topData?.data.length;i += 2) {
+
+            const obj = {};
+            obj['id'] = i;
+            obj['data'] = [topData?.data[i],topData?.data[i+1]];
+            result.push(obj);
+
+        }
+
+        // console.log('result',result)
+
+
+
         const dateObj = getDateInfo('zh')
+        return(<View style={[{marginTop:appSize(10)}]}>
 
-      return(<View style={[GStyles.ph12,{marginTop:appSize(20),backgroundColor: '#fff'}]}>
+                  <View style={[GStyles.flexEnd,{height:appSize(180)}]}>
 
-          <View style={{height:appSize(200)}}>
+                      <View style={[GStyles.row,GStyles.jcBetween,GStyles.pa,GStyles.ph12,{top:0,zIndex:2,width:'100%'}]}>
+                          <ImageBackground source={require('../../../Assets/News/news_bg.png')} style={[GStyles.row,GStyles.jc,{alignItems:'flex-end',height:appSize(28),width:appSize(98)}]}>
+                              <Image source={require('../../../Assets/News/news_txt1.png')} style={{height:appSize(18.5),width:appSize(53),marginLeft:appSize(10)}} />
+                              <Image source={require('../../../Assets/News/news_txt2.png')} style={{height:appSize(14.5),width:appSize(38.5)}} />
+                          </ImageBackground>
 
-              <View style={[GStyles.row,GStyles.jcBetween,GStyles.pa,{zIndex:2,width:'100%'}]}>
-                  <ImageBackground source={require('../../../Assets/News/news_bg.png')} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(26),width:appSize(90)}]}>
-                      <Image source={require('../../../Assets/News/news_txt1.png')} style={{height:appSize(18.5),width:appSize(53),marginLeft:appSize(10)}} />
-                      <Image source={require('../../../Assets/News/news_txt2.png')} style={{height:appSize(14.5),width:appSize(38.5)}} />
-                  </ImageBackground>
+                          <View style={[GStyles.row,GStyles.jc,GStyles.ac,{width:appSize(55),height:appSize(28),backgroundColor:'#F0EBE4',borderColor:'#E0CAAA',borderWidth:1}]} >
+
+                              <View style={{alignItems:'flex-end',paddingRight:appSize(3)}}>
+                                  <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.weekday}</Text>
+                                  <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.month}</Text>
+                              </View>
+
+                              <View style={{height:appSize(20),width:1,backgroundColor:'#E0CAAA'}} />
+
+                              <Text style={[GStyles.ffh1,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>{dateObj?.day}</Text>
+                          </View>
 
 
-                  <View style={[GStyles.row,GStyles.jc,GStyles.ac,{width:appSize(55),height:appSize(28),backgroundColor:'#F0EBE4',borderColor:'#E0CAAA',borderWidth:1}]} >
-
-                      <View style={{alignItems:'flex-end',paddingRight:appSize(3)}}>
-                          <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.weekday}</Text>
-                          <Text style={[{fontSize:appSize(9),backgroundColor:''}]}>{dateObj?.month}</Text>
                       </View>
 
-                      <View style={{height:appSize(20),width:1,backgroundColor:'#E0CAAA'}} />
+                      <View style={[GStyles.flexEnd,{backgroundColor: '#fff',height:appSize(160),width:'100%'}]}>
 
-                      <Text style={[GStyles.ffh1,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>{dateObj?.day}</Text>
+                          <BannerCarousel
+                              data={result}
+                              itemGap={appSize(10)}        // 卡片间距 20px
+                              rightSpace={appSize(30)}     // 右侧留白 30px（可省略，默认就是30）
+                              // autoPlay={true}
+                              // loop={true}
+                              onItemPress={(item) => {
+                                  if (HotInfoClick)HotInfoClick(item)
+                              }}
+                          />
+
+                      </View>
                   </View>
 
-
-              </View>
-
-
-              <View style={{backgroundColor: '#fff',height:appSize(180),marginTop:appSize(10),width:'100%'}}>
-                  <ScrollView horizontal={true} pagingEnabled={true} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-
-                      <View style={{height:appSize(160),marginTop:appSize(20),width:WINDOW_WIDTH-appSize(24)}}>
-
-                         <NewsCard style={{marginTop:appSize(20)}} />
-                         <NewsCard style={{marginTop:appSize(15)}} />
-
-
-                      </View>
-
-                      <View style={{height:appSize(180),backgroundColor:'#123',width:WINDOW_WIDTH-appSize(48)}}>
-
-                      </View>
-
-
-                  </ScrollView>
-              </View>
-          </View>
-
-      </View>)
+              </View>)
     }
 
     const Banner = () => {

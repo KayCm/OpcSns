@@ -10,14 +10,15 @@
 		0C80B921A6F3F58F76C31292 /* libPods-OpcSnsProj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-OpcSnsProj.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		3379D8F08048EE901405134A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		3DB589BC340A43059AB14A37 /* SourceHanSerifCN-SemiBold-7.otf in Resources */ = {isa = PBXBuildFile; fileRef = FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		3DB589BC340A43059AB14A37 /* SourceHanSerifCN-SemiBold-7.otf in Resources */ = {isa = PBXBuildFile; fileRef = FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */; };
 		B9495D55498748F49CC4BEA2 /* SourceHanSerifCN-Medium-6.otf in Resources */ = {isa = PBXBuildFile; fileRef = A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */; };
 		DF45F72A022A48EE802B3FBE /* SourceHanSerifCN-Heavy-4.otf in Resources */ = {isa = PBXBuildFile; fileRef = 11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceHanSerifCN-Heavy-4.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Heavy-4.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* OpcSnsProj.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpcSnsProj.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = OpcSnsProj/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = OpcSnsProj/Info.plist; sourceTree = "<group>"; };
@@ -27,10 +28,9 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-OpcSnsProj.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpcSnsProj.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = OpcSnsProj/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = OpcSnsProj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceHanSerifCN-Medium-6.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Medium-6.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-SemiBold-7.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-SemiBold-7.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A96BE625C2B24DAE9D8C461F /* SourceHanSerifCN-Medium-6.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-Medium-6.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Medium-6.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		11EF0B868A8A46A4BF21CF24 /* SourceHanSerifCN-Heavy-4.otf */ = {isa = PBXFileReference; name = "SourceHanSerifCN-Heavy-4.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-Heavy-4.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FC426A0F64974AB99FE7CEAA /* SourceHanSerifCN-SemiBold-7.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "SourceHanSerifCN-SemiBold-7.otf"; path = "../src/Assets/fonts/SourceHanSerifCN-SemiBold-7.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,13 +211,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -254,13 +250,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OpcSnsProj/Pods-OpcSnsProj-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

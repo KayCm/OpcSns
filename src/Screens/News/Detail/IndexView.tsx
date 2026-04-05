@@ -18,20 +18,22 @@ function IndexView(props: any) {
     const Nav = props?.navigation
     const item = props?.route?.params?.item
 
+    const insets = useSafeAreaInsets();
+
+    // 注入的 JavaScript 代码：等待页面加载完成后，在顶部添加标题栏
+    const webViewRef = useRef(null)
+
     const detailQueryId = 'detail'+item?.id.toString()
 
     const { isPending, isError, data, error } = useQuery({
-        queryKey: ['detailQueryId'],
+        queryKey: [[String('detail'+props?.route?.params?.item?.id.toString())]],
         queryFn: ()=> R_POST('/open-api/mobile/content/material/detail',{id:props?.route?.params?.item?.id}),
-        gcTime:0
+        staleTime: 1000 * 60 * 60 * 24
     })
-
 
     if (isPending)return null
 
     console.log('data:',data?.data)
-
-
     const mockHtml = `
     <!DOCTYPE html>
     <html lang="en">
@@ -90,24 +92,13 @@ function IndexView(props: any) {
     </script>
     </head>
     <body>
-    `+data?.data?.material?.content+`
-    </body>
-    </html>`;
-
-
-    const insets = useSafeAreaInsets();
-
-    // 注入的 JavaScript 代码：等待页面加载完成后，在顶部添加标题栏
-    const webViewRef = useRef(null)
-
+    `+data?.data?.material?.content+`</body></html>`;
     const title= data?.data?.material?.title
     const author = data?.data?.material?.author
     const createTime= data?.data?.material?.createTime
     const summary= data?.data?.material?.summary
-
     var headerHtml = `<div><div style="font-size: 1.75rem;line-height: 2rem;font-weight: bold;">${title}</div><div style="font-size: 0.75rem;display: flex;color: #999"><p style="margin-right: 1rem;">${createTime}</p><p style="margin-right: 1rem;">${author}</p></div></div>`
     if (data?.data?.material?.summary) headerHtml = `<div><div style="font-size: 1.5rem;line-height: 2rem;font-weight: bold;">${title}</div><div style="font-size: 0.75rem;display: flex;color: #999"><p style="margin-right: 1rem;">${createTime}</p><p style="margin-right: 1rem;">${author}</p></div> <div style="position: relative;margin-top: 1rem;font-size: 1rem;background-color: #f4f4f4;padding: 1.25rem 0.75rem;padding-bottom:0.75rem;border-radius: 4px;"><div style="position: absolute;top: -12px;left: 0.75rem;font-size: 1rem;font-weight: 500;"><span style="font-weight: 300;color: #666;">|</span> 概 <span style="font-weight: 300;color: #666;">|</span> 要 <span style="font-weight: 300;color: #666;">|</span></div><div style="font-size: 0.875rem;line-height: 1.5rem;color: #000000;">${summary}</div></div></div>`
-
     const injectScript = () => {
         webViewRef.current.injectJavaScript(`
           (function() {
@@ -128,10 +119,7 @@ function IndexView(props: any) {
                 }}>
                     <Image source={require('../../../Assets/News/detail/detail_back.png')} style={{width:appSize(24),height:appSize(24)}} />
                 </TouchableOpacity>
-
-
                 <View style={{width:appSize(24)}} />
-
                 {/*<TouchableOpacity style={[GStyles.jc,GStyles.ac,{width:32,height:32}]}>*/}
                 {/*    <Image source={require('../../../Assets/News/detail/detail_more.png')} style={{width:appSize(24),height:appSize(24)}} />*/}
                 {/*</TouchableOpacity>*/}
@@ -186,8 +174,7 @@ function IndexView(props: any) {
         </View>)
     }
 
-    return (
-        <View style={{ flex: 1,paddingBottom:54+insets.bottom,backgroundColor:'#fff'}}>
+    return (<View style={{ flex: 1,paddingBottom:54+insets.bottom,backgroundColor:'#fff'}}>
             <DetailHeader />
 
             <DetailWithHtml />
@@ -216,9 +203,8 @@ function IndexView(props: any) {
             {/*    </LinearGradient>*/}
             {/*</View>*/}
 
-            <VipBanner />
-        </View>
-    );
+            {/*<VipBanner />*/}
+        </View>);
 }
 
 export default IndexView;

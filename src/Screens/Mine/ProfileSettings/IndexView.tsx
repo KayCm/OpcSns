@@ -108,7 +108,7 @@ function IndexView(props: any) {
                     style={{ width: appSize(44), height: appSize(44),borderRadius:appSize(22) }}
                     resizeMode="cover"
                 />} />
-                <MenuBar title={'昵称'} LeftDom={<Text style={{}}>{userInfo?.nickname}</Text>} />
+                <MenuBar title={'昵称'} LeftDom={<Text style={{}}>{userInfo?.username}</Text>} />
                 <MenuBar title={'绑定账号'} LeftDom={<Text style={{}}>{userInfo?.email}</Text>} />
                 <MenuBar title={'修改密码'} onPress={()=>{
                     // nav.navigate('ResetPassword')
