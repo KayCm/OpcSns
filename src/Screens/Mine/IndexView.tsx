@@ -3,7 +3,7 @@ import {
     Text,
     ScrollView,
     TouchableOpacity,
-    StyleSheet, Image, Platform, Button,
+    StyleSheet, Image, Platform, Button, ImageBackground, Alert,
 } from 'react-native';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../Components/GStyles";
@@ -59,11 +59,32 @@ function IndexView() {
     const VipModal = () => {
 
         return(<Modal isVisible={isModalVisible}>
-            <View style={{ flex: 1, backgroundColor: 'white', padding: 22, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>你好！这是一个增强版模态框！</Text>
-                <Button title="关闭" onPress={()=>{
-                    setisModalVisible(false)
-                }} />
+            <View style={{ flex: 1, padding: 22, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{width:appSize(350),height:appSize(420),backgroundColor:'#fff'}}>
+
+                    <View style={{flex:1}}></View>
+
+
+
+                    <View style={[GStyles.row,{width:'100%',backgroundColor:'#000',height:appSize(56)}]}>
+
+                        <ImageBackground style={[GStyles.jc,GStyles.ac,{height:appSize(56),width:appSize(170)}]} source={require('../../Assets/mine/vipBottomBg.png')} >
+
+                            <View style={[GStyles.row]}>
+                                <Text style={[GStyles.ffh11,{color:'#000',fontSize:appSize(14)}]}>优惠价:¥</Text>
+                                <Text style={[GStyles.ffh11,{color:'#000',fontSize:appSize(30),marginTop:-appSize(10)}]}>199</Text>
+                            </View>
+
+                        </ImageBackground>
+
+                        <TouchableOpacity onPress={()=>{
+                            Alert.alert('')
+                        }} style={[GStyles.jc,GStyles.ac,{flex:1}]}>
+                            <Text style={[GStyles.ffh11,{color:'#fff'}]}>确认协议并支付</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
             </View>
         </Modal>)
     }
