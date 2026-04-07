@@ -36,74 +36,94 @@ function IndexView() {
 
     //
     return (
-        <View style={{ flex: 1 }}>
-            <NewsNav />
-            {/*<DynamicWidthTabMenu*/}
-            {/*  ref={menuRef}*/}
-            {/*  tabs={[{ id: 0, tagName: '今日热点' },...data?.data]}*/}
-            {/*  onTabChange={index => {*/}
-            {/*    // pagerRef.current?.setPage(index);*/}
-            {/*  }}*/}
-            {/*/>*/}
+      <View style={{ flex: 1 }}>
+        <NewsNav />
+        <DynamicWidthTabMenu
+          ref={menuRef}
+          tabs={[{ id: 0, tagName: '今日热点' }, ...data?.data]}
+          onTabChange={index => {
+            pagerRef.current?.setPage(index);
+          }}
+        />
 
-            <PagerView style={{ flex: 1, backgroundColor: '' }} >
+        <PagerView
+          ref={pagerRef}
+          onPageSelected={e => {
+            const position = e.nativeEvent.position;
+            menuRef.current?.switchToTab(position);
+          }}
+          style={{ flex: 1, backgroundColor: '' }}
+        >
+          <DataList3
+            key={1}
+            renderHeader={() =>
+              NewsHeader({
+                BannerClick: value => {
+                  if (value?.materialType == 'post') {
+                    navigation.navigate('DetailPost', {
+                      item: { id: value?.linkValue },
+                    });
+                  } else {
+                    navigation.navigate('Detail', {
+                      item: { id: value?.linkValue },
+                    });
+                  }
+                },
+                HotInfoClick: value => {
+                  if (value?.materialType == 'post') {
+                    navigation.navigate('DetailPost', { item: value });
+                  } else {
+                    navigation.navigate('Detail', { item: value });
+                  }
+                },
+              })
+            }
+            renderRow={item =>
+              NewsRenderRow({
+                item: item,
+                onPress: item => {
+                  // Nav.push('Detail',{item:item?.item})
+                  // console.log(item?.item?.contentType)
+                  if (item?.item?.materialType == 'post') {
+                    navigation.navigate('DetailPost', { item: item?.item });
+                  } else {
+                    navigation.navigate('Detail', { item: item?.item });
+                  }
+                },
+              })
+            }
+            url={'/open-api/mobile/home/material/normal/list'}
+            params={{}}
+            queryKey={'normal-list'}
+          />
 
-
-                <DataList3 key={1}  renderHeader={()=>NewsHeader({BannerClick:(value)=>{
-
-
-                        if (value?.materialType == 'post'){
-                            navigation.navigate('DetailPost',{item: {id:value?.linkValue}})
-                        }else{
-                            navigation.navigate('Detail',{item:{id:value?.linkValue}})
-                        }
-
-                    },HotInfoClick:(value)=>{
-
-                        if (value?.materialType == 'post'){
-                            navigation.navigate('DetailPost',{item:value})
-                        }else{
-                            navigation.navigate('Detail',{item:value})
-                        }
-
-                    }})} renderRow={item =>
-                    NewsRenderRow({
-                        item: item,
-                        onPress: item => {
-                            // Nav.push('Detail',{item:item?.item})
-                            // console.log(item?.item?.contentType)
-                            if (item?.item?.materialType == 'post'){
-                                navigation.navigate('DetailPost',{item:item?.item})
-                            }else{
-                                navigation.navigate('Detail',{item:item?.item})
-                            }
-                        },
-                    })} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />
-
-                {data?.data?.map((value, index, array) => {
-                    return (<DataList3 key={index+1} renderHeader={null} renderRow={item =>
-                        NewsRenderRow({
-                            item: item,
-                            onPress: item => {
-
-                                // console.log(item?.item?.contentType)
-                                if (item?.item?.materialType == 'post'){
-                                    navigation.navigate('DetailPost',{item:item?.item})
-                                }else{
-                                    navigation.navigate('Detail',{item:item?.item})
-                                }
-
-                            },
-                        })} url={'/open-api/mobile/home/material/byTag/list'} params={{ tagId: value.id }} queryKey={'tag-list'+value.id}
-                    />);
-                })}
-
-
-            </PagerView>
-
-
-
-    </View>)
+          {data?.data?.map((value, index, array) => {
+            return (
+              <DataList3
+                key={index + 1}
+                renderHeader={null}
+                renderRow={item =>
+                  NewsRenderRow({
+                    item: item,
+                    onPress: item => {
+                      // console.log(item?.item?.contentType)
+                      if (item?.item?.materialType == 'post') {
+                        navigation.navigate('DetailPost', { item: item?.item });
+                      } else {
+                        navigation.navigate('Detail', { item: item?.item });
+                      }
+                    },
+                  })
+                }
+                url={'/open-api/mobile/home/material/byTag/list'}
+                params={{ tagId: value.id }}
+                queryKey={'tag-list' + value.id}
+              />
+            );
+          })}
+        </PagerView>
+      </View>
+    );
 
 
   return (

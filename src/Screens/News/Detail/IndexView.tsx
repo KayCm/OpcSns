@@ -92,13 +92,13 @@ function IndexView(props: any) {
     </script>
     </head>
     <body>
-    `+data?.data?.material?.content+`</body></html>`;
-    const title= data?.data?.material?.title
-    const author = data?.data?.material?.author
-    const createTime= data?.data?.material?.createTime
-    const summary= data?.data?.material?.summary
+    `+data?.data?.content+`</body></html>`;
+    const title= data?.data?.title
+    const author = data?.data?.author
+    const createTime= data?.data?.createTime
+    const summary= data?.data?.summary
     var headerHtml = `<div><div style="font-size: 1.75rem;line-height: 2rem;font-weight: bold;">${title}</div><div style="font-size: 0.75rem;display: flex;color: #999"><p style="margin-right: 1rem;">${createTime}</p><p style="margin-right: 1rem;">${author}</p></div></div>`
-    if (data?.data?.material?.summary) headerHtml = `<div><div style="font-size: 1.5rem;line-height: 2rem;font-weight: bold;">${title}</div><div style="font-size: 0.75rem;display: flex;color: #999"><p style="margin-right: 1rem;">${createTime}</p><p style="margin-right: 1rem;">${author}</p></div> <div style="position: relative;margin-top: 1rem;font-size: 1rem;background-color: #f4f4f4;padding: 1.25rem 0.75rem;padding-bottom:0.75rem;border-radius: 4px;"><div style="position: absolute;top: -12px;left: 0.75rem;font-size: 1rem;font-weight: 500;"><span style="font-weight: 300;color: #666;">|</span> 概 <span style="font-weight: 300;color: #666;">|</span> 要 <span style="font-weight: 300;color: #666;">|</span></div><div style="font-size: 0.875rem;line-height: 1.5rem;color: #000000;">${summary}</div></div></div>`
+    if (data?.data?.summary) headerHtml = `<div><div style="font-size: 1.5rem;line-height: 2rem;font-weight: bold;">${title}</div><div style="font-size: 0.75rem;display: flex;color: #999"><p style="margin-right: 1rem;">${createTime}</p><p style="margin-right: 1rem;">${author}</p></div> <div style="position: relative;margin-top: 1rem;font-size: 1rem;background-color: #f4f4f4;padding: 1.25rem 0.75rem;padding-bottom:0.75rem;border-radius: 4px;"><div style="position: absolute;top: -12px;left: 0.75rem;font-size: 1rem;font-weight: 500;"><span style="font-weight: 300;color: #666;">|</span> 概 <span style="font-weight: 300;color: #666;">|</span> 要 <span style="font-weight: 300;color: #666;">|</span></div><div style="font-size: 0.875rem;line-height: 1.5rem;color: #000000;">${summary}</div></div></div>`
     const injectScript = () => {
         webViewRef.current.injectJavaScript(`
           (function() {

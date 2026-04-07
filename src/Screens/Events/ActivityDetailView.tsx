@@ -10,26 +10,21 @@ function ActivityDetailView(props) {
 
    // const userInfo = useSelector(state => state?.userInfo);
 
-
+    const webViewRef = useRef(null)
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: ['detailQ'],
         queryFn: ()=> R_POST('/open-api/mobile/activity/detail',{id:route?.params?.id}),
-        gcTime:0
+        gcTime:360000
     })
 
     if (isPending)return null
 
+    if (error) return <Text>{error.message}</Text>
+
     const {navigation,route} = props
 
     console.log('data',data)
-
-
-    // /open-api/mobile/activity/banner/list
-
-
-
-
 
     const DetailHeader = () => {
         const insets = useSafeAreaInsets()
@@ -51,10 +46,8 @@ function ActivityDetailView(props) {
         </View>)
     }
 
-    const webViewRef = useRef(null)
 // https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/avatar_20260403082919A021.png
     var headerHtml = `<div><img src="${data?.data?.posterUrl}" style="border-radius: 5px" alt="" width="100%" height="200"><div style="font-size:1.75rem; font-weight:600; color:#000;">${data?.data?.activityName}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/time_20260403083710A023.png" alt="" width="18px" height="18px">活动时间:${data?.data?.activityTime||'进行中'}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/local_20260403083629A022.png" alt="" width="18px" height="18px">${data?.data?.address}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/avatar_20260403082919A021.png" alt="" width="18px" height="18px"> ${data?.data?.organizerName}</div><div style="color: #0faa3a;font-weight: bolder;height:22px;font-size:1.25rem;margin-top:10px">价格:${data?.data?.registrationFee}</div></div>`
-
 
     const injectScript = () => {
         webViewRef.current.injectJavaScript(`

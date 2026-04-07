@@ -58,13 +58,14 @@ function IndexView() {
     const [isModalVisible,setisModalVisible] = useState(false)
     const VipModal = () => {
 
-        return(<Modal isVisible={isModalVisible}>
-            <View style={{ flex: 1, padding: 22, justifyContent: 'center', alignItems: 'center' }}>
+        return(<Modal style={{margin:0,padding:0}} isVisible={isModalVisible}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+
+
+
                 <View style={{width:appSize(350),height:appSize(420),backgroundColor:'#fff'}}>
 
                     <View style={{flex:1}}></View>
-
-
 
                     <View style={[GStyles.row,{width:'100%',backgroundColor:'#000',height:appSize(56)}]}>
 
@@ -85,6 +86,13 @@ function IndexView() {
 
                     </View>
                 </View>
+
+                <TouchableOpacity onPress={()=>{
+                  setisModalVisible(false)
+                }} style={[{width:'100%',height:'100%',flex:1,zIndex:-1},GStyles.pa]}>
+
+                </TouchableOpacity>
+
             </View>
         </Modal>)
     }
