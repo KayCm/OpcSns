@@ -27,6 +27,10 @@ function IndexView(props) {
 
     if (isPending)return null
 
+    if (error){
+        return <Text>error</Text>
+    }
+
     const renderHeader = () => {
 
         console.log(data?.data[0])

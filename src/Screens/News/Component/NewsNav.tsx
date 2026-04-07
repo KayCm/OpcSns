@@ -28,17 +28,11 @@ function NewsNav() {
 
                 <Image resizeMode={'contain'} source={require('../../../Assets/Header/nexa.png')}  style={{width:appSize(100),height:appSize(24)}} />
 
-                <View style={[GStyles.row, GStyles.ac, GStyles.ac, { gap: 10 }]}>
+                <View style={[GStyles.row, GStyles.ac, GStyles.ac, {marginRight:appSize(10)}]}>
                     <TouchableOpacity onPress={()=>{
                         // navigation.navigate('Search')
                     }}>
                         <Image source={require('../../../Assets/Header/search.png')} style={{width:appSize(24),height:appSize(24)}} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        navigation.navigate('Login')
-                        // navigation.navigate('ForgetPassword')
-                    }}>
-                        <Image source={require('../../../Assets/Header/user.png')} style={{width:appSize(24),height:appSize(24)}} />
                     </TouchableOpacity>
                 </View>
             </View>

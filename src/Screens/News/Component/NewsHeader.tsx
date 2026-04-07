@@ -16,7 +16,7 @@ function NewsHeader({BannerClick,HotInfoClick}) {
         queryFn: ()=> R_POST('/open-api/mobile/home/banner/list'),
     })
 
-  if (isPending) return null;
+  // if (isPending) return null;
 
     const { isPending:isTopPending, isError:isTopError, data:topData, error:topError } = useQuery({
         queryKey: ['topNews'],
@@ -82,7 +82,11 @@ function NewsHeader({BannerClick,HotInfoClick}) {
     const News2 = () => {
 
 
-        // console.log('topData',topData)
+
+
+        console.log('topData',topData)
+        //
+        // return null
         const result = [];
         for (let i = 0; i < topData?.data.length;i += 2) {
 
@@ -117,7 +121,7 @@ function NewsHeader({BannerClick,HotInfoClick}) {
 
                               <View style={{height:appSize(20),width:1,backgroundColor:'#E0CAAA'}} />
 
-                              <Text style={[GStyles.ffh1,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>{dateObj?.day}</Text>
+                              <Text style={[GStyles.ffh11,{fontSize:appSize(18),fontWeight:'600',paddingLeft: appSize(5)}]}>{dateObj?.day}</Text>
                           </View>
 
 

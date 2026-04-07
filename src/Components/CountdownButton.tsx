@@ -6,6 +6,7 @@ import React, {
     useImperativeHandle,
 } from 'react';
 import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import {appSize} from "./GStyles";
 
 // 定义 ref 可调用的方法
 export interface CountdownButtonHandle {
@@ -149,14 +150,14 @@ const CountdownButton = forwardRef<CountdownButtonHandle, CountdownButtonProps>(
 const styles = StyleSheet.create({
     button: {
         paddingHorizontal: 12,
-        height:40,
-        backgroundColor: '#1890ff',
+        height:appSize(32),
+        backgroundColor: '#1C1A17',
         borderRadius: 4,
         alignItems: 'center',
         justifyContent: 'center',
     },
     buttonDisabled: {
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#8e8e8e',
         borderColor: '#d9d9d9',
     },
     text: {
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     textDisabled: {
-        color: '#bfbfbf',
+        color: '#fff',
     },
 });
 

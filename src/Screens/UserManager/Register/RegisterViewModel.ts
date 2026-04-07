@@ -3,11 +3,14 @@ import {R_POST} from "../../../Services/NetRequestService";
 
 export const RegisterViewModel = () => {
 
-    const [nickName,setNickName] = useState('abc123')
-    const [password,setPassword] = useState('123456')
-    const [email,setEmail] = useState('1@2.com')
-    const [code,setCode] = useState('1234')
-    const [invCode,setInvCode] = useState('INV123456')
+    const [nickName,setNickName] = useState('')
+    const [password,setPassword] = useState('')
+    const [email,setEmail] = useState('')
+    const [code,setCode] = useState('')
+    const [invCode,setInvCode] = useState('')
+    // const [invCode,setInvCode] = useState('INV123456')
+    const [agree,setAgree] = useState(false)
+
 
     async function sendVerificationCode() {
 
@@ -49,6 +52,9 @@ export const RegisterViewModel = () => {
         invCode,
         setInvCode,
         sendVerificationCode,
-        submitRegister
+        submitRegister,
+        agree,
+        setAgree
+
     }
 }

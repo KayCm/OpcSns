@@ -1,9 +1,21 @@
-import {View, Text, TouchableOpacity, Alert, TextInput} from "react-native";
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Alert,
+    TextInput,
+    Image,
+    ScrollView,
+    Platform,
+    KeyboardAvoidingView
+} from "react-native";
 import NavHeader from "../../../Components/NavHeader";
 import React, {useRef} from "react";
 import CountdownButton, {CountdownButtonHandle} from "../../../Components/CountdownButton";
-import GStyles from "../../../Components/GStyles";
+import GStyles, {appSize} from "../../../Components/GStyles";
 import {RegisterViewModel} from "./RegisterViewModel";
+import IconNexa from "../../../Assets/Svgs/IconNexa";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 function IndexView(props: any) {
 
@@ -19,7 +31,13 @@ function IndexView(props: any) {
         invCode,
         setInvCode,
         sendVerificationCode,
-        submitRegister} = RegisterViewModel()
+        submitRegister,
+        agree,
+        setAgree} = RegisterViewModel()
+
+
+
+    const insets =  useSafeAreaInsets()
 
     const countdownRef = useRef<CountdownButtonHandle>(null);
 
@@ -34,6 +52,111 @@ function IndexView(props: any) {
             Alert.alert('发送失败', '请稍后重试');
         }
     };
+
+    return (<View style={{ flex: 1,paddingTop:insets.top}}>
+        <View style={[GStyles.ph12,{}]}>
+
+            <View style={[GStyles.jc,GStyles.ac,{marginTop:appSize(106)-insets.top,width:'100%'}]}>
+                <IconNexa />
+            </View>
+            <ScrollView  keyboardDismissMode='on-drag' keyboardShouldPersistTaps='handled'  showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+                <View style={{paddingHorizontal:appSize(34),backgroundColor:''}}>
+                    <Text style={[GStyles.ffb,{color:'#000',marginTop:appSize(34),fontSize:appSize(20)}]}>注册</Text>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                        <Image source={require('../../../Assets/user/regIcon1.png')} style={{height:appSize(24),width:appSize(24)}} />
+                        <TextInput
+                            value={nickName}
+                            onChangeText={setNickName}
+                            placeholder={'请输入用户名'}
+                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                    </View>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                        <Image source={require('../../../Assets/user/regIcon2.png')} style={{height:appSize(24),width:appSize(24)}} />
+                        <TextInput
+                            value={password}
+                            onChangeText={setPassword}
+                            placeholder={'请输入密码'}
+                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                    </View>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                        <Image source={require('../../../Assets/user/regIcon3.png')} style={{height:appSize(24),width:appSize(24)}} />
+                        <TextInput
+                            value={email}
+                            onChangeText={setEmail}
+                            placeholder={'请输入邮箱'}
+                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                    </View>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+
+                        <View style={[GStyles.row,GStyles.ac]}>
+                            <Image source={require('../../../Assets/user/regIcon4.png')} style={{height:appSize(24),width:appSize(24)}} />
+                            <TextInput
+                                value={code}
+                                onChangeText={setCode}
+                                placeholder={'验证码'}
+                                style={{height: appSize(44),marginLeft:appSize(12),width:appSize(120)}}/>
+                        </View>
+
+                        <CountdownButton
+                            ref={countdownRef}
+                            onPress={handleSendCode}
+                            normalText="获取验证码"
+                            countingText="{time}"
+                        />
+                    </View>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                        <Image source={require('../../../Assets/user/regIcon4.png')} style={{height:appSize(24),width:appSize(24)}} />
+                        <TextInput
+                            value={invCode}
+                            onChangeText={setInvCode}
+                            placeholder={'激活码'}
+                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                    </View>
+
+                    <Text style={{color:'#6E6E6E',marginTop:appSize(20)}}>密码必须是8-20字符，必须包括英文大写字母，英文小写字母、数字、特殊字符其中2类</Text>
+
+                    <TouchableOpacity onPress={()=>{
+
+                        if (!agree){
+
+                            Alert.alert('请同意用户协议和隐私政策')
+
+                            return
+                        }
+
+                        submitRegister()
+
+
+                    }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(60),height:appSize(55),backgroundColor:'#A5885F'}]}>
+                        <Text style={{color:'#fff',fontWeight:'600',letterSpacing:appSize(5),fontSize:appSize(20)}}>注册</Text>
+                    </TouchableOpacity>
+
+                    <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
+
+                        <TouchableOpacity onPress={()=>setAgree(!agree)} style={{}}>
+                            <Image source={agree?require('../../../Assets/user/checkBox_on.png'):require('../../../Assets/user/checkBox_off.png')} style={{height:appSize(18),width:appSize(18),borderRadius:appSize(9)}} />
+                        </TouchableOpacity>
+                        <Text style={{color:'#8a8a8a'}}>{' '}我已阅读并同意<Text style={{color:'#000'}} onPress={()=>{
+                            Alert.alert('用户')
+                        }}>《用户协议》</Text>和<Text style={{color:'#000'}} onPress={()=>{
+                            Alert.alert('用户')
+                        }}>《隐私协议》</Text></Text>
+
+                    </View>
+
+
+                </View>
+            </ScrollView>
+        </View>
+
+    </View>)
+
+
 
     return (
         <View style={{ flex: 1}}>

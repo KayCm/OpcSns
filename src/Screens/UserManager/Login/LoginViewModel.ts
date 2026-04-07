@@ -10,6 +10,7 @@ export const LoginViewModel = () => {
 
     const [loginEmail,setLoginEmail] = useState('1@2.com')
     const [loginPassword,setLoginPassword] = useState('123456')
+    const [agree,setAgree] = useState(false)
 
     const loginAct = async () => {
 
@@ -52,7 +53,9 @@ export const LoginViewModel = () => {
         loginPassword,
         setLoginPassword,
         loginAct,
-        getUserInfo
+        getUserInfo,
+        agree,
+        setAgree
     }
 
 }

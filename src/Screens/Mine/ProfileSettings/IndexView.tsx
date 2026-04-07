@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity, Alert} from "react-native";
+import {View, Text, TouchableOpacity, Alert, Image} from "react-native";
 import NavHeader from "../../../Components/NavHeader";
 import GStyles, {appSize, TRUE_ONE_LINE} from "../../../Components/GStyles";
 import IconNext from "../../../Assets/Svgs/IconNext";
@@ -87,20 +87,40 @@ function IndexView(props: any) {
     };
 
 
-    const MenuBar = ({title='title',LeftDom,onPress}) => {
-        return(<TouchableOpacity onPress={onPress} style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{height:64,width:'100%',borderBottomWidth:TRUE_ONE_LINE,borderColor:'#2c2c2c50'}]}>
-            <Text style={{fontSize:16,fontWeight:'600'}}>{title}</Text>
-            <View style={[GStyles.row,GStyles.jc,GStyles.ac]}>
-                {LeftDom}
-                <IconNext />
-            </View>
-        </TouchableOpacity>)
-    }
+
+
+    const MenuBar = ({ title = 'title', LeftDom, onPress,style,showRightIcon=true }) => {
+        return (
+            <TouchableOpacity
+                onPress={onPress}
+                style={[
+                    GStyles.row,
+                    GStyles.ac,
+                    GStyles.jcBetween,
+                    GStyles.ph12,
+                    {
+                        height: appSize(64),
+                        width: '100%',
+                        marginTop:appSize(10),
+                        backgroundColor: '#ffffff',
+                        ...style
+                    },
+                ]}
+            >
+                <Text style={{ fontSize: appSize(15), fontWeight: '600' }}>{title}</Text>
+                <View style={[GStyles.row, GStyles.jc, GStyles.ac]}>
+                    {LeftDom}
+                    {showRightIcon&&(<Image source={require('../../../Assets/mine/icon-right.png')} style={{height:appSize(24),width:appSize(25)}} />)}
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
 
     return (
         <View style={{ flex: 1,backgroundColor:''}}>
             <NavHeader title={'个人资料'} />
-            <View style={[GStyles.ph12]}>
+            <View style={{}}>
                 <MenuBar onPress={()=>{
                     handleSelectFromGallery()
                 }} title={'头像'} LeftDom={<TurboImage
@@ -108,8 +128,10 @@ function IndexView(props: any) {
                     style={{ width: appSize(44), height: appSize(44),borderRadius:appSize(22) }}
                     resizeMode="cover"
                 />} />
-                <MenuBar title={'昵称'} LeftDom={<Text style={{}}>{userInfo?.username}</Text>} />
-                <MenuBar title={'绑定账号'} LeftDom={<Text style={{}}>{userInfo?.email}</Text>} />
+
+
+                <MenuBar style={{  }}  title={'昵称'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.username}</Text>} />
+                <MenuBar title={'绑定账号'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.email}</Text>} />
                 <MenuBar title={'修改密码'} onPress={()=>{
                     // nav.navigate('ResetPassword')
                 }}  />
@@ -125,8 +147,11 @@ function IndexView(props: any) {
                 });
 
             }} style={[GStyles.jc,GStyles.ac,{marginTop:100,width:'100%',height:64,backgroundColor:'#fff'}]}>
-              <Text style={{color:'red',fontSize:14}}>注销</Text>
+              <Text style={{color:'#F29E9E',fontSize:14}}>注销账户</Text>
             </TouchableOpacity>
+
+
+
         </View>
     );
 }

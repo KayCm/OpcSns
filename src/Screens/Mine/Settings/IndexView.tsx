@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, Switch } from 'react-native';
+import {View, Text, TouchableOpacity, Switch, Image} from 'react-native';
 import NavHeader from "../../../Components/NavHeader";
-import GStyles, { TRUE_ONE_LINE } from '../../../Components/GStyles.ts';
+import GStyles, {appSize, TRUE_ONE_LINE} from '../../../Components/GStyles.ts';
 import IconNext from '../../../Assets/Svgs/IconNext.tsx';
 import { useState } from 'react';
 
@@ -23,18 +23,19 @@ function IndexView(props: any) {
           GStyles.jcBetween,
           GStyles.ph12,
           {
-            height: 64,
+            height: appSize(64),
             width: '100%',
+              marginTop:appSize(8),
             borderBottomWidth: TRUE_ONE_LINE,
             borderColor: '#2c2c2c50',
             ...style
           },
         ]}
       >
-        <Text style={{ fontSize: 16, fontWeight: '600' }}>{title}</Text>
+        <Text style={{ fontSize: appSize(14), fontWeight: '600' }}>{title}</Text>
         <View style={[GStyles.row, GStyles.jc, GStyles.ac]}>
           {LeftDom}
-          {showRightIcon&&(<IconNext />)}
+          {showRightIcon&&(<Image source={require('../../../Assets/mine/icon-right.png')} style={{height:appSize(24),width:appSize(25)}} />)}
         </View>
       </TouchableOpacity>
     );
@@ -46,7 +47,7 @@ function IndexView(props: any) {
         <MenuBar
           title={'账号管理'}
           onPress={()=>{
-              navigation.push('')
+
           }}
           style={{
             backgroundColor: '#ffffff',
@@ -69,26 +70,33 @@ function IndexView(props: any) {
         <MenuBar
           title={'语言'}
           onPress={()=>{
-              navigation.push('')
+
           }}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text>中文</Text>}
-          showRightIcon={false}
+          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>中文</Text>}
+          showRightIcon={true}
         />
         <MenuBar title={'隐私协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar title={'用户协议'} style={{ backgroundColor: '#ffffff' }} />
         <MenuBar
           title={'版本号'}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text>1.2.3</Text>}
+          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>1.2.3</Text>}
           showRightIcon={false}
         />
         <MenuBar
           title={'清除缓存'}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text>1000M</Text>}
+          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>1000M</Text>}
           showRightIcon={false}
         />
+
+
+          <TouchableOpacity onPress={()=>{
+
+          }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(56),height:appSize(64),width:'100%',backgroundColor: '#ffffff' }]}>
+              <Text style={[GStyles.ffh1,{color:'#FF6A6A'}]}>退出登录</Text>
+          </TouchableOpacity>
       </View>
     );
 }

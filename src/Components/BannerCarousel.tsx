@@ -151,6 +151,8 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
 
     const NewsCard = ({style,data,index,onPress}) => {
 
+        console.log(data)
+
         return(<TouchableOpacity onPress={()=>{
            if (onPress)onPress(data)
         }} style={[GStyles.jcBetween,{height:appSize(62),...style}]}>
@@ -168,9 +170,10 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                     marginRight:appSize(5),
                 }}>
                     <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>{index+1}</Text>
-                </View>{' '}{data?.title}{data?.title}{data?.title}{data?.title}{data?.title}</Text>
-            <Text numberOfLines={1} style={{marginTop:appSize(5),color:'#909090'}}>降息彻底没戏息彻底没戏息彻底没戏息彻底没戏？鲍威尔“鹰派” 表态重创美债市场！</Text>
-        </TouchableOpacity>)
+                </View>{' '}{data?.title}</Text>
+            {data?.content && (<Text numberOfLines={1} style={{marginTop:appSize(5),color:'#909090'}}>{data?.content}</Text>
+            )}
+         </TouchableOpacity>)
 
     }
 

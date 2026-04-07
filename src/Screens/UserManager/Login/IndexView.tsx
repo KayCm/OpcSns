@@ -19,7 +19,7 @@ function IndexView(props) {
         setLoginEmail,
         loginPassword,
         setLoginPassword,
-        getUserInfo
+        getUserInfo,agree,setAgree
     } = LoginViewModel()
 
     // const nav = useNavigation()
@@ -67,10 +67,20 @@ function IndexView(props) {
 
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{marginTop:appSize(15),width:'100%'}]}>
                         <TouchableOpacity><Text>忘记密码</Text></TouchableOpacity>
-                        <TouchableOpacity><Text>快速注册</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            nav.navigate('Register')
+                        }}><Text>快速注册</Text></TouchableOpacity>
                     </View>
 
                     <TouchableOpacity onPress={()=>{
+
+
+                        if (!agree){
+
+                            Alert.alert('请同意用户协议和隐私政策')
+
+                            return
+                        }
 
                         if (loading){
 
@@ -99,8 +109,8 @@ function IndexView(props) {
 
                     <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
 
-                        <TouchableOpacity style={{}}>
-                            <Image style={{backgroundColor:'#12300030',height:appSize(18),width:appSize(18),borderRadius:appSize(9)}} />
+                        <TouchableOpacity onPress={()=>setAgree(!agree)} style={{}}>
+                            <Image source={agree?require('../../../Assets/user/checkBox_on.png'):require('../../../Assets/user/checkBox_off.png')} style={{height:appSize(18),width:appSize(18),borderRadius:appSize(9)}} />
                         </TouchableOpacity>
                         <Text style={{color:'#8a8a8a'}}>{' '}我已阅读并同意<Text style={{color:'#000'}} onPress={()=>{
                             Alert.alert('用户')

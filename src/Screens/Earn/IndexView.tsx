@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, Image, FlatList, TouchableOpacity} from "react-native";
+import {View, Text, ImageBackground, Image, FlatList, TouchableOpacity, Alert} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {appSize, WINDOW_WIDTH} from "../../Components/GStyles";
 import TurboImage from "react-native-turbo-image";
@@ -29,19 +29,21 @@ function IndexView({navigation,route}) {
                 resizeMode="cover"
             />
             <View style={[GStyles.jcBetween,{ paddingVertical: appSize(3),height: appSize(68),flex:1}]}>
-                <Text style={[GStyles.ffb]}>你好～{userInfo?.username}</Text>
+                <Text style={{fontSize:appSize(18),fontWeight:'600'}}>你好～{userInfo?.username}</Text>
 
                 <View style={{}}>
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
-                        <Text>成长值 Lv.2</Text>
-                        <Text>111/200</Text>
+                        <Text style={{fontSize:appSize(12)}}>成长值 Lv.2</Text>
+                        <Text style={{fontSize:appSize(12)}}>111/200</Text>
                     </View>
                     <View>
-                        <View style={{height:appSize(22),borderWidth:1,width:'100%',}}>
-                            <View style={{height:appSize(22)-2,width:'50%',backgroundColor:'#a5885f'}} />
+                        <View style={{height:appSize(20),borderWidth:1,width:'100%',}}>
+                            <View style={{height:appSize(20)-2,width:'50%',backgroundColor:'#a5885f'}} />
                         </View>
                     </View>
                 </View>
+
+
             </View>
 
 
@@ -55,7 +57,7 @@ function IndexView({navigation,route}) {
         return(<View style={[GStyles.ac,GStyles.ph16,{width:'100%',height:appSize(140),marginTop:appSize(10)}]}>
 
             <ImageBackground source={require('../../Assets/earn/Financial.png')} style={[GStyles.pa,GStyles.ac,GStyles.flexEnd,{zIndex:2,width:appSize(180),height:appSize(35)}]}>
-                <Text style={[GStyles.ffb,{fontSize:appSize(20)}]} >本月财报</Text>
+                <Text style={[GStyles.ffb,{fontSize:appSize(18)}]} >本月财报</Text>
             </ImageBackground>
 
             <View style={[GStyles.row,{width:'100%',height:appSize(120),borderRadius:appSize(5),marginTop:appSize(20),backgroundColor:'#fff'}]}>
@@ -111,7 +113,8 @@ function IndexView({navigation,route}) {
         return(<View key={item?.id} style={[GStyles.jc,GStyles.ac,{width:(WINDOW_WIDTH)/2,height:appSize(150)}]}>
             <TouchableOpacity onPress={()=>{
                 //EarnDetail
-                navigation.push('EarnDetail',{item:item})
+                // navigation.push('EarnDetail',{item:item})
+                Alert.alert('敬请期待！')
             }} style={{width:appSize(168)}}>
                 <Image source={item?.img} style={{width:appSize(168),height:appSize(94),borderRadius:appSize(5)}} />
                 <Text style={{marginTop:appSize(6)}} numberOfLines={1}>{item?.title}</Text>

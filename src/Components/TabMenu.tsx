@@ -17,6 +17,9 @@ import {appSize} from "./GStyles";
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const DynamicWidthTabMenu = forwardRef(({tabs=[''],onTabChange}, ref) => {
+
+
+
     const [activeIndex, setActiveIndex] = useState(0);
 
 

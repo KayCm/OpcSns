@@ -1,7 +1,6 @@
 import {View, Text, TouchableOpacity, Image, Alert} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {appSize, NAVIGATOR_HEIGHT, TRUE_ONE_LINE} from "../../Components/GStyles";
-import {useSelector} from "react-redux";
 import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../Services/NetRequestService";
 import WebView from "react-native-webview";

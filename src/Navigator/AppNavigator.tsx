@@ -32,13 +32,13 @@ const AppNavigator = () => {
                 <Stack.Group>
                     <Stack.Screen
                         name="AppBottomTab"
-                        component={enhanceScreen(AppBottomTab)}
+                        component={AppBottomTab}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
 
                     <Stack.Screen
                         name="AppInitial"
-                        component={enhanceScreen(AppInitial)}
+                        component={AppInitial}
                         options={{ headerShown: false, animation: 'slide_from_right' }}
                     />
 
@@ -80,7 +80,7 @@ const AppNavigator = () => {
 
                     <Stack.Screen
                         name="Login"
-                        component={enhanceScreen(Login)}
+                        component={Login}
                         options={{ headerShown: false,animation: 'slide_from_bottom' }}
                     />
 

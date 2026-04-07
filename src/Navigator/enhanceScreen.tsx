@@ -145,7 +145,7 @@ const enhanceScreen = (
                 reset: navigation.reset,
                 addListener: navigation.addListener,
                 dispatch: navigation.dispatch,
-                dangerouslyGetParent: navigation.dangerouslyGetParent,
+                // dangerouslyGetParent: navigation.dangerouslyGetParent,
             };
 
             const screenDom = (<Screen navigator={navigator} navigation={navigation} route={route} />);

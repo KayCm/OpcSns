@@ -232,11 +232,11 @@ export default function AppBottomTab() {
     return (
         <Tab.Navigator initialRouteName={t('tabs.news')}
                        tabBar={props => <AppBottomTabBar {...props} />}>
-            <Tab.Screen name={t('tabs.news')} component={enhanceScreen(News,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
-            <Tab.Screen name={t('tabs.vip')} component={enhanceScreen(VIP,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
-            <Tab.Screen name={t('tabs.make')} component={enhanceScreen(Earn,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
-            <Tab.Screen name={t('tabs.map')} component={enhanceScreen(Map,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
-            <Tab.Screen name={t('tabs.mine')} component={enhanceScreen(Mine,{isNeedSafeArea:false})} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.news')} component={News} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.vip')} component={VIP} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.make')} component={Earn} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.map')} component={Map} options={{ headerShown: false }}/>
+            <Tab.Screen name={t('tabs.mine')} component={Mine} options={{ headerShown: false }}/>
         </Tab.Navigator>
     );
 }

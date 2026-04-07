@@ -24,6 +24,16 @@ const STYLE = StyleSheet.create({
         fontSize:appSize(18),
         fontWeight:'500'
     },
+    ffh11:{
+        ...Platform.select({
+            ios:{fontFamily:'SourceHanSerifCN-SemiBold'},
+            // android:undefined
+            android: {fontWeight:'600'}
+        }),
+        fontSize:appSize(18),
+        fontWeight:'500'
+    },
+
     ffh2:{
 
     },
@@ -40,6 +50,12 @@ const STYLE = StyleSheet.create({
     },
     ffsmall:{
 
+    },
+    ffssb:{
+        ...Platform.select({
+            ios:{fontFamily:'SourceHanSerifCN-SemiBold'},
+            android:{fontFamily:'SourceHanSerifCN-SemiBold-7'}
+        })
     },
     ffb:{
         ...Platform.select({

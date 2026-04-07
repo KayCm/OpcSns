@@ -65,6 +65,9 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
         refetch,
     } = useInfiniteItems({url,params,queryKey});
 
+    if (error) return <Text>An error occurred: {error.message}</Text>;
+
+
     const queryClient = useQueryClient()
 
     const allItems = data?.pages.flatMap((page) => page.data) ?? [];
@@ -133,6 +136,8 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
             onEndReached={loadMore}
             numColumns={numColumns}
             onEndReachedThreshold={0.5}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             estimatedItemSize={110} // 预估每个列表项的高度，务必根据实际内容调整
             refreshControl={<RefreshControl refreshing={isLoading}
                                             progressBackgroundColor={'#fff'}

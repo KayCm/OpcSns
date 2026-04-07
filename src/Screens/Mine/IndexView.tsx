@@ -3,7 +3,7 @@ import {
     Text,
     ScrollView,
     TouchableOpacity,
-    StyleSheet, Image,
+    StyleSheet, Image, Platform, Button,
 } from 'react-native';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../../Components/GStyles";
@@ -19,6 +19,8 @@ import MineViewModel from "./MineViewModel";
 import TurboImage from "react-native-turbo-image/src/TurboImage";
 import LinearGradient from 'react-native-linear-gradient';
 import {MemberCarousel} from "../../Components/MemberCarousel";
+import {useState} from "react";
+import Modal from 'react-native-modal'
 
 function IndexView() {
 
@@ -38,38 +40,37 @@ function IndexView() {
         return(<TouchableOpacity onPress={onPress} style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{paddingLeft:appSize(26),paddingRight:appSize(20),marginBottom:appSize(8),height:appSize(48),width:'100%',backgroundColor:'#fff'}]}>
 
             <View style={[GStyles.row,GStyles.ac]}>
-                <Image source={iconImg} style={{width:appSize(18),height:appSize(18)}} />
-                <Text style={[GStyles.ffb,{fontSize:appSize(16),fontWeight:'600',marginLeft:appSize(8)}]}>{title}</Text>
+                <Image source={iconImg} style={{width:appSize(20),height:appSize(20)}} />
+                <Text style={[GStyles.ffssb,{color:'#1C1A17',fontSize:appSize(15),marginTop:Platform.OS == 'ios' ?-appSize(4):0,fontWeight:'500',marginLeft:appSize(8)}]}>{title}</Text>
             </View>
-            <Image source={require('../../Assets/mine/hugeicon.png')} style={{width:appSize(24),height:appSize(24)}} />
+            <Image source={require('../../Assets/mine/icon-right.png')} style={{height:appSize(24),width:appSize(24)}} />
         </TouchableOpacity>)
     }
 
-    const MemberCard = () => {
 
-        return(<View style={[GStyles.jcBetween,{paddingVertical:30,paddingHorizontal:12,width:'90%',height:150,borderRadius:10,backgroundColor:'#23232330'}]}>
 
-            <View style={[GStyles.row,GStyles.ac,{gap:10}]}>
-                <Text>OPC NEWS会员</Text>
+    const memberLevelArr = [
+        {text:'会员',icon:require('../../Assets/mine/vip1.png'),line:['#F4F9FF','#CBE5FF']},
+        {text:'精英VIP会员',icon:require('../../Assets/mine/vip2.png'),line:['#F4E1C2','#DBAC6A']},
+        {text:'钻石会员',icon:require('../../Assets/mine/vip3.png'),line:['#3B3431','#231F18']},
+    ]
 
-                <View style={[GStyles.jc,GStyles.ac,GStyles.pv5,GStyles.ph10,{borderRadius:20,borderColor:'#232323',borderWidth:1}]}>
-                    <Text>已开通</Text>
-                </View>
+    const [isModalVisible,setisModalVisible] = useState(false)
+    const VipModal = () => {
+
+        return(<Modal isVisible={isModalVisible}>
+            <View style={{ flex: 1, backgroundColor: 'white', padding: 22, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>你好！这是一个增强版模态框！</Text>
+                <Button title="关闭" onPress={()=>{
+                    setisModalVisible(false)
+                }} />
             </View>
-
-            <View style={[GStyles.row,GStyles.ac,{gap:10}]}>
-                <Text>登录后查看您的会员等级</Text>
-                <View style={[GStyles.jc,GStyles.ac,GStyles.pv5,GStyles.ph10,{borderRadius:20,backgroundColor:'#123'}]}>
-                    <Text style={{color:'#fff'}}>查看详情</Text>
-                </View>
-            </View>
-
-        </View>)
+        </Modal>)
     }
 
     return (<ScrollView style={{flex:1}}>
         <View style={{flex:1,paddingTop:insets.top}}>
-            <LinearGradient colors={['#F7E3D1', '#ffffff']} style={[GStyles.pa,{width:'100%',height:appSize(280)}]} />
+            <LinearGradient colors={['#F7E3D1', '#ffffff00']} style={[GStyles.pa,{width:'100%',height:appSize(280)}]} />
             <TouchableOpacity onPress={() => {
                 // console.log('userInfo',userInfo)
                 Nav.navigate('ProfileSettings');
@@ -96,11 +97,11 @@ function IndexView() {
                 <Image source={require('../../Assets/mine/hugeicon.png')} style={{width:appSize(24),height:appSize(24)}} />
             </View>
         </TouchableOpacity>
-
             <View style={{height:appSize(150),width:'100%',marginTop:appSize(25)}}>
-                <MemberCarousel initialIndex={1} data={[{imageUrl:require('../../Assets/mine/member1.png')},{imageUrl:require('../../Assets/mine/member2.png')},{imageUrl:require('../../Assets/mine/member3.png')}]} />
+                <MemberCarousel onPress={()=>{
+                    setisModalVisible(true)
+                }} initialIndex={1} data={memberLevelArr} />
             </View>
-
             <View style={{width:'100%',marginTop:appSize(25)}}>
                 <MenuBar iconImg={require('../../Assets/mine/icon1.png')} title={t('profile.aboutUs')} onPress={() => {Nav.navigate('About');}}/>
                 <MenuBar iconImg={require('../../Assets/mine/icon2.png')} title={t('profile.purchase')} onPress={() => {Nav.navigate('Purchase');}}/>
@@ -108,13 +109,8 @@ function IndexView() {
                 <MenuBar iconImg={require('../../Assets/mine/icon4.png')} title={t('profile.feedback')} onPress={() => {Nav.navigate('FeedBack');}}/>
                 <MenuBar iconImg={require('../../Assets/mine/icon5.png')} title={t('profile.settings')} onPress={() => {Nav.navigate('Settings');}}/>
             </View>
-
-
-
-
         </View>
-
-
+        <VipModal />
     </ScrollView>)
 
 
