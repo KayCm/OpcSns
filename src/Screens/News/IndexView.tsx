@@ -15,19 +15,17 @@ const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 function IndexView(props) {
 
-    const Nav = props?.navigation
   const pagerRef = useRef(null);
   const menuRef = useRef(null);
   const { isPending, isError, data, error } = useQuery({
     queryKey: ['tagList'],
     queryFn: () => R_POST('/open-api/mobile/home/tag/list'),
   });
-  const appData = useSelector(state => state?.appData);
-  useEffect(() => {
-    global.token = appData.token;
-  }, []);
-
   if (isPending) return null;
+
+  const Nav = props?.navigation;
+
+
 
   return (
     <View style={{ flex: 1 }}>

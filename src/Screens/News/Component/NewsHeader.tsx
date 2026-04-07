@@ -16,11 +16,14 @@ function NewsHeader({BannerClick,HotInfoClick}) {
         queryFn: ()=> R_POST('/open-api/mobile/home/banner/list'),
     })
 
+  if (isPending) return null;
+
     const { isPending:isTopPending, isError:isTopError, data:topData, error:topError } = useQuery({
         queryKey: ['topNews'],
         queryFn: ()=> R_POST('/open-api/mobile/home/material/top/list'),
     })
 
+  if (isTopPending) return null;
 
     const News = () => {
       return(<View style={[GStyles.ph12,{ width: '100%', borderRadius: 2, gap: 10, marginTop: 20 }]}>

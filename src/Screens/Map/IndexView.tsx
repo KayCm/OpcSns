@@ -28,7 +28,7 @@ function IndexView({navigation}) {
         queryFn: ()=> R_POST('/open-api/mobile/community/list',{"pageNum": 1, "pageSize": 100}),
     })
 
-
+    if (isPending)return null
 
     // {
     //     "createBy": "",
@@ -96,7 +96,7 @@ function IndexView({navigation}) {
 
   }
 
-    if (isPending)return null
+
 
     const mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
 
