@@ -16,6 +16,7 @@ import GStyles, {appSize} from "../../../Components/GStyles";
 import {RegisterViewModel} from "./RegisterViewModel";
 import IconNexa from "../../../Assets/Svgs/IconNexa";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {useNavigation} from "@react-navigation/native";
 
 function IndexView(props: any) {
 
@@ -39,6 +40,8 @@ function IndexView(props: any) {
 
     const insets =  useSafeAreaInsets()
 
+    const nav = useNavigation()
+
     const countdownRef = useRef<CountdownButtonHandle>(null);
 
     const handleSendCode = async () => {
@@ -55,8 +58,14 @@ function IndexView(props: any) {
 
     return (<View style={{ flex: 1,paddingTop:insets.top}}>
         <View style={[GStyles.ph12,{}]}>
-
-            <View style={[GStyles.jc,GStyles.ac,{marginTop:appSize(106)-insets.top,width:'100%'}]}>
+            <View style={[GStyles.jc,{height:appSize(44),width:'100%',backgroundColor:""}]} >
+                <TouchableOpacity onPress={()=>{
+                    nav.goBack()
+                }}>
+                    <Image source={require('../../../Assets/Header/goback.png')} style={{width:appSize(24),height:appSize(24)}} />
+                </TouchableOpacity>
+            </View>
+            <View style={[GStyles.jc,GStyles.ac,{marginTop:appSize(106-44)-insets.top,width:'100%'}]}>
                 <IconNexa />
             </View>
             <ScrollView  keyboardDismissMode='on-drag' keyboardShouldPersistTaps='handled'  showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>

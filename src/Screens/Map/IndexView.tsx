@@ -8,6 +8,7 @@ import {R_POST} from "../../Services/NetRequestService";
 import {useQuery} from "@tanstack/react-query";
 import TurboImage from "react-native-turbo-image/src/TurboImage";
 import Rating from "../../Components/Rating";
+import Modal from "react-native-modal";
 
 
 const starFilled = require('../../Assets/map/score_on.png');
@@ -23,36 +24,14 @@ function IndexView({navigation}) {
 
   const [cam, setCam] = useState(null);
 
+    const [isModalVisible,setisModalVisible] = useState(false)
+
     const { isPending, isError, data, error } = useQuery({
         queryKey: ['mapList'],
         queryFn: ()=> R_POST('/open-api/mobile/community/list',{"pageNum": 1, "pageSize": 100}),
     })
 
     if (isPending)return null
-
-    // {
-    //     "createBy": "",
-    //     "createTime": null,
-    //     "updateBy": "",
-    //     "updateTime": null,
-    //     "remark": null,
-    //     "id": 15,
-    //     "name": "江北新区 AI + 新材料 OPC 社区",
-    //     "image": null,
-    //     "address": "江苏省南京市江北新区宁六路 606 号新材料国际创新社区 D 栋",
-    //     "longitude": 118.7302,
-    //     "latitude": 32.2015,
-    //     "details": null,
-    //     "wantToGoCount": 0,
-    //     "visitedCount": 0,
-    //     "reviewCount": 0,
-    //     "rating": 5,
-    //     "status": "0",
-    //     "sortOrder": 0
-    // }
-
-
-
 
   const mapRef = useRef(null);
 
@@ -95,8 +74,6 @@ function IndexView({navigation}) {
       mapRef?.current?.animateCamera(camera,1000)
 
   }
-
-
 
     const mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
 
@@ -165,9 +142,26 @@ function IndexView({navigation}) {
 
     const [score, setScore] = useState(3);
 
+    const CommentModal = () => {
+
+        return(<Modal style={{margin:0,padding:0}} isVisible={isModalVisible}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{width:appSize(350),height:appSize(420),backgroundColor:'#fff'}}>
+
+                </View>
+            </View>
+
+            <TouchableOpacity onPress={()=>{
+                setisModalVisible(false)
+            }} style={[{width:'100%',height:'100%',flex:1,zIndex:-1},GStyles.pa]} />
+            
+        </Modal>)
+
+    }
+
     const InfoCard = () => {
 
-        const {name,address,rating} = mapArray[select]
+        const {name,address,image,rating,details} = mapArray[select]
 
         console.log(mapArray[select])
 
@@ -177,7 +171,12 @@ function IndexView({navigation}) {
             <View style={[GStyles.jcBetween,{flex:1,backgroundColor:"",paddingHorizontal:appSize(16),paddingTop:appSize(30),paddingBottom:appSize(15)}]}>
 
                 <View style={[GStyles.row,{}]}>
-                    <Image source={require('../../Assets/icon.png')} resizeMode={'contain'} style={{height:appSize(108),width:appSize(80),backgroundColor:'#000'}} />
+
+                    {image?<Image source={{uri:image}} resizeMode={'contain'} style={{height:appSize(108),width:appSize(80),backgroundColor:'#000'}} />
+                        :<Image source={require('../../Assets/icon.png')} resizeMode={'contain'} style={{height:appSize(108),width:appSize(80),backgroundColor:'#000'}} />
+                    }
+
+
 
                     <View style={[GStyles.jcBetween,{flex:1,marginLeft:appSize(12),backgroundColor:''}]}>
 
@@ -189,7 +188,7 @@ function IndexView({navigation}) {
                     </View>
                 </View>
 
-                <Text numberOfLines={3} style={{fontSize:appSize(14),lineHeight:appSize(18),color:'#6E6E6E'}}>专注于OPC技术创新与人才培育的专业社区，依托OPC基金会标准体系，人才净流入持续领先聚焦OPC UA、TSN等核心技术的研发与应用，为开发者提供技术培训、项目孵化…</Text>
+                <Text numberOfLines={3} style={{fontSize:appSize(14),lineHeight:appSize(18),color:'#6E6E6E'}}>{details?details:'专注于OPC技术创新与人才培育的专业社区，依托OPC基金会标准体系，人才净流入持续领先聚焦OPC UA、TSN等核心技术的研发与应用，为开发者提供技术培训、项目孵化…'}</Text>
 
 
                 <View style={[GStyles.row,GStyles.flexEnd,{height:appSize(28),width:'100%',gap:appSize(10)}]}>
@@ -209,7 +208,7 @@ function IndexView({navigation}) {
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={()=>{
-
+                        setisModalVisible(true)
                     }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
                         <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan3.png')} />
                         <Text style={{color:'#fff'}}>评价</Text>
@@ -226,11 +225,14 @@ function IndexView({navigation}) {
 
     }
 
+    const [nameShow,SetNameShow] = useState(false)
+
     return (<View style={{ flex: 1 }}>
         <TouchableOpacity style={{zIndex:9,borderRadius:5,justifyContent:'center',alignItems:'center',position: 'absolute',right:0,backgroundColor:'#fff',bottom:insets.bottom+appSize(250)}} onPress={()=>{
-            navigation.push('CommunityList',{list:mapArray,click:(item,index)=>{
+            navigation.push('CommunityList',{list:data,click:(item1)=>{
+                    const index = mapArray.findIndex(item => item.id === item1.id);
                     setSelect(index)
-                    if (Platform.OS=='ios')moveTo(item?.latitude,item?.longitude)
+                    if (Platform.OS=='ios')moveTo(item1?.latitude,item1?.longitude)
                     setShowDetail(true);
             }})
         }}>
@@ -247,29 +249,46 @@ function IndexView({navigation}) {
             showsCompass={false}
             initialCamera={initialCamera}>
             {mapArray.map((v,index)=>{
-                return <Marker
+                return(<Marker
                     key={index}
-                    onPress={(e) => {
-                        // console.log(e?.nativeEvent)
-                        setSelect(e?.nativeEvent?.id)
-                        moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
-                        setShowDetail(true);
-                    }}
-                    onSelect={e => {
-                        // console.log(e.nativeEvent);
-                    }}
-                    onCalloutPress={() => {
-                        // console.log('onCalloutPress');
-                    }}
-                    identifier={index+""}
-                    coordinate={{ latitude: v.latitude, longitude: v.longitude }}
-                />
+                    style={[GStyles.jc,GStyles.ac]}
+                    coordinate={{ latitude: v.latitude, longitude: v.longitude }}>
+
+                    {nameShow&& <View style={{width:appSize(200),height:appSize(20),backgroundColor:'#123'}} >
+
+                    </View>}
+
+                <View style={[GStyles.jc,GStyles.ac,{backgroundColor: "#fff", padding: 10,width:appSize(20),height:appSize(20),borderRadius:appSize(10)}]}>
+                    <View style={{backgroundColor:'#A5885F',width:appSize(16),height:appSize(16),borderRadius:appSize(8)}} />
+                </View>
+            </Marker>)
+
+                // return <Marker
+                //     key={index}
+                //     onPress={(e) => {
+                //         // console.log(e?.nativeEvent)
+                //         setSelect(e?.nativeEvent?.id)
+                //         moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                //         setShowDetail(true);
+                //     }}
+                //     onSelect={e => {
+                //         // console.log(e.nativeEvent);
+                //     }}
+                //     onCalloutPress={() => {
+                //         // console.log('onCalloutPress');
+                //     }}
+                //     identifier={index+""}
+                //     coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+                // >
+                //     <Text>123</Text>
+                // </Marker>
             })}
         </MapView>)}
 
         {/*<InfoCard />*/}
 
       {showDetail && <InfoCard  />}
+        <CommentModal />
     </View>);
 }
 

@@ -24,6 +24,8 @@ import enhanceScreen from "./enhanceScreen";
 import ActivityDetailView from "../Screens/Events/ActivityDetailView";
 import EarnDetailView from "../Screens/Earn/EarnDetailView";
 import DetailPostView from "../Screens/News/Detail/DetailPostView";
+import EditPwdView from "../Screens/Mine/ProfileSettings/EditPwdView";
+import EditNameView from "../Screens/Mine/ProfileSettings/EditNameView";
 
 const AppNavigator = () => {
     return (
@@ -103,6 +105,18 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name="ProfileSettings"
                         component={ProfileSettings}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="EditName"
+                        component={EditNameView}
+                        options={{ headerShown: false,animation: 'slide_from_right' }}
+                    />
+
+                    <Stack.Screen
+                        name="EditPwd"
+                        component={EditPwdView}
                         options={{ headerShown: false,animation: 'slide_from_right' }}
                     />
 

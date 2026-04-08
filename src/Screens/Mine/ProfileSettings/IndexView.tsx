@@ -10,6 +10,7 @@ import FormData from "form-data";
 import {R_POST} from "../../../Services/NetRequestService";
 import axios from "axios";
 import TurboImage from "react-native-turbo-image/src/TurboImage";
+import {useNavigation} from "@react-navigation/native";
 
 
 function IndexView(props: any) {
@@ -19,6 +20,8 @@ function IndexView(props: any) {
     const userInfo = useSelector(state => state?.userInfo);
 
     console.log(userInfo)
+
+    const nav = useNavigation()
 
     const [selectedImages, setSelectedImages] = useState<Asset[]>([]);
 
@@ -130,10 +133,13 @@ function IndexView(props: any) {
                 />} />
 
 
-                <MenuBar style={{  }}  title={'昵称'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.username}</Text>} />
-                <MenuBar title={'绑定账号'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.email}</Text>} />
+                <MenuBar onPress={()=>{
+                    //EditName
+                    nav.navigate('EditName')
+                }} style={{}}  title={'昵称'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.username}</Text>} />
+                <MenuBar  title={'绑定账号'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.email}</Text>} />
                 <MenuBar title={'修改密码'} onPress={()=>{
-                    // nav.navigate('ResetPassword')
+                    nav.navigate('EditPwd')
                 }}  />
             </View>
 

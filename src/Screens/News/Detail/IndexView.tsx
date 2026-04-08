@@ -174,7 +174,7 @@ function IndexView(props: any) {
         </View>)
     }
 
-    return (<View style={{ flex: 1,paddingBottom:54+insets.bottom,backgroundColor:'#fff'}}>
+    return (<View style={{ flex: 1,backgroundColor:'#fff'}}>
             <DetailHeader />
 
             <DetailWithHtml />

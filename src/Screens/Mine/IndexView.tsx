@@ -61,8 +61,6 @@ function IndexView() {
         return(<Modal style={{margin:0,padding:0}} isVisible={isModalVisible}>
             <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
 
-
-
                 <View style={{width:appSize(350),height:appSize(420),backgroundColor:'#fff'}}>
 
                     <View style={{flex:1}}></View>

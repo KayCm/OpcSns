@@ -66,7 +66,7 @@ function IndexView(props) {
 
 
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{marginTop:appSize(15),width:'100%'}]}>
-                        <TouchableOpacity><Text>忘记密码</Text></TouchableOpacity>
+                        <TouchableOpacity><Text></Text></TouchableOpacity>
                         <TouchableOpacity onPress={()=>{
                             nav.navigate('Register')
                         }}><Text>快速注册</Text></TouchableOpacity>
@@ -120,21 +120,21 @@ function IndexView(props) {
 
                     </View>
 
-                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(20),marginTop:appSize(60)}]}>
-                        <View style={{height:TRUE_ONE_LINE,flex:1,backgroundColor:'#6e6e6e'}} />
-                        <Text style={[GStyles.ffb,{color:'#6e6e6e',fontSize:appSize(16)}]}>第三方登录方式</Text>
-                        <View style={{height:TRUE_ONE_LINE,flex:1,backgroundColor:'#6e6e6e'}} />
-                    </View>
+                    {/*<View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(20),marginTop:appSize(60)}]}>*/}
+                    {/*    <View style={{height:TRUE_ONE_LINE,flex:1,backgroundColor:'#6e6e6e'}} />*/}
+                    {/*    <Text style={[GStyles.ffb,{color:'#6e6e6e',fontSize:appSize(16)}]}>第三方登录方式</Text>*/}
+                    {/*    <View style={{height:TRUE_ONE_LINE,flex:1,backgroundColor:'#6e6e6e'}} />*/}
+                    {/*</View>*/}
 
-                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,GStyles.ph12,{gap:appSize(10),height:appSize(45),marginTop:appSize(30),width:'100%',borderColor:'#000',borderWidth:1}]}>
-                        <Image source={require('../../../Assets/user/apple.png')} style={{height:appSize(20),width:appSize(20)}} />
-                        <Text style={{color:'#000',fontSize:appSize(16),fontWeight:'600'}}>使用Apple账号登录</Text>
-                    </View>
+                    {/*<View style={[GStyles.row,GStyles.ac,GStyles.jc,GStyles.ph12,{gap:appSize(10),height:appSize(45),marginTop:appSize(30),width:'100%',borderColor:'#000',borderWidth:1}]}>*/}
+                    {/*    <Image source={require('../../../Assets/user/apple.png')} style={{height:appSize(20),width:appSize(20)}} />*/}
+                    {/*    <Text style={{color:'#000',fontSize:appSize(16),fontWeight:'600'}}>使用Apple账号登录</Text>*/}
+                    {/*</View>*/}
 
-                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,GStyles.ph12,{gap:appSize(10),height:appSize(45),marginTop:appSize(15),width:'100%',borderColor:'#000',borderWidth:1}]}>
-                        <Image source={require('../../../Assets/user/google.png')} style={{height:appSize(20),width:appSize(20)}} />
-                        <Text style={{color:'#000',fontSize:appSize(16),fontWeight:'600'}}>使用Google账号登录</Text>
-                    </View>
+                    {/*<View style={[GStyles.row,GStyles.ac,GStyles.jc,GStyles.ph12,{gap:appSize(10),height:appSize(45),marginTop:appSize(15),width:'100%',borderColor:'#000',borderWidth:1}]}>*/}
+                    {/*    <Image source={require('../../../Assets/user/google.png')} style={{height:appSize(20),width:appSize(20)}} />*/}
+                    {/*    <Text style={{color:'#000',fontSize:appSize(16),fontWeight:'600'}}>使用Google账号登录</Text>*/}
+                    {/*</View>*/}
 
                 </View>
 

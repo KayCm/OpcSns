@@ -12,6 +12,7 @@ import NewsNav from './Component/NewsNav';
 import NewsRenderRow from './Component/NewsRenderRow';
 import DataList3 from "../../Components/DataList3/Index";
 import { useNavigation } from '@react-navigation/native';
+import TopTabMenu from "../../Components/TopTabMenu";
 // const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 function IndexView() {
@@ -45,6 +46,12 @@ function IndexView() {
             pagerRef.current?.setPage(index);
           }}
         />
+
+          {/*<TopTabMenu tabs={[{ id: 0, tagName: '今日热点' }, ...data?.data]} onTabChange={(index)=>{*/}
+
+          {/*    pagerRef.current?.setPage(index);*/}
+
+          {/*}} />*/}
 
         <PagerView
           ref={pagerRef}
