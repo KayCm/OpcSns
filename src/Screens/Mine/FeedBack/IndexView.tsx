@@ -1,22 +1,46 @@
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  ScrollView,
+    View,
+    Text,
+    TouchableOpacity,
+    Image,
+    TextInput,
+    ScrollView, Alert,
 } from 'react-native';
 import NavHeader from "../../../Components/NavHeader";
 import GStyles, { appSize } from '../../../Components/GStyles.ts';
 import React from 'react';
+import {useSelector} from "react-redux";
+import {R_POST} from "../../../Services/NetRequestService";
 
 function IndexView(props: any) {
 
 
   const [feedText, setFeedText] = React.useState<string>('');
 
+    const userInfo = useSelector(state => state?.userInfo);
+
+    const sendFeed = () => {
+
+        let params = {
+            "memberId": 1,
+            "type": "bug",
+            "title": "feedback",
+            "content": feedText,
+            "contact": userInfo.email
+        }
+
+        R_POST('/open-api/mobile/member/feedback/submit',params).then(res=>{
+
+            Alert.alert('提交成功')
+
+        }).catch(err=>{
+
+        })
+
+    }
+
     return (
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <View style={{ flex: 1, backgroundColor: '' }}>
         <NavHeader title={'意见反馈'} />
 
         <ScrollView
@@ -25,17 +49,17 @@ function IndexView(props: any) {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
         >
-          <View style={{ paddingHorizontal: appSize(20), backgroundColor: '' }}>
+          <View style={{ backgroundColor: '' }}>
             <View
               style={[
                 GStyles.row,
                 GStyles.ac,
                 GStyles.ph12,
+                  GStyles.pv10,
                 {
                   marginTop: appSize(20),
                   width: '100%',
-                  borderColor: '#000',
-                  borderWidth: 1,
+                    backgroundColor:'#fff'
                 },
               ]}
             >
@@ -52,7 +76,15 @@ function IndexView(props: any) {
               />
             </View>
 
+              <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.pv20,GStyles.ph12,{marginTop:appSize(10),backgroundColor:'#fff'}]}>
+                  <Text style={[GStyles.ffh11,{fontSize:appSize(18)}]}>您的邮箱</Text>
+                  <Text>{userInfo.email}</Text>
+              </View>
+
             <TouchableOpacity
+                onPress={()=>{
+                    sendFeed()
+                }}
               style={[
                 GStyles.jc,
                 GStyles.ac,

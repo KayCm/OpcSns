@@ -12,13 +12,17 @@ function ActivityDetailView(props) {
 
     const webViewRef = useRef(null)
 
-    const { isPending, isError, data, error } = useQuery({
-        queryKey: ['detailQ'],
+    // String('events'+route?.params?.id.toString())
+
+    const { isPending,isLoading, isError, data, error } = useQuery({
+        queryKey: [String('events'+route?.params?.id.toString())],
         queryFn: ()=> R_POST('/open-api/mobile/activity/detail',{id:route?.params?.id}),
         gcTime:360000
     })
 
     if (isPending)return null
+
+    if (isLoading)return <Text>Loading</Text>
 
     if (error) return <Text>{error.message}</Text>
 

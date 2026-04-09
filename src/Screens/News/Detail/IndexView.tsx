@@ -20,6 +20,10 @@ function IndexView(props: any) {
 
     const insets = useSafeAreaInsets();
 
+
+    console.log('item',item)
+
+
     // 注入的 JavaScript 代码：等待页面加载完成后，在顶部添加标题栏
     const webViewRef = useRef(null)
 
@@ -32,6 +36,10 @@ function IndexView(props: any) {
     })
 
     if (isPending)return null
+
+    if (error) return null
+
+    if (!data?.data)return <Text>Data undefined</Text>
 
     console.log('data:',data?.data)
     const mockHtml = `

@@ -3,13 +3,20 @@ import {Alert, Image, Text, TextInput, TouchableOpacity, View} from "react-nativ
 import GStyles, {appSize} from "../../../Components/GStyles";
 import React, {useState} from "react";
 import {R_POST} from "../../../Services/NetRequestService";
+import AlertModal from "../../../Components/AlertModal";
+import {logout} from "../../../Redux/persistedReducer";
+import {useDispatch} from "react-redux";
 
-function EditPwdView() {
+function EditPwdView(props) {
 
     const [oldPwd,setOldPwd] = useState('')
     const [newPwd,setNewPwd] = useState('')
     const [new2Pwd,setNew2Pwd] = useState('')
 
+    const [showAlert,setShowAlert] = useState(false)
+    const [showAlertText,setShowAlertText] = useState('')
+
+    const dispatch = useDispatch()
 
     const updatePwd = () => {
 
@@ -20,11 +27,21 @@ function EditPwdView() {
         }
 
         R_POST('/open-api/mobile/member/password',params).then(res=>{
+
+            console.log('res',res)
+
             if (res?.code == 200){
-                Alert.alert('修改成功')
+            //     setShowAlert(true)
+            //     setShowAlertText('修改成功')
+            }else{
+
+                Alert.alert(res?.msg)
+            //     setShowAlert(true)
+            //     setShowAlertText('修改失败')
             }
         }).catch(err=>{
-
+            setShowAlert(true)
+            setShowAlertText('修改失败')
         })
 
     }
@@ -70,6 +87,23 @@ function EditPwdView() {
                 <Text style={{color:'#fff',fontWeight:'600',letterSpacing:appSize(5),fontSize:appSize(20)}}>完成</Text>
             </TouchableOpacity>
         </View>
+
+
+
+
+        <AlertModal title={showAlertText} isModalVisible={showAlert} onDismiss={()=>{
+
+            setShowAlert(false)
+            //
+            // dispatch(logout(null))
+            // props?.navigation.reset({
+            //     index: 0,
+            //     routes: [{ name: 'Login' }],
+            // });
+
+        }}  />
+
+
     </View>)
 }
 

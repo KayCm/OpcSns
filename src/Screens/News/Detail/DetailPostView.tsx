@@ -10,90 +10,61 @@ import {Video, VideoRef} from "react-native-video";
 import {SwiperFlatList} from "react-native-swiper-flatlist";
 import ImageView from "react-native-image-viewing";
 import VideoPlayer from 'react-native-video-controls';
+import {useQuery} from "@tanstack/react-query";
 
 
 function DetailPostView({route}) {
+
+    const insets = useSafeAreaInsets();
+    const navigation = useNavigation()
+    // const [data,setData] = useState()
+
+    const [paused, setPaused] = useState(false); // 控制播放/暂停
+    const [videoReady, setVideoReady] = useState(false); // 视频是否已加载
+    const [showModal, setShowModal] = useState(false);
+    const [fullscreen, setFullscreen] = useState(false);
+    var videoRef = useRef<VideoRef>(null);
+    const [images,setImages] = useState([])
 
     // useEffect(()=>{
     //     R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}).then(res=>{
     //         console.log(res)
     //         setData(res)
+    //         var arr = []
+    //         if (res?.data?.contentType == 'image'){
+    //             res?.data?.medias.map((value,index)=>{
+    //                 arr.push({uri:value?.fileUrl})
+    //             })
+    //             console.log('arr',arr)
+    //             setImages(arr)
+    //         }
+    //
     //     })
-    // },[route?.params?.item?.id])
+    // },[])
 
+
+    const { isPending,isLoading, isError, data, error } = useQuery({
+        queryKey: [String('detail'+route?.params?.item?.id.toString())],
+        queryFn: ()=> R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}),
+        staleTime: 1000 * 60 * 60 * 24
+    })
     //
-    const insets = useSafeAreaInsets();
-    // const navigation = useNavigation()
-    // const [data,setData] = useState()
-    // const dateObj = getDateInfo('zh')
+    if (isPending)return null
 
-    // const DetailHeader = () => {
-    //
-    //     return(<View style={{height:insets.top+NAVIGATOR_HEIGHT,width:'100%',paddingTop:insets.top,borderBottomColor:'#00000000',borderBottomWidth:TRUE_ONE_LINE}}>
-    //         <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.ph12,{height:NAVIGATOR_HEIGHT,width:'100%'}]}>
-    //             <TouchableOpacity onPress={()=>{
-    //                 navigation.goBack()
-    //             }}>
-    //                 <Image source={require('../../../Assets/News/detail/detail_back.png')} style={{width:appSize(24),height:appSize(24)}} />
-    //             </TouchableOpacity>
-    //             <View style={{width:appSize(24)}} />
-    //         </View>
-    //     </View>)
-    // }
+    if (isLoading)return <Text>Loading</Text>
 
+    if (error)return <Text>error</Text>
 
-
-    // return (<View style={{ flex: 1 }}>
-    //             <DetailHeader />
-    //             {/*<ScrollView>*/}
-    //             {/*    <View style={{ paddingHorizontal: appSize(24),paddingBottom:appSize(10)+insets.bottom }}>*/}
-    //
-    //
-    //             {/*    </View>*/}
-    //             {/*</ScrollView>*/}
-    //         </View>)
-
-    // const insets = useSafeAreaInsets();
-    // const item = route?.params?.item
-    //
-    // const navigation = useNavigation()
-
-    // const { isPending, isError, data, error } = useQuery({
-    //     queryKey: [String('detail'+item?.id.toString())],
-    //     queryFn: ()=> R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}),
-    //     staleTime: 1000 * 60 * 60 * 24
-    // })
-    // //
-    // if (isPending)return null
-
-    // return null
-
-    const navigation = useNavigation()
-    const [data,setData] = useState()
-
-    const [paused, setPaused] = useState(false); // 控制播放/暂停
-    const [videoReady, setVideoReady] = useState(false); // 视频是否已加载
-
-    const [images,setImages] = useState([])
-
-    useEffect(()=>{
-        R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}).then(res=>{
-            console.log(res)
-            setData(res)
-
-            var arr = []
-            if (res?.data?.contentType == 'image'){
-                res?.data?.medias.map((value,index)=>{
-                    arr.push({uri:value?.fileUrl})
-                })
-                console.log('arr',arr)
-                setImages(arr)
-            }
-
+    var arr = []
+    if (data?.data?.contentType == 'image'){
+        data?.data?.medias.map((value,index)=>{
+            arr.push({uri:value?.fileUrl})
         })
-    },[])
+        console.log('arr',arr)
+        setImages(arr)
+    }
 
-
+    console.log('postData',data)
 
     const dateObj = getDateInfo('zh')
 
@@ -111,11 +82,6 @@ function DetailPostView({route}) {
         </View>)
     }
 
-    const [showModal, setShowModal] = useState(false);
-    const [fullscreen, setFullscreen] = useState(false);
-
-
-    var videoRef = useRef<VideoRef>(null);
     const enterFullscreen = () => {
         if (videoRef.current) {
             // 检查是否存在 setFullScreen (v6.3.0+)

@@ -10,7 +10,7 @@ export function formatTimeAgo(dateString: string): string {
 
     const MINUTE_MS = 60 * 1000;
     const HOUR_MS = 60 * MINUTE_MS;
-    const TWELVE_HOURS_MS = 12 * HOUR_MS;
+    const TWELVE_HOURS_MS = 24 * HOUR_MS;
 
     if (diffMs <= TWELVE_HOURS_MS) {
         // 12小时内
@@ -26,12 +26,17 @@ export function formatTimeAgo(dateString: string): string {
         return `${minutes}分钟前`;
     } else {
         // 超过12小时，输出完整日期时间（本地时间）
+        // const year = targetDate.getFullYear();
+        // const month = targetDate.getMonth() + 1;
+        // const day = targetDate.getDate();
+        // const hours = targetDate.getHours().toString().padStart(2, '0');
+        // const minutes = targetDate.getMinutes().toString().padStart(2, '0');
+        // return `${year}/${month}/${day}`;
+
         const year = targetDate.getFullYear();
-        const month = targetDate.getMonth() + 1;
-        const day = targetDate.getDate();
-        const hours = targetDate.getHours().toString().padStart(2, '0');
-        const minutes = targetDate.getMinutes().toString().padStart(2, '0');
-        return `${month}/${day}`;
+        const month = (targetDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = targetDate.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 }
 

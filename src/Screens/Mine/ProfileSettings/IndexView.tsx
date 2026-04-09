@@ -3,7 +3,7 @@ import NavHeader from "../../../Components/NavHeader";
 import GStyles, {appSize, TRUE_ONE_LINE} from "../../../Components/GStyles";
 import IconNext from "../../../Assets/Svgs/IconNext";
 import {useDispatch, useSelector} from "react-redux";
-import {logout} from "../../../Redux/persistedReducer";
+import {logout, updateUserInfo} from "../../../Redux/persistedReducer";
 import {Asset, launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useState} from "react";
 import FormData from "form-data";
@@ -40,27 +40,40 @@ function IndexView(props: any) {
         const imageAsset = result?.assets[0]
 
         const formData = new FormData();
-        formData.append('photo', {
-            file: imageAsset.uri,                    // 图片的本地uri地址
-            uri: imageAsset.uri,                    // 图片的本地uri地址
+        formData.append('file', {
+            file: imageAsset.uri.replace('file://', ''),                    // 图片的本地uri地址
+            uri: imageAsset.uri.replace('file://', ''),                    // 图片的本地uri地址
             type: imageAsset.type || 'image/jpeg',  // 图片的MIME类型
             name: imageAsset.fileName || 'photo.jpg', // 图片文件名
         });
         // 如果需要，可以同时上传其他参数
-        formData.append('quality', '30');          // 额外参数示例
+        // formData.append('quality', '30');          // 额外参数示例
 
-        //const globalToken = global.token;
+
+        // console.log('formData:', formData);
+        const globalToken = global.token;
 
         ///open-api/mobile/member/upload
-        // const response = await axios.post('https://vps-sg-aws-opc.43046721.xyz/open-api/mobile/member/upload', formData, {
-        //     headers: {
-        //         // 'Content-Type': 'multipart/form-data',
-        //         // 如果有token，在这里添加
-        //         // 'Authorization': 'Bearer your-token',
-        //         'Member-Authorization':globalToken,
-        //     },
-        //     timeout: 30000, // 设置30秒超时
-        // });
+        const response = await axios.post('https://vps-sg-aws-opc.43046721.xyz/open-api/mobile/member/avatar', formData, {
+            headers: {
+                // 'Content-Type': 'multipart/form-data',
+                // 如果有token，在这里添加
+                // 'Authorization': 'Bearer your-token',
+                'Member-Authorization':globalToken,
+            },
+            timeout: 30000, // 设置30秒超时
+        });
+
+        if (response?.data.code == 200){
+            const res1 = await R_POST('/open-api/mobile/member/getMemberInfo', {})
+
+            if (res1?.code == 200 && res1?.data) {
+                dispatch(updateUserInfo(res1?.data))
+            }
+        }
+
+
+        console.log('上传:', response?.data.code);
 
         // const response = await fetch('https://vps-sg-aws-opc.43046721.xyz/open-api/mobile/member/upload', {
         //     method: 'POST',

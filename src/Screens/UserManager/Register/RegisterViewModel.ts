@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {R_POST} from "../../../Services/NetRequestService";
+import {Alert} from "react-native";
 
 export const RegisterViewModel = () => {
 
@@ -15,7 +16,7 @@ export const RegisterViewModel = () => {
     async function sendVerificationCode() {
 
         const url = '/open-api/mobile/register/sendEmailCode';
-        const res = await R_POST(url, {email: "zhangsan@example.com"})
+        const res = await R_POST(url, {email:email})
 
         if (res?.code == 200){
             return true
@@ -37,6 +38,12 @@ export const RegisterViewModel = () => {
         const res = await R_POST(url, params)
 
         console.log('res',res)
+
+        if (res?.data?.code == 200){
+            Alert.alert('注册成功')
+        }else{
+            Alert.alert(res?.msg)
+        }
 
     }
 

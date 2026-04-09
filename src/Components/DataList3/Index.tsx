@@ -48,7 +48,7 @@ const useInfiniteItems = ({url,params,queryKey}) => {
         queryFn:({ pageParam = 1 }) =>  fetchItems({pageParam,url,params}),
         initialPageParam: 1,
         getNextPageParam: (lastPage) => lastPage.nextPage,
-        // staleTime: 10000, // 5 分钟内数据视为新鲜
+        staleTime: 10000, // 5 分钟内数据视为新鲜
         gcTime: 10 * 60 * 1000,   // 缓存保留 10 分钟
     });
 };
@@ -67,6 +67,7 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
 
     if (error) return <Text>An error occurred: {error.message}</Text>;
 
+    console.log('LIST',data)
 
     const queryClient = useQueryClient()
 
