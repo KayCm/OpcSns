@@ -12,7 +12,7 @@ function NewsRenderRow({item,onPress}) {
         <View style={[GStyles.row]}>
             <View style={[GStyles.jcBetween,{flex:1,paddingRight:appSize(18),height: appSize(80)}]}>
 
-                <Text numberOfLines={3} style={[GStyles.ffh3,{fontSize:appSize(14)}]}>{item?.item?.title?.replace(/\r?\n|\r/g, '')}</Text>
+                <Text numberOfLines={3} style={[GStyles.ffh11,{fontSize:appSize(16)}]}>{item?.item?.title?.replace(/\r?\n|\r/g, '')}</Text>
                 <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
 
                     <Text style={{fontSize:appSize(12)}}>{item?.item?.author}</Text>

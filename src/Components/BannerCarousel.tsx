@@ -171,7 +171,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                 }}>
                     <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>{index+1}</Text>
                 </View>{' '}{data?.title}</Text>
-            {data?.content && (<Text numberOfLines={1} style={{marginTop:appSize(5),color:'#909090'}}>{data?.content}</Text>
+            {data?.content && (<Text numberOfLines={1} style={{marginTop:appSize(1),color:'#909090'}}>{data?.content}</Text>
             )}
          </TouchableOpacity>)
 
@@ -195,7 +195,19 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                 ]}>
 
                 {item.data.map((v,i,a)=>{
-                    return <NewsCard onPress={onItemPress} data={v} key={i} index={item?.id+i} style={{borderBottomColor:'', borderBottomWidth:0}} />
+                    return (
+                      <NewsCard
+                        onPress={onItemPress}
+                        data={v}
+                        key={i}
+                        index={item?.id + i}
+                        style={{
+                          borderBottomColor: '',
+                          marginTop: appSize(2),
+                          borderBottomWidth: 0,
+                        }}
+                      />
+                    );
                 })}
             </View>
         );

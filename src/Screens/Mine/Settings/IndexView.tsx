@@ -3,13 +3,22 @@ import NavHeader from "../../../Components/NavHeader";
 import GStyles, {appSize, TRUE_ONE_LINE} from '../../../Components/GStyles.ts';
 import IconNext from '../../../Assets/Svgs/IconNext.tsx';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import {logout} from "../../../Redux/persistedReducer";
+import {useDispatch} from "react-redux";
 
 function IndexView(props: any) {
 
 
   const [isEnabled, setIsEnabled] = useState(false);
 
+  const Nav = useNavigation()
+
+    const dispatch = useDispatch();
+
   const {navigation,route} = props
+
+  const nav = useNavigation()
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -46,8 +55,8 @@ function IndexView(props: any) {
         <NavHeader title={'设置'} />
         <MenuBar
           title={'账号管理'}
-          onPress={()=>{
-
+          onPress={() => {
+              Nav.navigate('ProfileSettings');
           }}
           style={{
             backgroundColor: '#ffffff',
@@ -69,34 +78,74 @@ function IndexView(props: any) {
         />
         <MenuBar
           title={'语言'}
-          onPress={()=>{
-
-          }}
+          onPress={() => {}}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>中文</Text>}
+          LeftDom={
+            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
+              中文
+            </Text>
+          }
           showRightIcon={true}
         />
-        <MenuBar title={'隐私协议'} style={{ backgroundColor: '#ffffff' }} />
-        <MenuBar title={'用户协议'} style={{ backgroundColor: '#ffffff' }} />
+        <MenuBar
+          onPress={() => {
+            nav.navigate('Agreement', { type: 1 });
+          }}
+          title={'隐私协议'}
+          style={{ backgroundColor: '#ffffff' }}
+        />
+        <MenuBar
+          onPress={() => {
+            nav.navigate('Agreement', { type: 2 });
+          }}
+          title={'用户协议'}
+          style={{ backgroundColor: '#ffffff' }}
+        />
         <MenuBar
           title={'版本号'}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>1.2.3</Text>}
+          LeftDom={
+            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
+              1.2.3
+            </Text>
+          }
           showRightIcon={false}
         />
         <MenuBar
           title={'清除缓存'}
           style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Text style={{color:'#5F5F5F',fontSize:appSize(14)}}>1000M</Text>}
+          LeftDom={
+            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
+              1000M
+            </Text>
+          }
           showRightIcon={false}
         />
 
+        <TouchableOpacity
+          onPress={() => {
 
-          <TouchableOpacity onPress={()=>{
+              dispatch(logout(null));
 
-          }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(56),height:appSize(64),width:'100%',backgroundColor: '#ffffff' }]}>
-              <Text style={[GStyles.ffh1,{color:'#FF6A6A'}]}>退出登录</Text>
-          </TouchableOpacity>
+              props?.navigation.reset({
+                index: 0,
+                routes: [{ name: 'Login' }],
+              });
+
+          }}
+          style={[
+            GStyles.jc,
+            GStyles.ac,
+            {
+              marginTop: appSize(56),
+              height: appSize(64),
+              width: '100%',
+              backgroundColor: '#ffffff',
+            },
+          ]}
+        >
+          <Text style={[GStyles.ffh1, { color: '#FF6A6A' }]}>退出登录</Text>
+        </TouchableOpacity>
       </View>
     );
 }

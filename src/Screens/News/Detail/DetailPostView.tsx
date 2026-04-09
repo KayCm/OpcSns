@@ -262,13 +262,13 @@ function DetailPostView({route}) {
                       onExitFullscreen={()=>{
                           setFullscreen(false)
                       }}
-                      fullscreenOrientation="landscape"
-                      fullscreenAutorotate={false}
+                      // fullscreenOrientation="landscape"
+                      // fullscreenAutorotate={false}
                       disableBack={true}
                       disableSeekbar={true}
                       toggleResizeModeOnFullscreen={true}
                       // toggleResizeModeOnFullscreen={true}
-                      resizeMode="contain" // 视频画面显示模式
+                      // resizeMode="contain" // 视频画面显示模式
                       style={{ width: '100%', aspectRatio: 16 / 9,borderRadius:5,marginTop:appSize(10)}}
                   />)}
 

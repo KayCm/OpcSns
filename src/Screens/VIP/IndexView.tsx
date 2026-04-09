@@ -37,46 +37,98 @@ function IndexView(props) {
 
         // imageUrl
 
-        return(<View style={[GStyles.ac,GStyles.ph12,GStyles.jcBetween,{height:appSize(260),width:'100%'}]}>
-
-            <TouchableOpacity onPress={()=>{
-                navigation.push('ActivityDetail',{id:data?.data[0]?.activityId})
-            }} style={[GStyles.ac]}>
-                <TurboImage
-                    source={{ uri:data?.data[0]?.imageUrl}}
-                    style={{width:WINDOW_WIDTH-appSize(24),borderRadius:appSize(5),height:appSize(185),backgroundColor:'#567'}}
-                    resizeMode="cover"
-                />
-                <ImageBackground resizeMode={'center'} style={{alignItems:'center',justifyContent:'center',width:'100%',height:appSize(52)}} imageStyle={{width:appSize(199),height:appSize(52)}}>
-                    <Text numberOfLines={1} style={[GStyles.ffb,{fontSize:appSize(16),color:'#121212'}]}>{data?.data[0]?.bannerName}</Text>
-                </ImageBackground>
-                <Text numberOfLines={1} style={{color:'#8a8a8a'}}>{data?.data[0]?.createTime}</Text>
+        return (
+          <View
+            style={[
+              GStyles.ac,
+              GStyles.ph12,
+              GStyles.jcBetween,
+              { height: appSize(290), width: '100%' },
+            ]}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('ActivityDetail', {
+                  id: data?.data[0]?.activityId,
+                });
+              }}
+              style={[GStyles.ac]}
+            >
+              <TurboImage
+                source={{ uri: data?.data[0]?.imageUrl }}
+                style={{
+                  width: WINDOW_WIDTH - appSize(24),
+                  borderRadius: appSize(5),
+                  height: appSize(185),
+                  backgroundColor: '#567',
+                }}
+                resizeMode="cover"
+              />
+              <ImageBackground
+                resizeMode={'center'}
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: appSize(52),
+                }}
+                imageStyle={{ width: appSize(199), height: appSize(52) }}
+              >
+                <Text
+                  numberOfLines={1}
+                  style={[
+                    GStyles.ffb,
+                    { fontSize: appSize(16), color: '#121212' },
+                  ]}
+                >
+                  {data?.data[0]?.bannerName}
+                </Text>
+              </ImageBackground>
+              <Text numberOfLines={1} style={{ color: '#8a8a8a' }}>
+                {data?.data[0]?.createTime.split(' ')[0]}
+              </Text>
             </TouchableOpacity>
-
-        </View>)
+          </View>
+        );
     }
 
     const renderRow = ({item}) => {
 
         console.log(item)
 
-      return(<TouchableOpacity onPress={()=>{
-          // ActivityDetailView organizerAvatar
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            // ActivityDetailView organizerAvatar
 
-          navigation.push('ActivityDetail',{id:item?.id})
-
-      }} key={item?.id} style={[GStyles.jc,GStyles.ac,{width:(WINDOW_WIDTH)/2,height:appSize(150)}]}>
-          <View style={{width:appSize(168)}}>
-
-              <TurboImage
-                  source={{ uri:item?.posterUrl}}
-                  style={{width:appSize(168),height:appSize(94),borderRadius:appSize(5)}}
-                  resizeMode="cover"
-              />
-              <Text style={{marginTop:appSize(6)}} numberOfLines={1}>{item?.activityName}</Text>
-              <Text style={{marginTop:appSize(2)}}>{item?.createTime}</Text>
+            navigation.push('ActivityDetail', { id: item?.id });
+          }}
+          key={item?.id}
+          style={[
+            GStyles.jc,
+            GStyles.ac,
+            { width: WINDOW_WIDTH / 2, height: appSize(150) },
+          ]}
+        >
+          <View style={{ width: appSize(168) }}>
+            <TurboImage
+              source={{ uri: item?.posterUrl }}
+              style={{
+                width: appSize(168),
+                height: appSize(94),
+                borderRadius: appSize(5),
+              }}
+              resizeMode="cover"
+            />
+            <Text style={{ marginTop: appSize(4) }} numberOfLines={1}>
+              {item?.activityName}
+            </Text>
+            <Text style={{ marginTop: appSize(1),fontSize:appSize(14), color: '#8a8a8a' }}>
+              {item?.createTime.split(' ')[0]}
+            </Text>
           </View>
-      </TouchableOpacity> )
+        </TouchableOpacity>
+      );
     }
 
     const MenuBar = () => {

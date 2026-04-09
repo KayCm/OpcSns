@@ -3,9 +3,11 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import GStyles, {appSize, NAVIGATOR_HEIGHT, TRUE_ONE_LINE} from "../../../Components/GStyles";
 import IconSearch from "../../../Assets/Svgs/IconSearch";
 import IconAvatar from "../../../Assets/Svgs/IconAvatar";
+import { useNavigation } from '@react-navigation/native';
 
 function NewsNav() {
     const insets = useSafeAreaInsets()
+  const navigation = useNavigation();
     return (
         <View
             style={{
@@ -30,7 +32,7 @@ function NewsNav() {
 
                 <View style={[GStyles.row, GStyles.ac, GStyles.ac, {marginRight:appSize(10)}]}>
                     <TouchableOpacity onPress={()=>{
-                        // navigation.navigate('Search')
+                         navigation.navigate('Search')
                     }}>
                         <Image source={require('../../../Assets/Header/search.png')} style={{width:appSize(24),height:appSize(24)}} />
                     </TouchableOpacity>

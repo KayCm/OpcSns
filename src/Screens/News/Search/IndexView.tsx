@@ -1,7 +1,7 @@
-import {View} from "react-native";
+import { Text, View } from 'react-native';
 
 function IndexView() {
-    return(<View style={{backgroundColor:'#123',flex:1}}>
+    return(<View style={{backgroundColor:'#fff',flex:1}}>
         <Text>Index</Text>
     </View>)
 }
