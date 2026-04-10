@@ -29,7 +29,7 @@ import TurboImage from 'react-native-turbo-image/src/TurboImage';
 import LinearGradient from 'react-native-linear-gradient';
 import { MemberCarousel } from '../../Components/MemberCarousel';
 import { useState } from 'react';
-import Modal from 'react-native-modal';
+
 import { VipModal } from './VipModal.tsx';
 
 function IndexView() {
@@ -39,7 +39,7 @@ function IndexView() {
 
   const { t } = useTranslation();
 
-  const [isModalVisible, setisModalVisible] = useState(true);
+  const [isModalVisible, setisModalVisible] = useState(false);
 
   // const changeLanguage = (lng) => {
   //     i18n.changeLanguage(lng);
@@ -125,6 +125,10 @@ function IndexView() {
           colors={['#F7E3D1', '#ffffff00']}
           style={[GStyles.pa, { width: '100%', height: appSize(280) }]}
         />
+
+        {/*<Image style={[GStyles.pa, { width: '100%', height: appSize(280) }]} source={require('../../Assets/mine/mineTopBg.png')} />*/}
+
+
         <TouchableOpacity
           onPress={() => {
             // console.log('userInfo',userInfo)
@@ -140,22 +144,22 @@ function IndexView() {
             },
           ]}
         >
-          {/*<TurboImage*/}
-          {/*    source={{ uri:userInfo?.avatar}}*/}
-          {/*    style={{borderWidth:2,borderColor:'#fff', width: appSize(64), height: appSize(64),borderRadius:appSize(32) }}*/}
-          {/*    resizeMode="cover"*/}
-          {/*/>*/}
-          <Image
-            source={require('../../Assets/icon.png')}
-            style={{
-              borderWidth: 2,
-              borderColor: '#fff',
-              width: appSize(64),
-              height: appSize(64),
-              borderRadius: appSize(32),
-            }}
-            resizeMode="cover"
+          <TurboImage
+              source={{ uri:userInfo?.avatar}}
+              style={{borderWidth:2,borderColor:'#fff', width: appSize(64), height: appSize(64),borderRadius:appSize(32) }}
+              resizeMode="cover"
           />
+          {/*<Image*/}
+          {/*  source={require('../../Assets/icon.png')}*/}
+          {/*  style={{*/}
+          {/*    borderWidth: 2,*/}
+          {/*    borderColor: '#fff',*/}
+          {/*    width: appSize(64),*/}
+          {/*    height: appSize(64),*/}
+          {/*    borderRadius: appSize(32),*/}
+          {/*  }}*/}
+          {/*  resizeMode="cover"*/}
+          {/*/>*/}
           <View
             style={[GStyles.row, GStyles.ac, GStyles.jcBetween, { flex: 1 }]}
           >

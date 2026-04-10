@@ -12,6 +12,7 @@ export const RegisterViewModel = () => {
     // const [invCode,setInvCode] = useState('INV123456')
     const [agree,setAgree] = useState(false)
 
+    const [visible,setVisible] = useState(false)
 
     async function sendVerificationCode() {
 
@@ -26,6 +27,7 @@ export const RegisterViewModel = () => {
 
     const submitRegister = async () => {
 
+        // setVisible(true)
         // /open-api/mobile/register/registerByEmail
         const url = '/open-api/mobile/register/registerByEmail';
         let params = {
@@ -39,8 +41,8 @@ export const RegisterViewModel = () => {
 
         console.log('res',res)
 
-        if (res?.data?.code == 200){
-            Alert.alert('注册成功')
+        if (res?.code == 200){
+            setVisible(true)
         }else{
             Alert.alert(res?.msg)
         }
@@ -61,7 +63,8 @@ export const RegisterViewModel = () => {
         sendVerificationCode,
         submitRegister,
         agree,
-        setAgree
+        setAgree,
+        visible
 
     }
 }

@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  // blacklist:['appData']
+    whitelist: ['appData', 'userInfo'],
 };
 
 export const persistedReducer = persistReducer(persistConfig,particleSliceReducer)

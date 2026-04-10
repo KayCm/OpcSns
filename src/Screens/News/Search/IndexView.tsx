@@ -93,6 +93,7 @@ function IndexView() {
             placeholder={'请输入搜索词'}
             style={{
               height: appSize(44),
+                flex:1,
             }}
           />
         </View>

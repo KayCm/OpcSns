@@ -6,6 +6,7 @@ import {useRef} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../Services/NetRequestService";
 import TurboImage from "react-native-turbo-image";
+import {COLORS} from "../../Components/Constant";
 
 
 function IndexView(props) {
@@ -43,7 +44,7 @@ function IndexView(props) {
               GStyles.ac,
               GStyles.ph12,
               GStyles.jcBetween,
-              { height: appSize(290), width: '100%' },
+              { height: appSize(280), width: '100%' },
             ]}
           >
             <TouchableOpacity
@@ -54,7 +55,9 @@ function IndexView(props) {
               }}
               style={[GStyles.ac]}
             >
-              <TurboImage
+                <Image style={{position: 'absolute',left:appSize(20),top:appSize(170),width:appSize(38),height:appSize(31)}} source={require('../../Assets/Vip/fuhao.png')} />
+
+                <TurboImage
                 source={{ uri: data?.data[0]?.imageUrl }}
                 style={{
                   width: WINDOW_WIDTH - appSize(24),
@@ -64,13 +67,18 @@ function IndexView(props) {
                 }}
                 resizeMode="cover"
               />
+
+
+
               <ImageBackground
                 resizeMode={'center'}
+                source={require('../../Assets/Vip/ACTIVITYBg.png')}
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
                   width: '100%',
                   height: appSize(52),
+
                 }}
                 imageStyle={{ width: appSize(199), height: appSize(52) }}
               >
@@ -94,13 +102,14 @@ function IndexView(props) {
 
     const renderRow = ({item}) => {
 
-        console.log(item)
+
 
       return (
         <TouchableOpacity
           onPress={() => {
             // ActivityDetailView organizerAvatar
 
+              console.log(item)
             navigation.push('ActivityDetail', { id: item?.id });
           }}
           key={item?.id}
@@ -120,10 +129,10 @@ function IndexView(props) {
               }}
               resizeMode="cover"
             />
-            <Text style={{ marginTop: appSize(4) }} numberOfLines={1}>
+            <Text style={[GStyles.ffh11,{fontSize: appSize(14),color:COLORS.FONTBLACK, marginTop: appSize(4) }]} numberOfLines={1}>
               {item?.activityName}
             </Text>
-            <Text style={{ marginTop: appSize(1),fontSize:appSize(14), color: '#8a8a8a' }}>
+            <Text style={{ marginTop: appSize(1),fontSize:appSize(12), color: '#8a8a8a' }}>
               {item?.createTime.split(' ')[0]}
             </Text>
           </View>
@@ -132,11 +141,11 @@ function IndexView(props) {
     }
 
     const MenuBar = () => {
-        return(<View style={[GStyles.jc,{height:appSize(83)}]}>
+        return(<View style={[GStyles.jc,{height:appSize(45)}]}>
 
             <View style={[GStyles.row,GStyles.jc,GStyles.atBase,{gap:appSize(30)}]} >
 
-                    <Text style={[GStyles.ffb,{fontSize:16}]}>活动</Text>
+                    {/*<Text style={[GStyles.ffb,{fontSize:16}]}>活动</Text>*/}
 
             </View>
 

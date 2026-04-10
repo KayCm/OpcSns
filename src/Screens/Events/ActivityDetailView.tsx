@@ -15,9 +15,9 @@ function ActivityDetailView(props) {
     // String('events'+route?.params?.id.toString())
 
     const { isPending,isLoading, isError, data, error } = useQuery({
-        queryKey: [String('events'+route?.params?.id.toString())],
-        queryFn: ()=> R_POST('/open-api/mobile/activity/detail',{id:route?.params?.id}),
-        gcTime:360000
+        queryKey: [String('events'+props?.route?.params?.id.toString())],
+        queryFn: ()=> R_POST('/open-api/mobile/activity/detail',{id:props?.route?.params?.id},{},true),
+        gcTime:0
     })
 
     if (isPending)return null
@@ -28,6 +28,7 @@ function ActivityDetailView(props) {
 
     const {navigation,route} = props
 
+    console.log('data',route?.params?.id.toString())
     console.log('data',data)
 
     const DetailHeader = () => {

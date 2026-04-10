@@ -25,7 +25,7 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
     // 核心：renderItem 方法，渲染单张图片
     const renderItem = ({ item,index}) => (
 
-        <TouchableOpacity onPress={onPress} style={[styles.imageContainer, { width: IMAGE_WIDTH }]}>
+        <TouchableOpacity activeOpacity={1} onPress={onPress} style={[styles.imageContainer, { width: IMAGE_WIDTH }]}>
 
             <LinearGradient start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}

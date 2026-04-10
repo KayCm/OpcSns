@@ -53,63 +53,114 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
             ]}
           >
             <TouchableOpacity
+                activeOpacity={1}
               onPress={() => {
                 setModalVipNum(0);
               }}
+              style={{width: appSize(90), height: appSize(39)}}
             >
-              <ImageBackground
-                source={require('../../Assets/mine/vipBtnBg1.png')}
-                style={[
-                  GStyles.row,
-                  GStyles.jc,
-                  GStyles.ac,
-                  { width: appSize(90), height: appSize(32) },
-                ]}
-              >
-                <Image
-                  source={require('../../Assets/mine/vip1.png')}
-                  style={{
-                    width: appSize(24),
-                    height: appSize(24),
-                    marginTop: appSize(5),
-                  }}
-                />
-                <Text style={[GStyles.ffh11, { fontSize: appSize(14) }]}>
-                  会员
-                </Text>
-              </ImageBackground>
+
+                {modalVipNum==0?(<ImageBackground
+                    source={ require('../../Assets/mine/vipBtnBg2_on.png')}
+                    style={[
+                        GStyles.row,
+                        GStyles.jc,
+                        { width: appSize(90), height: appSize(39) },
+                    ]}
+                >
+                    <Image
+                        source={require('../../Assets/mine/vip1.png')}
+                        style={{
+                            width: appSize(24),
+                            height: appSize(24),
+                            marginTop: appSize(5),
+                        }}
+                    />
+                    <Text style={[GStyles.ffh11, {marginTop:appSize(5), fontSize: appSize(14) }]}>
+                        会员
+                    </Text>
+                </ImageBackground>):(<ImageBackground
+                    source={ require('../../Assets/mine/vipBtnBg1.png')}
+                    style={[
+                        GStyles.row,
+                        GStyles.jc,
+                        { width: appSize(90), height: appSize(32) },
+                    ]}
+                >
+                    <Image
+                        source={require('../../Assets/mine/vip1.png')}
+                        style={{
+                            width: appSize(24),
+                            height: appSize(24),
+                            marginTop: appSize(5),
+                        }}
+                    />
+                    <Text style={[GStyles.ffh11, {marginTop:appSize(5), fontSize: appSize(14) }]}>
+                        会员
+                    </Text>
+                </ImageBackground>)}
+
+
             </TouchableOpacity>
 
             <TouchableOpacity
+                activeOpacity={1}
               onPress={() => {
                 setModalVipNum(1);
               }}
+              style={{width: appSize(90), height: appSize(39)}}
             >
-              <ImageBackground
-                source={require('../../Assets/mine/vipBtnBg2.png')}
-                style={[
-                  GStyles.row,
-                  GStyles.jc,
-                  GStyles.ac,
-                  { width: appSize(90), height: appSize(32) },
-                ]}
-              >
-                <Image
-                  source={require('../../Assets/mine/vip2.png')}
-                  style={{
-                    width: appSize(24),
-                    height: appSize(24),
-                    marginTop: appSize(5),
-                  }}
-                />
-                <Text style={[GStyles.ffh11, { fontSize: appSize(14) }]}>
-                  精英会员
-                </Text>
-              </ImageBackground>
+                {modalVipNum==1?(<ImageBackground
+                    source={ require('../../Assets/mine/vipBtnBg1_on.png')}
+                    style={[
+                        GStyles.row,
+                        GStyles.jc,
+                        { width: appSize(90), height: appSize(39) },
+                    ]}
+                >
+                    <Image
+                        source={require('../../Assets/mine/vip2.png')}
+                        style={{
+                            width: appSize(24),
+                            height: appSize(24),
+                            marginTop: appSize(5),
+                        }}
+                    />
+                    <Text style={[GStyles.ffh11, {marginTop:appSize(5),fontSize: appSize(14) }]}>
+                        精英VIP
+                    </Text>
+                </ImageBackground>):(<ImageBackground
+                    source={ require('../../Assets/mine/vipBtnBg2.png')}
+                    style={[
+                        GStyles.row,
+                        GStyles.jc,
+                        { width: appSize(90), height: appSize(32) },
+                    ]}
+                >
+                    <Image
+                        source={require('../../Assets/mine/vip2.png')}
+                        style={{
+                            width: appSize(24),
+                            height: appSize(24),
+                            marginTop: appSize(5),
+                        }}
+                    />
+                    <Text style={[GStyles.ffh11, {marginTop:appSize(5), fontSize: appSize(14) }]}>
+                        精英VIP
+                    </Text>
+                </ImageBackground>)}
+
             </TouchableOpacity>
           </View>
 
           {modalVipNum == 0 ? (
+
+                  <View
+                      style={{
+                          width: appSize(350),
+                          height: appSize(420),
+                      }}
+                  >
             <View
               style={{
                 width: appSize(350),
@@ -140,7 +191,7 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                 >
                   {vip1Arr.map((value, index, array) => {
                     return (
-                      <View
+                      <View key={index}
                         style={{
                           justifyContent: 'center',
                           alignItems: 'center',
@@ -219,7 +270,7 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                 </ImageBackground>
                 <TouchableOpacity
                   onPress={() => {
-                    Alert.alert('');
+
                   }}
                   style={[GStyles.jc, GStyles.ac, { flex: 1 }]}
                 >
@@ -229,6 +280,9 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                 </TouchableOpacity>
               </View>
             </View>
+
+                  </View>
+
           ) : (
             <View
               style={{
@@ -256,11 +310,12 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                     justifyContent: 'center',
                     gap: appSize(36),
                     marginTop: appSize(20),
+                      paddingHorizontal:appSize(20)
                   }}
                 >
                   {vip2Arr.map((value, index, array) => {
                     return (
-                      <View
+                      <View key={index}
                         style={{
                           justifyContent: 'center',
                           alignItems: 'center',
@@ -339,7 +394,7 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                 </ImageBackground>
                 <TouchableOpacity
                   onPress={() => {
-                    Alert.alert('');
+
                   }}
                   style={[GStyles.jc, GStyles.ac, { flex: 1 }]}
                 >

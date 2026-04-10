@@ -11,6 +11,7 @@ import {
     ListRenderItem,
 } from 'react-native';
 import GStyles, {appSize} from "./GStyles";
+import {COLORS} from "./Constant";
 
 
 const { width: screenWidth } = Dimensions.get('window');
@@ -156,7 +157,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
         return(<TouchableOpacity onPress={()=>{
            if (onPress)onPress(data)
         }} style={[GStyles.jcBetween,{height:appSize(62),...style}]}>
-            <Text numberOfLines={2} style={[GStyles.ffb,{fontSize: 14,lineHeight: 20,fontWeight: '800' }]}>
+            <Text numberOfLines={2} style={[GStyles.ffb,{fontSize: appSize(14),color:COLORS.FONTBLACK,lineHeight: 20,fontWeight: '800' }]}>
                 <View style={{
                     backgroundColor: index%2==0?'#A88A84':'#788A90',
                     // borderRadius: 10,
@@ -168,10 +169,11 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
                     justifyContent:'center',
                     alignItems: 'center',
                     marginRight:appSize(5),
+                    fontSize: appSize(14),
                 }}>
-                    <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>{index+1}</Text>
+                    <Text style={{ fontSize: appSize(10),color:'#fff',fontWeight:'600' }}>{index+1}</Text>
                 </View>{' '}{data?.title}</Text>
-            {data?.content && (<Text numberOfLines={1} style={{marginTop:appSize(1),color:'#909090'}}>{data?.content}</Text>
+            {data?.content && (<Text numberOfLines={1} style={{marginTop:appSize(0),fontSize: appSize(12),color:'#909090'}}>{data?.content}</Text>
             )}
          </TouchableOpacity>)
 

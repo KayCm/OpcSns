@@ -66,7 +66,8 @@ function IndexView() {
             renderHeader={() =>
               NewsHeader({
                 BannerClick: value => {
-                  if (value?.materialType == 'post') {
+
+                  if (value?.linkTargetType == '1') {
                     navigation.navigate('DetailPost', {
                       item: { id: value?.linkValue },
                     });

@@ -21,52 +21,50 @@ function DetailPostView({route}) {
   const [fullscreen, setFullscreen] = useState(false);
   var videoRef = useRef<VideoRef>(null);
 
-  // const [data,setData] = useState()
-  // useEffect(()=>{
-  //     R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}).then(res=>{
-  //         console.log(res)
-  //         setData(res)
-  //         var arr = []
-  //         if (res?.data?.contentType == 'image'){
-  //             res?.data?.medias.map((value,index)=>{
-  //                 arr.push({uri:value?.fileUrl})
-  //             })
-  //             console.log('arr',arr)
-  //             setImages(arr)
-  //         }
+  const [data,setData] = useState()
+  useEffect(()=>{
+      R_POST('/open-api/mobile/content/material/detail',{id:route?.params?.item?.id}).then(res=>{
+          console.log(res)
+          if (res?.code == 200){
+              setData(res)
+          }else{
+              Alert.alert(JSON.stringify(res))
+          }
+      }).catch(err=>{
+          Alert.alert(JSON.stringify(err))
+          Alert.alert(JSON.stringify(res))
+      })
+  },[])
+
+  // const { isPending, isLoading, isError, data, error } = useQuery({
+  //   queryKey: [String('detail' + route?.params?.item?.id.toString())],
+  //   queryFn: () =>
+  //     R_POST('/open-api/mobile/content/material/detail', {
+  //       id: route?.params?.item?.id,
+  //     }),
+  //   staleTime: 1000 * 60 * 60 * 24,
+  // });
+  // //
+  // if (isPending)
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <Text>isPending</Text>
+  //     </View>
+  //   );
   //
-  //     })
-  // },[])
-
-  const { isPending, isLoading, isError, data, error } = useQuery({
-    queryKey: [String('detail' + route?.params?.item?.id.toString())],
-    queryFn: () =>
-      R_POST('/open-api/mobile/content/material/detail', {
-        id: route?.params?.item?.id,
-      }),
-    staleTime: 1000 * 60 * 60 * 24,
-  });
+  // if (isLoading)
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <Text>Loading</Text>
+  //     </View>
+  //   );
   //
-  if (isPending)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>isPending</Text>
-      </View>
-    );
-
-  if (isLoading)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Loading</Text>
-      </View>
-    );
-
-  if (error)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Loading</Text>
-      </View>
-    );
+  // if (error)
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  //       <Text>Loading</Text>
+  //     </View>
+  //   );
 
   function getImages() {
     console.log('get------->');
@@ -82,7 +80,7 @@ function DetailPostView({route}) {
     }
   }
 
-  console.log('postData', data);
+  // console.log('postData', data);
 
   const dateObj = getDateInfo('zh');
 
@@ -333,12 +331,16 @@ function DetailPostView({route}) {
         </View>
       </ScrollView>
 
-      <ImageView
-        images={getImages()}
-        imageIndex={0}
-        visible={showModal}
-        onRequestClose={() => setShowModal(false)}
-      />
+
+        {data?.data?.contentType == 'image' && (<ImageView
+            images={getImages()}
+            imageIndex={0}
+            visible={showModal}
+            onRequestClose={() => setShowModal(false)}
+        />)}
+
+
+
     </View>
   );
 }

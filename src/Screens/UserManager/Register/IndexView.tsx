@@ -10,13 +10,15 @@ import {
     KeyboardAvoidingView
 } from "react-native";
 import NavHeader from "../../../Components/NavHeader";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import CountdownButton, {CountdownButtonHandle} from "../../../Components/CountdownButton";
 import GStyles, {appSize} from "../../../Components/GStyles";
 import {RegisterViewModel} from "./RegisterViewModel";
 import IconNexa from "../../../Assets/Svgs/IconNexa";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "@react-navigation/native";
+import Modal from "react-native-modal";
+import {COLORS} from "../../../Components/Constant";
 
 function IndexView(props: any) {
 
@@ -34,8 +36,12 @@ function IndexView(props: any) {
         sendVerificationCode,
         submitRegister,
         agree,
+        visible,
         setAgree} = RegisterViewModel()
 
+    const [showPwd,SetShowPwd] = useState(false)
+
+    const [showAgree,SetShowAgree] = useState(false)
 
 
     const insets =  useSafeAreaInsets()
@@ -55,6 +61,52 @@ function IndexView(props: any) {
             Alert.alert('发送失败', '请稍后重试');
         }
     };
+
+
+
+    const LoginAlert = () => {
+        return(<Modal style={{margin:0,padding:0}} isVisible={visible}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(200),backgroundColor:'#fff'}]}>
+                    <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
+                        <Text style={[GStyles.ffh11,{color:COLORS.FONTBLACK,fontSize:appSize(24)}]}>注册成功</Text>
+                    </View>
+                    <TouchableOpacity onPress={()=>{
+                        nav.goBack()
+                    }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(40),width:appSize(185),height:appSize(40),backgroundColor:'#A5885F'}]}>
+                        <Text style={{color:'#fff',fontSize:appSize(15)}}>返回并登录</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>)
+    }
+
+    const AgreeAlert = () => {
+        return(<Modal style={{margin:0,padding:0}} isVisible={showAgree}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(200),backgroundColor:'#fff'}]}>
+                    <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
+                        <Text style={{color:'#8a8a8a',fontSize:appSize(14)}}>请先仔细阅读<Text style={{color:'#A5885F'}} onPress={()=>{
+                            SetShowAgree(false)
+                            nav.navigate('Agreement', { type: 2 });
+                        }}>《用户使用协议》</Text>和<Text style={{color:'#A5885F'}} onPress={()=>{
+                            SetShowAgree(false)
+                            nav.navigate('Agreement', { type: 1 });
+                        }}>《隐私协议》</Text>,确认是否同意</Text>
+                    </View>
+                    <TouchableOpacity onPress={()=>{
+                        SetShowAgree(false)
+                        submitRegister()
+                    }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(40),width:appSize(185),height:appSize(40),backgroundColor:'#A5885F'}]}>
+                        <Text style={{color:'#fff',fontSize:appSize(15)}}>同意并注册</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>)
+    }
+
+
+
 
     return (<View style={{ flex: 1,paddingTop:insets.top}}>
         <View style={[GStyles.ph12,{}]}>
@@ -87,7 +139,13 @@ function IndexView(props: any) {
                             value={password}
                             onChangeText={setPassword}
                             placeholder={'请输入密码'}
-                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                            secureTextEntry={!showPwd}
+                            style={{height: appSize(44),marginLeft:appSize(12),flex:1}}/>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'flex-end',width:appSize(44),height:appSize(44)}} onPress={()=>{
+                            SetShowPwd(!showPwd)
+                        }}>
+                            <Image source={showPwd?require('../../../Assets/pwdIcon_on.png'):require('../../../Assets/pwdIcon_off.png')} style={{height:appSize(16),width:appSize(16)}} />
+                        </TouchableOpacity>
                     </View>
 
                     <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
@@ -133,7 +191,9 @@ function IndexView(props: any) {
 
                         if (!agree){
 
-                            Alert.alert('请同意用户协议和隐私政策')
+                            // Alert.alert('请同意用户协议和隐私政策')
+
+                            SetShowAgree(true)
 
                             return
                         }
@@ -162,6 +222,10 @@ function IndexView(props: any) {
                 </View>
             </ScrollView>
         </View>
+
+        <LoginAlert />
+
+        <AgreeAlert />
 
     </View>)
 

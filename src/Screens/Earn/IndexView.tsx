@@ -5,6 +5,7 @@ import TurboImage from "react-native-turbo-image";
 import {useSelector} from "react-redux";
 import LinearGradient from 'react-native-linear-gradient';
 import DataList3 from "../../Components/DataList3/Index";
+import {COLORS} from "../../Components/Constant";
 
 function IndexView({navigation,route}) {
 
@@ -29,15 +30,16 @@ function IndexView({navigation,route}) {
                 resizeMode="cover"
             />
             <View style={[GStyles.jcBetween,{ paddingVertical: appSize(3),height: appSize(68),flex:1}]}>
-                <Text style={{fontSize:appSize(18),fontWeight:'600'}}>你好～{userInfo?.username}</Text>
+                <Text style={{fontSize:appSize(18),fontWeight:'600',color:COLORS.FONTBLACK}}>你好～{userInfo?.username}</Text>
 
                 <View style={{}}>
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
-                        <Text style={{fontSize:appSize(12)}}>成长值 Lv.2</Text>
-                        <Text style={{fontSize:appSize(12)}}>111/200</Text>
+                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>成长值 Lv.2</Text>
+                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>111/200</Text>
                     </View>
-                    <View>
-                        <View style={{height:appSize(20),borderWidth:1,width:'100%',}}>
+
+                    <View style={{marginTop:appSize(4)}}>
+                        <View style={{height:appSize(20),borderWidth:1,borderColor:'#1C1A17',width:'100%',}}>
                             <View style={{height:appSize(20)-2,width:'50%',backgroundColor:'#a5885f'}} />
                         </View>
                     </View>
@@ -60,7 +62,7 @@ function IndexView({navigation,route}) {
                 <Text style={[GStyles.ffb,{fontSize:appSize(18)}]} >本月财报</Text>
             </ImageBackground>
 
-            <View style={[GStyles.row,{width:'100%',height:appSize(120),borderRadius:appSize(5),marginTop:appSize(20),backgroundColor:'#fff'}]}>
+            <ImageBackground source={require('../../Assets/earn/midBg.png')} style={[GStyles.row,{width:'100%',height:appSize(120),borderRadius:appSize(5),marginTop:appSize(20)}]}>
 
                 <View style={[GStyles.jc,GStyles.ac,{flex:1,gap:appSize(10)}]}>
                     <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>3000</Text>
@@ -77,7 +79,7 @@ function IndexView({navigation,route}) {
                     <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>3000</Text>
                     <Text style={{color:'#909090'}}>净利润</Text>
                 </View>
-            </View>
+            </ImageBackground>
 
 
 
@@ -117,14 +119,14 @@ function IndexView({navigation,route}) {
                 Alert.alert('敬请期待！')
             }} style={{width:appSize(168)}}>
                 <Image source={item?.img} style={{width:appSize(168),height:appSize(94),borderRadius:appSize(5)}} />
-                <Text style={{marginTop:appSize(6)}} numberOfLines={1}>{item?.title}</Text>
-                <Text style={{marginTop:appSize(2)}}>{item?.desc}</Text>
+                <Text style={[GStyles.ffh11,{color:'#1C1A17',fontSize:appSize(14),marginTop:appSize(6)}]} numberOfLines={1}>{item?.title}</Text>
+                <Text style={{fontSize:appSize(12),color:'#828282',marginTop:appSize(2)}}>{item?.desc}</Text>
             </TouchableOpacity>
         </View> )
     }
 
     //F0EBE4
-    return(<LinearGradient colors={['#F0EBE4', '#ffffff']} style={{flex:1}}>
+    return(<ImageBackground  style={{flex:1}} source={require('../../Assets/earn/earnBg.png')}>
         <View style={{flex:1,paddingTop:inset.top}}>
             <Hearder />
 
@@ -137,7 +139,7 @@ function IndexView({navigation,route}) {
 
             {/*<DataList3 key={1} numColumns={2} estimatedItemSize={appSize(150)}  renderHeader={renderHeader} renderRow={renderRow} url={'/open-api/mobile/home/material/normal/list'} params={{}} queryKey={'normal-list'} />*/}
         </View>
-    </LinearGradient>)
+        </ImageBackground>)
 }
 
 export default IndexView;

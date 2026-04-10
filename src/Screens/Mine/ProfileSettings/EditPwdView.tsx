@@ -7,6 +7,8 @@ import AlertModal from "../../../Components/AlertModal";
 import {logout} from "../../../Redux/persistedReducer";
 import {useDispatch} from "react-redux";
 import CustomAlert from '../../../Components/CustomAlert.tsx';
+import Modal from "react-native-modal";
+import {COLORS} from "../../../Components/Constant";
 
 function EditPwdView(props) {
 
@@ -14,11 +16,6 @@ function EditPwdView(props) {
     const [newPwd,setNewPwd] = useState('')
     const [new2Pwd,setNew2Pwd] = useState('')
 
-    const [showAlert,setShowAlert] = useState(false)
-    const [showAlertText,setShowAlertText] = useState('')
-
-    const [alertVisible, setAlertVisible] = useState(false);
-    const [alertConfig, setAlertConfig] = useState({});
 
     const dispatch = useDispatch()
 
@@ -32,42 +29,60 @@ function EditPwdView(props) {
 
         R_POST('/open-api/mobile/member/password',params).then(res=>{
 
-            console.log('res',res)
-
             if (res?.code == 200){
-            //     setShowAlert(true)
-            //     setShowAlertText('修改成功')
+                setVisible(true)
             }else{
-
                 Alert.alert(res?.msg)
-            //     setShowAlert(true)
-            //     setShowAlertText('修改失败')
             }
         }).catch(err=>{
-            setShowAlert(true)
-            setShowAlertText('修改失败')
+
         })
 
     }
 
 
-  const showSimpleAlert = () => {
-    setAlertConfig({
-      title: '提示',
-      message: '这是一个简单的提示信息',
-      buttons: [
-        {
-          text: '知道了',
-          onPress: () => {
-            console.log('用户点击了确定');
-            setAlertVisible(false);
-          },
-        },
-      ],
-    });
-    setAlertVisible(true);
-  };
+  // const showSimpleAlert = () => {
+  //   setAlertConfig({
+  //     title: '提示',
+  //     message: '这是一个简单的提示信息',
+  //     buttons: [
+  //       {
+  //         text: '知道了',
+  //         onPress: () => {
+  //           console.log('用户点击了确定');
+  //           setAlertVisible(false);
+  //         },
+  //       },
+  //     ],
+  //   });
+  //   setAlertVisible(true);
+  // };
 
+    const [visible,setVisible] = useState(false)
+
+    const PwdAlert = () => {
+        return(<Modal style={{margin:0,padding:0}} isVisible={visible}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(200),backgroundColor:'#fff'}]}>
+                    <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
+                        <Text style={[GStyles.ffh11,{color:COLORS.FONTBLACK,fontSize:appSize(20)}]}>修改成功</Text>
+                    </View>
+                    <TouchableOpacity onPress={()=>{
+
+                        dispatch(logout(null))
+
+                        props?.navigation.reset({
+                            index: 0,
+                            routes: [{ name: 'Login' }],
+                        });
+
+                    }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(40),width:appSize(185),height:appSize(40),backgroundColor:'#A5885F'}]}>
+                        <Text style={{color:'#fff',fontSize:appSize(15)}}>请重新登录</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>)
+    }
 
     return (
       <View style={{ flex: 1, backgroundColor: '' }}>
@@ -169,9 +184,8 @@ function EditPwdView(props) {
 
           <TouchableOpacity
             onPress={() => {
-              // updatePwd();
+              updatePwd();
 
-              showSimpleAlert();
             }}
             style={[
               GStyles.jc,
@@ -196,14 +210,7 @@ function EditPwdView(props) {
           </TouchableOpacity>
         </View>
 
-        <CustomAlert
-          visible={alertVisible}
-          title={alertConfig.title}
-          message={alertConfig.message}
-          buttons={alertConfig.buttons}
-          onBackdropPress={() => setAlertVisible(false)}
-          onBackButtonPress={() => setAlertVisible(false)}
-        />
+        <PwdAlert />
 
       </View>
     );

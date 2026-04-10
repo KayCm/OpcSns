@@ -82,9 +82,7 @@ function NewsHeader({BannerClick,HotInfoClick}) {
     const News2 = () => {
 
 
-
-
-        console.log('topData',topData)
+        // console.log('topData',topData)
         //
         // return null
         const result = [];
@@ -98,8 +96,6 @@ function NewsHeader({BannerClick,HotInfoClick}) {
         }
 
         // console.log('result',result)
-
-
 
         const dateObj = getDateInfo('zh')
         return(<View style={[{marginTop:appSize(10)}]}>
@@ -128,7 +124,6 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                       </View>
 
                       <View style={[GStyles.flexEnd,{backgroundColor: '#fff',height:appSize(160),width:'100%'}]}>
-
                           <BannerCarousel
                               data={result}
                               itemGap={appSize(10)}        // 卡片间距 20px
@@ -139,7 +134,6 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                                   if (HotInfoClick)HotInfoClick(item)
                               }}
                           />
-
                       </View>
                   </View>
 

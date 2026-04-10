@@ -1,3 +1,4 @@
 export const COLORS = {
-    PRIMARY:''
+    PRIMARY:'',
+    FONTBLACK:'#1C1A17'
 }

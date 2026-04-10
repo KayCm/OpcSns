@@ -67,7 +67,7 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
 
     if (error) return <Text>An error occurred: {error.message}</Text>;
 
-    console.log('LIST',data)
+    // console.log('LIST',data)
 
     const queryClient = useQueryClient()
 

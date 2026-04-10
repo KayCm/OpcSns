@@ -11,6 +11,7 @@ import RegisterView from "./Component/RegisterView";
 import {useSelector} from "react-redux";
 import IconNexa from "../../../Assets/Svgs/IconNexa";
 // import CountdownButton, { CountdownButtonHandle } from '';
+import Modal from 'react-native-modal';
 
 function IndexView(props) {
 
@@ -24,6 +25,9 @@ function IndexView(props) {
 
     // const nav = useNavigation()
 
+    const [showPwd,SetShowPwd] = useState(false)
+
+
     const nav = props?.navigation
 
     const userInfo = useSelector(state => state?.userInfo);
@@ -31,6 +35,59 @@ function IndexView(props) {
     const insets =  useSafeAreaInsets()
 
     const [loading,setLoading] = useState(false)
+    const [visible,setVisible] = useState(false)
+
+
+    const LoginAlert = () => {
+
+        return(<Modal style={{margin:0,padding:0}} isVisible={visible}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(200),backgroundColor:'#fff'}]}>
+
+
+                    <View style={[GStyles.row,GStyles.ac,{marginTop:appSize(10),height:appSize(44)}]}>
+                        <Text style={{color:'#8a8a8a',fontSize:appSize(14)}}>请先仔细阅读<Text style={{color:'#A5885F'}} onPress={()=>{
+                            setVisible(false)
+                            nav.navigate('Agreement', { type: 2 });
+                        }}>《用户使用协议》</Text>和<Text style={{color:'#A5885F'}} onPress={()=>{
+                            setVisible(false)
+                            nav.navigate('Agreement', { type: 1 });
+                        }}>《隐私协议》</Text>,确认是否同意</Text>
+                    </View>
+
+                    <TouchableOpacity onPress={()=>{
+
+                        setVisible(false)
+
+                        if (loading){
+
+                        }else{
+                            setLoading(true)
+                            loginAct().then(res=>{
+                                setLoading(false)
+                                if (res.res){
+                                    getUserInfo()
+                                    nav.replace('AppBottomTab')
+                                }else{
+                                    Alert.alert(res?.msg)
+                                }
+
+                            }).catch(err=>{
+                                setLoading(false)
+                            }).finally(()=>{
+                                setLoading(false)
+                            })
+                        }
+
+                    }} style={[GStyles.jc,GStyles.ac,{marginTop:appSize(40),width:appSize(185),height:appSize(40),backgroundColor:'#A5885F'}]}>
+                        <Text style={{color:'#fff',fontSize:appSize(15)}}>同意并登录</Text>
+                    </TouchableOpacity>
+
+                </View>
+            </View>
+        </Modal>)
+    }
+
 
     return (<View style={{ flex: 1,paddingTop:insets.top}}>
 
@@ -59,9 +116,14 @@ function IndexView(props) {
                         <TextInput
                             value={loginPassword}
                             onChangeText={setLoginPassword}
-                            secureTextEntry={true}
+                            secureTextEntry={!showPwd}
                             placeholder={'请输入密码'}
-                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
+                            style={{height: appSize(44),marginLeft:appSize(12),flex:1}}/>
+                        <TouchableOpacity style={{justifyContent:'center',alignItems:'flex-end',width:appSize(44),height:appSize(44)}} onPress={()=>{
+                            SetShowPwd(!showPwd)
+                        }}>
+                            <Image source={showPwd?require('../../../Assets/pwdIcon_on.png'):require('../../../Assets/pwdIcon_off.png')} style={{height:appSize(16),width:appSize(16)}} />
+                        </TouchableOpacity>
                     </View>
 
 
@@ -76,9 +138,7 @@ function IndexView(props) {
 
 
                         if (!agree){
-
-                            Alert.alert('请同意用户协议和隐私政策')
-
+                            setVisible(true)
                             return
                         }
 
@@ -224,6 +284,7 @@ function IndexView(props) {
 
             </View>
 
+            <LoginAlert />
 
       </View>
     );

@@ -8,8 +8,8 @@ export const LoginViewModel = () => {
 
     const dispatch =  useDispatch()
 
-    const [loginEmail,setLoginEmail] = useState('1@2.com')
-    const [loginPassword,setLoginPassword] = useState('123456')
+    const [loginEmail,setLoginEmail] = useState('')
+    const [loginPassword,setLoginPassword] = useState('')
     const [agree,setAgree] = useState(false)
 
     const loginAct = async () => {

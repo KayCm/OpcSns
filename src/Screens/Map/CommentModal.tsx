@@ -34,17 +34,18 @@ export const CommentModal = ({item,isModalVisible,onPress,dismiss}) => {
                     <Text style={[GStyles.ffh11,{fontSize:appSize(24)}]}>请评价</Text>
                     <Text style={{fontSize:appSize(16),marginTop:appSize(20)}}>{name}</Text>
                     <View style={{flexDirection:'row',marginTop:appSize(20)}}>
-                        {[{score:1,text:'很糟糕',icon:''}, {score:2,text:'较差',icon:''}, {score:3,text:'一般',icon:''}, {score:4,text:'还可以',icon:''}, {score:5,text:'很棒',icon:''}].map((score) => (
+                        {[{score:1,text:'很糟糕',icon:require('../../Assets/map/score_1.png')}, {score:2,text:'较差',icon:require('../../Assets/map/score_2.png')}, {score:3,text:'一般',icon:require('../../Assets/map/score_3.png')}, {score:4,text:'还可以',icon:require('../../Assets/map/score_4.png')}, {score:5,text:'很棒',icon:require('../../Assets/map/score_5.png')}].map((score) => (
                             <TouchableOpacity
                                 key={score.score}
                                 style={[GStyles.jc,GStyles.ac,{width:appSize(50)}]}
                                 onPress={() => {
                                     setModalNum(score.score)
                                 }}>
-                                <Text>{score.text}</Text>
+                                <Image style={{width: appSize(32), height: appSize(32)}} source={score.icon} />
+                                <Text style={{marginTop:appSize(10)}}>{score.text}</Text>
                                 <Image
                                     source={score.score <= modalNum ? starFilled : starOutline}
-                                    style={{marginTop:appSize(20),width: appSize(32), height: appSize(32) }}
+                                    style={{marginTop:appSize(10),width: appSize(32), height: appSize(32) }}
                                     resizeMode="contain"
                                 />
                             </TouchableOpacity>

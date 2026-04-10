@@ -2,6 +2,7 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import GStyles, {appSize, TRUE_ONE_LINE} from "../../../Components/GStyles";
 import {formatTimeAgo} from "../../../Components/Tools";
 import TurboImage from "react-native-turbo-image/src/TurboImage";
+import {COLORS} from "../../../Components/Constant";
 
 function NewsRenderRow({item,onPress}) {
 
@@ -12,16 +13,14 @@ function NewsRenderRow({item,onPress}) {
         <View style={[GStyles.row]}>
             <View style={[GStyles.jcBetween,{flex:1,paddingRight:appSize(18),height: appSize(80)}]}>
 
-                <Text numberOfLines={3} style={[GStyles.ffh11,{fontSize:appSize(16)}]}>{item?.item?.title?.replace(/\r?\n|\r/g, '')}</Text>
+                <Text numberOfLines={2} ellipsizeMode="tail" style={[GStyles.ffh11,{color:COLORS.FONTBLACK,fontSize:appSize(14)}]}>{item?.item?.title?.replace(/\r?\n|\r/g, '')}</Text>
                 <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
-
-                    <Text style={{fontSize:appSize(12)}}>{item?.item?.author}</Text>
+                    <Text style={{fontSize:appSize(12),color:'#909090'}}>{item?.item?.author}</Text>
                     {/*<View style={[GStyles.jc,GStyles.ac,{height:20,paddingHorizontal: appSize(5),backgroundColor:'#F0EBE4',borderRadius:2}]}>*/}
                     {/*    <Text style={{color:'#A5885F'}}>已订阅</Text>*/}
                     {/*</View>*/}
                     <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:5}]}>
-
-                        <Text style={{fontSize:appSize(12)}}>{formatTimeAgo(item?.item?.onlineTime)}</Text>
+                        <Text style={{fontSize:appSize(12),color:'#909090'}}>{formatTimeAgo(item?.item?.onlineTime)}</Text>
                     </View>
                 </View>
 

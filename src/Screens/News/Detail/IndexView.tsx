@@ -27,7 +27,6 @@ function IndexView(props: any) {
     // 注入的 JavaScript 代码：等待页面加载完成后，在顶部添加标题栏
     const webViewRef = useRef(null)
 
-    const detailQueryId = 'detail'+item?.id.toString()
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: [[String('detail'+props?.route?.params?.item?.id.toString())]],
@@ -37,9 +36,20 @@ function IndexView(props: any) {
 
     if (isPending)return null
 
-    if (error) return null
+    if (error){
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>Loading</Text>
+            </View>
+        );
+    }
 
-    if (!data?.data)return <Text>Data undefined</Text>
+
+    if (!data?.data) {
+        return (<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>{data.toString()}</Text>
+        </View>)
+    }
 
     console.log('data:',data?.data)
     const mockHtml = `

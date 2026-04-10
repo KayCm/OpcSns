@@ -92,7 +92,7 @@ function IndexView({navigation}) {
 
     const InfoCard = () => {
 
-    const {name,address,image,rating,details,reviewed,wantToGo,visited,id} = mapArray[select]
+    const {name,address,image,rating,details,reviewed,wantToGo,visited,id,visitTime} = mapArray[select]
 
     console.log(mapArray[select])
 
@@ -136,9 +136,16 @@ function IndexView({navigation}) {
                 </TouchableOpacity>))}
 
 
-                {visited ?(<View style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76*2),borderWidth:1,backgroundColor:''}]}>
-                    <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan2_on.png')} />
-                    <Text style={{color:'#000'}}>已去过</Text>
+                {visited ?(<View style={[GStyles.row,GStyles.jcBetween,GStyles.ac,{paddingHorizontal:appSize(6),height:appSize(28),gap:appSize(4),width:appSize(76*2),borderWidth:1,backgroundColor:''}]}>
+                    <View style={[GStyles.row,GStyles.ac]}>
+                        <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan2_on.png')} />
+                        <Text style={{color:'#000'}}>已去过</Text>
+                    </View>
+
+
+
+                    <Text style={{color:'#A5885F',fontSize:appSize(11)}}>{visitTime.split(' ',1)}</Text>
+
                 </View>):(<TouchableOpacity onPress={()=>{
                     BeenGo(id)
                 }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
@@ -196,39 +203,57 @@ function IndexView({navigation}) {
         showsCompass={false}
         initialCamera={initialCamera}>
         {mapArray.map((v,index)=>{
-            return(<Marker
+        //     return(<Marker
+        //         key={index}
+        //         style={[GStyles.jc,GStyles.ac]}
+        //         coordinate={{ latitude: v.latitude, longitude: v.longitude }}>
+        //
+        //         {nameShow&& <View style={{width:appSize(200),height:appSize(20),backgroundColor:'#123'}} >
+        //
+        //         </View>}
+        //
+        //     <View style={[GStyles.jc,GStyles.ac,{backgroundColor: "#fff", padding: 10,width:appSize(20),height:appSize(20),borderRadius:appSize(10)}]}>
+        //         <View style={{backgroundColor:'#A5885F',width:appSize(16),height:appSize(16),borderRadius:appSize(8)}} />
+        //     </View>
+        // </Marker>)
+
+            return <Marker
                 key={index}
-                style={[GStyles.jc,GStyles.ac]}
-                coordinate={{ latitude: v.latitude, longitude: v.longitude }}>
+                onPress={(e) => {
+                    // console.log(e?.nativeEvent)
+                    setSelect(e?.nativeEvent?.id)
+                    moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                    setShowDetail(true);
+                }}
+                onSelect={e => {
+                    // console.log(e.nativeEvent);
+                }}
+                onCalloutPress={() => {
+                    // console.log('onCalloutPress');
+                }}
+                identifier={index+""}
+                coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+            />
 
-                {nameShow&& <View style={{width:appSize(200),height:appSize(20),backgroundColor:'#123'}} >
-
-                </View>}
-
-            <View style={[GStyles.jc,GStyles.ac,{backgroundColor: "#fff", padding: 10,width:appSize(20),height:appSize(20),borderRadius:appSize(10)}]}>
-                <View style={{backgroundColor:'#A5885F',width:appSize(16),height:appSize(16),borderRadius:appSize(8)}} />
-            </View>
-        </Marker>)
-
-            // return <Marker
-            //     key={index}
-            //     onPress={(e) => {
-            //         // console.log(e?.nativeEvent)
-            //         setSelect(e?.nativeEvent?.id)
-            //         moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
-            //         setShowDetail(true);
-            //     }}
-            //     onSelect={e => {
-            //         // console.log(e.nativeEvent);
-            //     }}
-            //     onCalloutPress={() => {
-            //         // console.log('onCalloutPress');
-            //     }}
-            //     identifier={index+""}
-            //     coordinate={{ latitude: v.latitude, longitude: v.longitude }}
-            // >
-            //     <Text>123</Text>
-            // </Marker>
+            return <Marker
+                key={index}
+                onPress={(e) => {
+                    // console.log(e?.nativeEvent)
+                    setSelect(e?.nativeEvent?.id)
+                    moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                    setShowDetail(true);
+                }}
+                onSelect={e => {
+                    // console.log(e.nativeEvent);
+                }}
+                onCalloutPress={() => {
+                    // console.log('onCalloutPress');
+                }}
+                identifier={index+""}
+                coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+            >
+                <Text>123</Text>
+            </Marker>
         })}
     </MapView>)}
 
