@@ -143,6 +143,39 @@ function DetailPostView({route}) {
     }
   };
 
+  　const dataUpdate = (dateStr,type) => {
+
+       const date = new Date(dateStr);
+
+       if (!isNaN(date.getTime())) {
+           const weekdaysZh = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+           const monthsZh = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+           const month = date.getMonth() ;
+           const day = date.getDate();
+           const weekday = date.getDay();      // 0-6 (0 表示星期日)
+           switch (type) {
+               default:
+               case 'day':
+                   return day
+               case 'month':
+                   return monthsZh[month];
+               case 'weekday':
+                   return weekdaysZh[weekday];
+           }
+       }else{
+           switch (type) {
+               default:
+               case 'day':
+                   return dateObj?.day
+               case 'month':
+                   return dateObj?.month;
+               case 'weekday':
+                   return dateObj?.weekday;
+           }
+       }
+
+    }
+
   return (
     <View style={{ flex: 1 }}>
       <DetailHeader />
@@ -214,10 +247,11 @@ function DetailPostView({route}) {
                   }}
                 >
                   <Text style={[{ fontSize: appSize(9), backgroundColor: '' }]}>
-                    {dateObj?.weekday}
+                    {/*{dateObj?.weekday}*/}
+                      {dataUpdate(data?.data?.createTime,'weekday')}
                   </Text>
                   <Text style={[{ fontSize: appSize(9), backgroundColor: '' }]}>
-                    {dateObj?.month}
+                      {dataUpdate(data?.data?.createTime,'month')}
                   </Text>
                 </View>
 
@@ -236,7 +270,7 @@ function DetailPostView({route}) {
                     paddingLeft: appSize(5),
                   }}
                 >
-                  {dateObj?.day}
+                    {dataUpdate(data?.data?.createTime,'day')}
                 </Text>
               </View>
             </View>

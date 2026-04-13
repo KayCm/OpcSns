@@ -6,6 +6,7 @@ import {R_POST} from "../../../Services/NetRequestService";
 import {useState} from "react";
 import {getDateInfo} from "../../../Components/Tools";
 import BannerCarousel from "../../../Components/BannerCarousel";
+import TurboImage from "react-native-turbo-image";
 
 function NewsHeader({BannerClick,HotInfoClick}) {
 
@@ -172,11 +173,11 @@ function NewsHeader({BannerClick,HotInfoClick}) {
                                           },
                                       ]}
                     >
-                        <Image
+                        <TurboImage
                             source={{uri:item?.imageUrl}}
                             resizeMode={'cover'}
                             style={{
-                                backgroundColor: '#123',
+                                backgroundColor: '',
                                 height: appSize(200),
                                 width: WINDOW_WIDTH-appSize(24),
                             }}

@@ -70,23 +70,23 @@ function IndexView(props: any) {
         {/*  LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}*/}
         {/*  showRightIcon={false}*/}
         {/*/>*/}
-        <MenuBar
-          title={'消息推送'}
-          style={{ backgroundColor: '#ffffff' }}
-          LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}
-          showRightIcon={false}
-        />
-        <MenuBar
-          title={'语言'}
-          onPress={() => {}}
-          style={{ backgroundColor: '#ffffff' }}
-          LeftDom={
-            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
-              中文
-            </Text>
-          }
-          showRightIcon={true}
-        />
+        {/*<MenuBar*/}
+        {/*  title={'消息推送'}*/}
+        {/*  style={{ backgroundColor: '#ffffff' }}*/}
+        {/*  LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}*/}
+        {/*  showRightIcon={false}*/}
+        {/*/>*/}
+        {/*<MenuBar*/}
+        {/*  title={'语言'}*/}
+        {/*  onPress={() => {}}*/}
+        {/*  style={{ backgroundColor: '#ffffff' }}*/}
+        {/*  LeftDom={*/}
+        {/*    <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>*/}
+        {/*      中文*/}
+        {/*    </Text>*/}
+        {/*  }*/}
+        {/*  showRightIcon={true}*/}
+        {/*/>*/}
         <MenuBar
           onPress={() => {
             nav.navigate('Agreement', { type: 1 });
@@ -111,16 +111,16 @@ function IndexView(props: any) {
           }
           showRightIcon={false}
         />
-        <MenuBar
-          title={'清除缓存'}
-          style={{ backgroundColor: '#ffffff' }}
-          LeftDom={
-            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
-              1000M
-            </Text>
-          }
-          showRightIcon={false}
-        />
+        {/*<MenuBar*/}
+        {/*  title={'清除缓存'}*/}
+        {/*  style={{ backgroundColor: '#ffffff' }}*/}
+        {/*  LeftDom={*/}
+        {/*    <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>*/}
+        {/*      1000M*/}
+        {/*    </Text>*/}
+        {/*  }*/}
+        {/*  showRightIcon={false}*/}
+        {/*/>*/}
 
         <TouchableOpacity
           onPress={() => {
