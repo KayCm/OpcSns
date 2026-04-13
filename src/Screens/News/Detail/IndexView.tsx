@@ -31,7 +31,7 @@ function IndexView(props: any) {
     const { isPending, isError, data, error } = useQuery({
         queryKey: [[String('detail'+props?.route?.params?.item?.id.toString())]],
         queryFn: ()=> R_POST('/open-api/mobile/content/material/detail',{id:props?.route?.params?.item?.id}),
-        staleTime: 1000 * 60 * 60 * 24
+        // staleTime: 1000 * 60 * 60 * 24
     })
 
     if (isPending)return null
