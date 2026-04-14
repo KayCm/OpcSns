@@ -11,6 +11,7 @@ import {SwiperFlatList} from "react-native-swiper-flatlist";
 import ImageView from "react-native-image-viewing";
 import VideoPlayer from 'react-native-video-controls';
 import {useQuery} from "@tanstack/react-query";
+import TurboImage from "react-native-turbo-image";
 
 
 function DetailPostView({route}) {
@@ -179,7 +180,7 @@ function DetailPostView({route}) {
   return (
     <View style={{ flex: 1 }}>
       <DetailHeader />
-      <ScrollView>
+      <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
         <View
           style={{
             paddingHorizontal: appSize(24),
@@ -205,7 +206,7 @@ function DetailPostView({route}) {
                   height: appSize(70),
                   marginBottom: appSize(20),
                   width: '100%',
-                  borderBottomColor: '#123',
+                  borderBottomColor: '#000',
                   borderBottomWidth: 1,
                 },
               ]}
@@ -282,7 +283,7 @@ function DetailPostView({route}) {
               }}
             >
               <Text style={{ lineHeight: appSize(30) }}>
-                {data?.data?.title}
+                {data?.data?.content?data?.data?.content:data?.data?.title }
                 {/*{data?.data?.material?.contentType}*/}
               </Text>
             </TouchableOpacity>
@@ -347,11 +348,11 @@ function DetailPostView({route}) {
                       setShowModal(true);
                     }}
                   >
-                    <Image
+                    <TurboImage
                       source={{ uri: item?.fileUrl }}
                       // resizeMode={'c'}
                       style={{
-                        backgroundColor: '#123',
+                        backgroundColor: '',
                         height: appSize(200),
                         width: WINDOW_WIDTH - appSize(100),
                       }}

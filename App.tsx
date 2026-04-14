@@ -9,7 +9,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AppNavigator from './src/Navigator/AppNavigator.tsx';
 import {asyncStoragePersister} from "./src/Components/Storage";
 import {QueryClient} from "@tanstack/react-query";
-import {StatusBar} from "react-native";
+import {Platform, StatusBar} from "react-native";
 import { store} from './src/Redux/store'
 import { Provider } from 'react-redux';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
@@ -30,7 +30,12 @@ function App() {
     // const isDarkMode = useColorScheme() === 'dark';
 
   useEffect(()=>{
-    AMapSdk.init('ff79bf09c1b6aa8885f8341da57b35c3');
+
+      if(Platform.OS == 'android'){
+          AMapSdk.init('ff79bf09c1b6aa8885f8341da57b35c3');
+      }
+
+
   },[])
 
     return (

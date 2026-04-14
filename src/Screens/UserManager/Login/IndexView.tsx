@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, Text, Alert, TouchableOpacity, TextInput, Platform, Image, Pressable} from "react-native";
 import NavHeader from "../../../Components/NavHeader";
 import CountdownButton, {CountdownButtonHandle} from "../../../Components/CountdownButton";
@@ -12,6 +12,7 @@ import {useSelector} from "react-redux";
 import IconNexa from "../../../Assets/Svgs/IconNexa";
 // import CountdownButton, { CountdownButtonHandle } from '';
 import Modal from 'react-native-modal';
+import {getLastLoginInfo, saveLastLoginInfo} from "../../../Components/Tools";
 
 function IndexView(props) {
 
@@ -24,6 +25,14 @@ function IndexView(props) {
     } = LoginViewModel()
 
     // const nav = useNavigation()
+
+    useEffect(() => {
+
+        getLastLoginInfo().then(res=>{
+            setLoginEmail(res)
+        })
+
+    },[])
 
     const [showPwd,SetShowPwd] = useState(false)
 
@@ -128,7 +137,9 @@ function IndexView(props) {
 
 
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,{marginTop:appSize(15),width:'100%'}]}>
-                        <TouchableOpacity><Text></Text></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{
+                            nav.navigate('ForgetPassword')
+                        }}><Text>忘记密码</Text></TouchableOpacity>
                         <TouchableOpacity onPress={()=>{
                             nav.navigate('Register')
                         }}><Text>快速注册</Text></TouchableOpacity>
@@ -150,6 +161,7 @@ function IndexView(props) {
                                 setLoading(false)
                                 if (res.res){
                                     getUserInfo()
+                                    saveLastLoginInfo(loginEmail,true)
                                     nav.replace('AppBottomTab')
                                 }else{
                                     Alert.alert(res?.msg)

@@ -1,3 +1,6 @@
+// utils/storage.js
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 /**
  * 格式化时间显示
  * @param dateString ISO 8601 时间字符串，例如 "2026-03-26T09:56:02Z"
@@ -61,3 +64,43 @@ export function getDateInfo(language: 'zh' | 'en', date: Date = new Date()): str
         return {month:monthsEn[month],day:day,weekday:weekdaysEnAbbr[weekday]}
     }
 }
+
+
+
+
+// 定义存储的 key
+const LAST_LOGIN_KEY = '@last_login_info';
+
+// 保存上次登录的账号信息
+export const saveLastLoginInfo = async (username, remember = true) => {
+    if (remember) {
+        try {
+            await AsyncStorage.setItem(LAST_LOGIN_KEY, username);
+        } catch (error) {
+            console.error('保存失败', error);
+        }
+    } else {
+        // 如果用户选择不记住，则清除存储
+        await removeLastLoginInfo();
+    }
+};
+
+// 读取上次登录的账号信息
+export const getLastLoginInfo = async () => {
+    try {
+        const username = await AsyncStorage.getItem(LAST_LOGIN_KEY);
+        return username || '';
+    } catch (error) {
+        console.error('读取失败', error);
+        return '';
+    }
+};
+
+// 清除存储的上次登录信息（例如用户登出时调用）
+export const removeLastLoginInfo = async () => {
+    try {
+        await AsyncStorage.removeItem(LAST_LOGIN_KEY);
+    } catch (error) {
+        console.error('清除失败', error);
+    }
+};

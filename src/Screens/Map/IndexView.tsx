@@ -2,7 +2,7 @@ import {View, Text, TouchableOpacity, Platform, ImageBackground, Image} from 're
 import MapView, { Marker } from 'react-native-maps';
 import GStyles, {appSize, WINDOW_WIDTH} from '../../Components/GStyles.ts';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {R_POST} from "../../Services/NetRequestService";
 import {useQuery} from "@tanstack/react-query";
 import Rating from "../../Components/Rating";
@@ -62,7 +62,16 @@ function IndexView({navigation}) {
 
     }
 
-    const { isPending,isLoading, isError, data, error,refetch } = useQuery({
+    function androidMoveTo(index: number) {
+        // setActive(index);
+        const { latitude, longitude } = mapArray[index];
+        mapRef.current?.moveCamera(
+            { target: { latitude, longitude }, zoom: 13 },
+            600,
+        );
+    }
+
+    const { isPending,isLoading, isError,isSuccess, data, error,refetch } = useQuery({
         queryKey: ['mapList'],
         queryFn: ()=> R_POST('/open-api/mobile/community/list',{"pageNum": 1, "pageSize": 100}),
     })
@@ -70,6 +79,14 @@ function IndexView({navigation}) {
     if (isPending)return null
     if (isLoading)return <Text>Loading</Text>
     if (error) return <Text>{error.message}</Text>
+
+    // useEffect(() => {
+    //     if (isSuccess && data) {
+    //         setShowDetail(true)
+    //         setSelect(0)
+    //         androidMoveTo(0)
+    //     }
+    // }, [isSuccess, data]);
 
     var mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
 
@@ -101,8 +118,6 @@ function IndexView({navigation}) {
     const InfoCard = () => {
 
     const {name,address,image,rating,details,reviewed,wantToGo,visited,id,visitTime} = mapArray[select]
-
-    console.log(mapArray[select])
 
     return(<ImageBackground source={require('../../Assets/map/bg.png')} style={[GStyles.pa,{bottom:0,right:0,width:appSize(380),height:appSize(260),overflow:'hidden'}]}>
         <Image source={require('../../Assets/map/topleft.png')} style={[GStyles.pa,{width:appSize(380),height:appSize(260)}]} />
@@ -208,8 +223,11 @@ function IndexView({navigation}) {
               click: item1 => {
                 const index = mapArray.findIndex(item => item.id === item1.id);
                 setSelect(index);
-                if (Platform.OS == 'ios')
-                  moveTo(item1?.latitude, item1?.longitude);
+                if (Platform.OS == 'ios'){
+                    moveTo(item1?.latitude, item1?.longitude);
+                }else{
+                    androidMoveTo(index)
+                }
                 setShowDetail(true);
               },
             });
@@ -298,9 +316,37 @@ function IndexView({navigation}) {
           </MapView>
         )}
 
-        {/*<InfoCard />*/}
+        {/*<InfoCard />
+        coordinate={{ latitude: v.latitude, longitude: v.longitude }}
 
-        <AMapView style={{ flex: 1 }} />
+        */}
+
+          {Platform.OS == 'android' && (<AMapView initialCameraPosition={{
+              target: {
+                  latitude: mapArray[0].latitude,
+                  longitude: mapArray[0].longitude,
+              },
+              zoom: 11,
+          }} ref={mapRef} style={{ flex: 1 }} >
+              {mapArray.map((v, index) => {
+
+                  console.log(v)
+                  return(<AMapMarker
+                      key={'title'+index}
+                      position={{ latitude: v.latitude, longitude: v.longitude }}
+                      zIndex={11}
+                      onPress={(e)=>{
+                          // console.log('v',v)
+                          const index = mapArray.findIndex(item => item.id === v.id);
+                          setSelect(index);
+                          setShowDetail(true);
+                      }}
+                  />)
+              })}
+
+          </AMapView>)}
+
+
 
         {showDetail && <InfoCard />}
         <CommentModal

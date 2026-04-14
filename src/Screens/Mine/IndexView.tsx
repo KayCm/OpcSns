@@ -214,13 +214,13 @@ function IndexView() {
               Nav.navigate('About');
             }}
           />
-          <MenuBar
-            iconImg={require('../../Assets/mine/icon2.png')}
-            title={t('profile.purchase')}
-            onPress={() => {
-              Nav.navigate('Purchase');
-            }}
-          />
+          {/*<MenuBar*/}
+          {/*  iconImg={require('../../Assets/mine/icon2.png')}*/}
+          {/*  title={t('profile.purchase')}*/}
+          {/*  onPress={() => {*/}
+          {/*    Nav.navigate('Purchase');*/}
+          {/*  }}*/}
+          {/*/>*/}
           <MenuBar
             iconImg={require('../../Assets/mine/icon3.png')}
             title={t('profile.faq')}
