@@ -7,6 +7,14 @@ import {R_POST} from "../../Services/NetRequestService";
 import {useQuery} from "@tanstack/react-query";
 import Rating from "../../Components/Rating";
 import {CommentModal} from "./CommentModal";
+import {
+  CameraPosition as ACameraPosition,
+  MapView as AMapView,
+  Marker as AMapMarker,
+} from '../../Components/amap';
+
+
+// import {AMapSdk,MapView} from '../../Components/amap'
 
 
 const starFilled = require('../../Assets/map/score_on.png');
@@ -181,98 +189,138 @@ function IndexView({navigation}) {
     </ImageBackground>)
 
     }
-    return (<View style={{ flex: 1 }}>
-    <TouchableOpacity style={{zIndex:9,borderRadius:5,justifyContent:'center',alignItems:'center',position: 'absolute',right:0,backgroundColor:'#fff',bottom:insets.bottom+appSize(250)}} onPress={()=>{
-        navigation.push('CommunityList',{list:data,click:(item1)=>{
+    return (
+      <View style={{ flex: 1 }}>
+        <TouchableOpacity
+          style={{
+            zIndex: 9,
+            borderRadius: 5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            right: 0,
+            backgroundColor: '#fff',
+            bottom: insets.bottom + appSize(250),
+          }}
+          onPress={() => {
+            navigation.push('CommunityList', {
+              list: data,
+              click: item1 => {
                 const index = mapArray.findIndex(item => item.id === item1.id);
-                setSelect(index)
-                if (Platform.OS=='ios')moveTo(item1?.latitude,item1?.longitude)
+                setSelect(index);
+                if (Platform.OS == 'ios')
+                  moveTo(item1?.latitude, item1?.longitude);
                 setShowDetail(true);
-        }})
-    }}>
-        <Image style={{width:appSize(44),height:appSize(44)}} source={require('../../Assets/map/listIcon.png')} />
-    </TouchableOpacity>
+              },
+            });
+          }}
+        >
+          <Image
+            style={{ width: appSize(44), height: appSize(44) }}
+            source={require('../../Assets/map/listIcon.png')}
+          />
+        </TouchableOpacity>
 
-    {Platform.OS == 'ios' && ( <MapView
-        style={{ flex: 1 }}
-        ref={mapRef}
-        onPanDrag={()=>{
-            setShowDetail(false)
-        }}
-        pitchEnabled={false}
-        showsCompass={false}
-        initialCamera={initialCamera}>
-        {mapArray.map((v,index)=>{
-        //     return(<Marker
-        //         key={index}
-        //         style={[GStyles.jc,GStyles.ac]}
-        //         coordinate={{ latitude: v.latitude, longitude: v.longitude }}>
-        //
-        //         {nameShow&& <View style={{width:appSize(200),height:appSize(20),backgroundColor:'#123'}} >
-        //
-        //         </View>}
-        //
-        //     <View style={[GStyles.jc,GStyles.ac,{backgroundColor: "#fff", padding: 10,width:appSize(20),height:appSize(20),borderRadius:appSize(10)}]}>
-        //         <View style={{backgroundColor:'#A5885F',width:appSize(16),height:appSize(16),borderRadius:appSize(8)}} />
-        //     </View>
-        // </Marker>)
+        {Platform.OS == 'ios' && (
+          <MapView
+            style={{ flex: 1 }}
+            ref={mapRef}
+            onPanDrag={() => {
+              setShowDetail(false);
+            }}
+            pitchEnabled={false}
+            showsCompass={false}
+            initialCamera={initialCamera}
+          >
+            {mapArray.map((v, index) => {
+              //     return(<Marker
+              //         key={index}
+              //         style={[GStyles.jc,GStyles.ac]}
+              //         coordinate={{ latitude: v.latitude, longitude: v.longitude }}>
+              //
+              //         {nameShow&& <View style={{width:appSize(200),height:appSize(20),backgroundColor:'#123'}} >
+              //
+              //         </View>}
+              //
+              //     <View style={[GStyles.jc,GStyles.ac,{backgroundColor: "#fff", padding: 10,width:appSize(20),height:appSize(20),borderRadius:appSize(10)}]}>
+              //         <View style={{backgroundColor:'#A5885F',width:appSize(16),height:appSize(16),borderRadius:appSize(8)}} />
+              //     </View>
+              // </Marker>)
 
-            return <Marker
-                key={index}
-                onPress={(e) => {
+              return (
+                <Marker
+                  key={index}
+                  onPress={e => {
                     // console.log(e?.nativeEvent)
-                    setSelect(e?.nativeEvent?.id)
-                    moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                    setSelect(e?.nativeEvent?.id);
+                    moveTo(
+                      e?.nativeEvent?.coordinate?.latitude,
+                      e?.nativeEvent?.coordinate?.longitude,
+                    );
                     setShowDetail(true);
-                }}
-                onSelect={e => {
+                  }}
+                  onSelect={e => {
                     // console.log(e.nativeEvent);
-                }}
-                onCalloutPress={() => {
+                  }}
+                  onCalloutPress={() => {
                     // console.log('onCalloutPress');
-                }}
-                identifier={index+""}
-                coordinate={{ latitude: v.latitude, longitude: v.longitude }}
-            />
+                  }}
+                  identifier={index + ''}
+                  coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+                />
+              );
 
-            return <Marker
-                key={index}
-                onPress={(e) => {
+              return (
+                <Marker
+                  key={index}
+                  onPress={e => {
                     // console.log(e?.nativeEvent)
-                    setSelect(e?.nativeEvent?.id)
-                    moveTo(e?.nativeEvent?.coordinate?.latitude,e?.nativeEvent?.coordinate?.longitude)
+                    setSelect(e?.nativeEvent?.id);
+                    moveTo(
+                      e?.nativeEvent?.coordinate?.latitude,
+                      e?.nativeEvent?.coordinate?.longitude,
+                    );
                     setShowDetail(true);
-                }}
-                onSelect={e => {
+                  }}
+                  onSelect={e => {
                     // console.log(e.nativeEvent);
-                }}
-                onCalloutPress={() => {
+                  }}
+                  onCalloutPress={() => {
                     // console.log('onCalloutPress');
-                }}
-                identifier={index+""}
-                coordinate={{ latitude: v.latitude, longitude: v.longitude }}
-            >
-                <Text>123</Text>
-            </Marker>
-        })}
-    </MapView>)}
+                  }}
+                  identifier={index + ''}
+                  coordinate={{ latitude: v.latitude, longitude: v.longitude }}
+                >
+                  <Text>123</Text>
+                </Marker>
+              );
+            })}
+          </MapView>
+        )}
 
-    {/*<InfoCard />*/}
+        {/*<InfoCard />*/}
 
-    {showDetail && <InfoCard  />}
-    <CommentModal item={mapArray[select]} isModalVisible={isModalVisible} onPress={(item)=>{
-        console.log('CommentModal',item)
-        setisModalVisible(false)
-        // mapArray[select] = item
+        <AMapView style={{ flex: 1 }} />
 
-        refetch()
+        {showDetail && <InfoCard />}
+        <CommentModal
+          item={mapArray[select]}
+          isModalVisible={isModalVisible}
+          onPress={item => {
+            console.log('CommentModal', item);
+            setisModalVisible(false);
+            // mapArray[select] = item
 
-        console.log('mapArray',mapArray)
+            refetch();
 
-    }} dismiss={()=>{
-        setisModalVisible(false)
-    }} />
-    </View>);
+            console.log('mapArray', mapArray);
+          }}
+          dismiss={() => {
+            setisModalVisible(false);
+          }}
+        />
+      </View>
+    );
 }
 
 

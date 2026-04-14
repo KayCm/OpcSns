@@ -295,7 +295,7 @@ function DetailPostView({route}) {
                 source={{ uri: data?.data?.medias[0]?.fileUrl }}
                 poster={data?.data?.coverImage}
                 paused={paused} // 控制暂停
-                controls={false} // 隐藏系统默认控制栏
+                // controls={false} // 隐藏系统默认控制栏
                 disableVolume={true}
                 isFullscreen={fullscreen}
                 fullscreen={fullscreen}
@@ -305,8 +305,8 @@ function DetailPostView({route}) {
                 onExitFullscreen={() => {
                   setFullscreen(false);
                 }}
-                // fullscreenOrientation="landscape"
-                // fullscreenAutorotate={false}
+                fullscreenOrientation="landscape"
+                fullscreenAutorotate={true}
                 disableBack={true}
                 disableSeekbar={true}
                 toggleResizeModeOnFullscreen={true}

@@ -14,6 +14,9 @@ import { store} from './src/Redux/store'
 import { Provider } from 'react-redux';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 
+import { AMapSdk } from './src/Components/amap';
+import { useEffect } from 'react';
+
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -26,22 +29,33 @@ const queryClient = new QueryClient({
 function App() {
     // const isDarkMode = useColorScheme() === 'dark';
 
+  useEffect(()=>{
+    AMapSdk.init('ff79bf09c1b6aa8885f8341da57b35c3');
+  },[])
+
     return (
-        <SafeAreaProvider>
-            <PersistQueryClientProvider client={queryClient} persistOptions={{ persister: asyncStoragePersister }}
-                                        onSuccess={() => {
-                                            console.log('缓存恢复成功')
-                                        }}
-                                        onError={(error) => {
-                                            console.log('缓存恢复失败:', error);
-                                            // 可以在这里实现错误恢复逻辑
-                                        }}>
-              <Provider store={store}>
-                <StatusBar backgroundColor="#fff"  barStyle={'dark-content'} />
-                <AppNavigator />
-              </Provider>
-            </PersistQueryClientProvider>
-        </SafeAreaProvider>
+      <SafeAreaProvider>
+        <PersistQueryClientProvider
+          client={queryClient}
+          persistOptions={{ persister: asyncStoragePersister }}
+          onSuccess={() => {
+            console.log('缓存恢复成功');
+          }}
+          onError={error => {
+            console.log('缓存恢复失败:', error);
+            // 可以在这里实现错误恢复逻辑
+          }}
+        >
+          <Provider store={store}>
+            <StatusBar
+              translucent={true}
+              backgroundColor="transparent"
+              barStyle={'dark-content'}
+            />
+            <AppNavigator />
+          </Provider>
+        </PersistQueryClientProvider>
+      </SafeAreaProvider>
     );
 }
 
