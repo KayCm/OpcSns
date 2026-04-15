@@ -24,23 +24,28 @@ function IndexView({navigation,route}) {
 
         return(<View style={[GStyles.row,GStyles.ac,GStyles.ph16,{gap:appSize(10)}]}>
 
-            <TurboImage
+            {userInfo?.avatar? <TurboImage
                 source={{ uri:userInfo?.avatar}}
                 style={{ width: appSize(68), height: appSize(68),borderRadius:appSize(34) }}
                 resizeMode="cover"
-            />
+            />:<Image
+                source={require('./../../Assets/mine/avatar.png')}
+                style={{borderWidth:2,borderColor:'#fff', width: appSize(68), height: appSize(68),borderRadius:appSize(34) }}
+                resizeMode="cover"
+            />}
+
             <View style={[GStyles.jcBetween,{ paddingVertical: appSize(3),height: appSize(68),flex:1}]}>
                 <Text style={{fontSize:appSize(18),fontWeight:'600',color:COLORS.FONTBLACK}}>你好～{userInfo?.username}</Text>
 
                 <View style={{}}>
                     <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
-                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>成长值 Lv.2</Text>
-                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>111/200</Text>
+                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>成长值 Lv.0</Text>
+                        <Text style={{fontSize:appSize(12),color:COLORS.FONTBLACK}}>0/200</Text>
                     </View>
 
                     <View style={{marginTop:appSize(4)}}>
                         <View style={{height:appSize(20),borderWidth:1,borderColor:'#1C1A17',width:'100%',}}>
-                            <View style={{height:appSize(20)-2,width:'50%',backgroundColor:'#a5885f'}} />
+                            <View style={{height:appSize(20)-2,width:'0%',backgroundColor:'#a5885f'}} />
                         </View>
                     </View>
                 </View>
@@ -65,18 +70,18 @@ function IndexView({navigation,route}) {
             <ImageBackground source={require('../../Assets/earn/midBg.png')} style={[GStyles.row,{width:'100%',height:appSize(120),borderRadius:appSize(5),marginTop:appSize(20)}]}>
 
                 <View style={[GStyles.jc,GStyles.ac,{flex:1,gap:appSize(10)}]}>
-                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>3000</Text>
+                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>0</Text>
                     <Text style={{color:'#909090'}}>总收入</Text>
                 </View>
 
                 <View style={[GStyles.jc,GStyles.ac,{flex:1,gap:appSize(10)}]}>
-                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>3000</Text>
+                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>0</Text>
                     <Text style={{color:'#909090'}}>总支出</Text>
                 </View>
 
 
                 <View style={[GStyles.jc,GStyles.ac,{flex:1,gap:appSize(10)}]}>
-                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>3000</Text>
+                    <Text style={[GStyles.ffb,{fontSize:18,color:'#000'}]}>0</Text>
                     <Text style={{color:'#909090'}}>净利润</Text>
                 </View>
             </ImageBackground>

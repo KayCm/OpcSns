@@ -19,6 +19,9 @@ import {useSafeAreaInsets} from "react-native-safe-area-context";
 import {useNavigation} from "@react-navigation/native";
 import Modal from "react-native-modal";
 import {COLORS} from "../../../Components/Constant";
+import {R_GET, R_POST} from "../../../Services/NetRequestService";
+import TurboImage from "react-native-turbo-image";
+import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
 
 function IndexView(props: any) {
 
@@ -49,6 +52,10 @@ function IndexView(props: any) {
     const nav = useNavigation()
 
     const countdownRef = useRef<CountdownButtonHandle>(null);
+
+    const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
+    const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 0);
+
 
     const handleSendCode = async () => {
         try {
@@ -105,8 +112,52 @@ function IndexView(props: any) {
         </Modal>)
     }
 
+    const [servImg,setServImg] = useState('')
+    const getInvService = () => {
 
+        R_GET('/open-api/mobile/customerService/default',null).then(res=>{
+            if (res?.code==200){
+                setServImg(res?.data?.qrCodeUrl)
+                SetShowInv(true)
+            }else{
+                Alert.alert(res?.msg)
+            }
+            console.log(res.code)
+        }).catch(err=>{
+            Alert.alert(err?.msg)
+        })
 
+    }
+
+    const [showInv,SetShowInv] = useState(false)
+    const InvCodeAlert = () => {
+        return(<Modal animationIn="fadeIn"
+                      animationOut="fadeOut"
+                      style={{margin:0,padding:0}} isVisible={showInv}>
+            <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(326),backgroundColor:'#fff'}]}>
+                    <Text>获取激活码</Text>
+                    <TurboImage source={{uri:servImg}} style={[GStyles.row,GStyles.ac,{marginTop:appSize(20),height:appSize(124),width:appSize(124),backgroundColor:''}]} />
+
+                    <Text style={{marginTop:appSize(20)}}>扫码添加客服微信进行购买</Text>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(20)}]}>
+                        <TouchableOpacity onPress={()=>{
+                            SetShowInv(false)
+                        }} style={[GStyles.jc,GStyles.ac,{borderRadius:appSize(5),borderWidth:1,borderColor:'#A5885F',height:appSize(40),width:appSize(120)}]}>
+                            <Text style={{color:'#A5885F'}}>取消</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={()=>{
+                            SetShowInv(false)
+                        }} style={[GStyles.jc,GStyles.ac,{backgroundColor:'#A5885F',borderRadius:appSize(5),height:appSize(40),width:appSize(120)}]}>
+                            <Text style={{color:'#ffffff'}}>确定</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        </Modal>)
+    }
 
     return (<View style={{ flex: 1,paddingTop:insets.top}}>
         <View style={[GStyles.ph12,{}]}>
@@ -176,14 +227,24 @@ function IndexView(props: any) {
                         />
                     </View>
 
-                    <View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                    {reviewStatus == 1 && (<View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
                         <Image source={require('../../../Assets/user/regIcon4.png')} style={{height:appSize(24),width:appSize(24)}} />
                         <TextInput
                             value={invCode}
                             onChangeText={setInvCode}
                             placeholder={'激活码'}
-                            style={{height: appSize(44),marginLeft:appSize(12),width:appSize(230)}}/>
-                    </View>
+                            style={{height: appSize(44),flex:1,marginLeft:appSize(12)}}/>
+
+                        <TouchableOpacity onPress={()=>{
+
+                            getInvService()
+
+                        }} style={[{backgroundColor:'',width:appSize(100),height:appSize(44)},GStyles.jc,GStyles.ac]}>
+                            <Text>获取激活码</Text>
+                        </TouchableOpacity>
+                    </View>)}
+
+
 
                     <Text style={{color:'#6E6E6E',marginTop:appSize(20)}}>密码必须是8-20字符，必须包括英文大写字母，英文小写字母、数字、特殊字符其中2类</Text>
 
@@ -227,6 +288,8 @@ function IndexView(props: any) {
 
         <AgreeAlert />
 
+        <InvCodeAlert />
+
     </View>)
 
 
@@ -264,7 +327,9 @@ function IndexView(props: any) {
                     />
                 </View>
                 <View style={[GStyles.row, GStyles.ph12, {width: '100%', backgroundColor: '#fff', marginTop: 10, borderRadius: 5,},]}>
-                    <TextInput value={invCode} onChangeText={setInvCode}  placeholder={'InviteCode'} style={{height: 44,}}/>
+                    <TextInput value={invCode} onChangeText={setInvCode}  placeholder={'InviteCode'} style={{height: 44}}/>
+
+
                 </View>
 
                 <TouchableOpacity onPress={submitRegister} style={[GStyles.jc,GStyles.ac,{marginTop:20,borderRadius:5,height:44,backgroundColor:'#123'}]}>

@@ -57,28 +57,6 @@ function NewsHeader({BannerClick,HotInfoClick}) {
       </View>)
     }
 
-    const NewsCard = ({style}) => {
-
-        return(<View style={{...style}}>
-            <Text numberOfLines={3} style={[GStyles.ffb,{fontSize: 14,lineHeight: 20,fontWeight: '800' }]}>
-                <View style={{
-                        backgroundColor: 'red',
-                        // borderRadius: 10,
-                        borderTopLeftRadius:appSize(3),
-                        borderTopRightRadius:appSize(3),
-                        borderBottomLeftRadius:appSize(3),
-                        overflow: 'hidden',
-                        paddingHorizontal:appSize(4),
-                        justifyContent:'center',
-                        alignItems: 'center',
-                        marginRight:appSize(5)
-                    }}>
-                    <Text style={{ fontSize: 10,color:'#fff',fontWeight:'600' }}>1</Text>
-                </View>降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场！</Text>
-            <Text numberOfLines={1} style={{marginTop:appSize(5),color:'#909090'}}>{' '}降息彻底没戏？鲍威尔“鹰派” 表态重创美债市场！</Text>
-        </View>)
-
-    }
 
     const News2 = () => {
 

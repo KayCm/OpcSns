@@ -179,6 +179,7 @@ function DetailPostView({route}) {
 
   return (
     <View style={{ flex: 1 }}>
+        <Image source={require('../../../Assets/News/detail/postBg.png')} style={[GStyles.pa,{flex:1,width:'100%',height:'100%'}]} />
       <DetailHeader />
       <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
         <View
@@ -217,14 +218,14 @@ function DetailPostView({route}) {
                   GStyles.row,
                   GStyles.jc,
                   {
-                    alignItems: 'flex-end',
+                    // alignItems: 'flex-end',
                     height: appSize(28),
                     width: appSize(98),
                   },
                 ]}
               >
-                <Text style={[GStyles.ffh11, { color: '#000' }]}>NEXA</Text>
-                <Text style={[GStyles.ffh11, { color: '#A5885F' }]}>简讯</Text>
+                {/*<Text style={[GStyles.ffh11, { color: '#000',fontSize:appSize(14) }]}>STARFIELD</Text>*/}
+                <Text style={[GStyles.ffh11, { color: '#A5885F',fontSize:appSize(22) }]}>简讯</Text>
               </ImageBackground>
 
               <View

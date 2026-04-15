@@ -31,6 +31,7 @@ import { MemberCarousel } from '../../Components/MemberCarousel';
 import { useState } from 'react';
 
 import { VipModal } from './VipModal.tsx';
+import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
 
 function IndexView() {
   const insets = useSafeAreaInsets();
@@ -44,6 +45,9 @@ function IndexView() {
   // const changeLanguage = (lng) => {
   //     i18n.changeLanguage(lng);
   // };
+
+  const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
+  const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 0);
 
   const { userInfo } = MineViewModel();
 
@@ -144,11 +148,16 @@ function IndexView() {
             },
           ]}
         >
-          <TurboImage
+          {userInfo?.avatar?<TurboImage
               source={{ uri:userInfo?.avatar}}
               style={{borderWidth:2,borderColor:'#fff', width: appSize(64), height: appSize(64),borderRadius:appSize(32) }}
               resizeMode="cover"
-          />
+          />:<Image
+              source={require('./../../Assets/mine/avatar.png')}
+              style={{borderWidth:2,borderColor:'#fff', width: appSize(64), height: appSize(64),borderRadius:appSize(32) }}
+              resizeMode="cover"
+          />}
+
           {/*<Image*/}
           {/*  source={require('../../Assets/icon.png')}*/}
           {/*  style={{*/}
@@ -191,21 +200,25 @@ function IndexView() {
             />
           </View>
         </TouchableOpacity>
-        <View
-          style={{
-            height: appSize(150),
-            width: '100%',
-            marginTop: appSize(25),
-          }}
+
+        {reviewStatus == 1 && (<View
+            style={{
+              height: appSize(150),
+              width: '100%',
+              marginTop: appSize(25),
+            }}
         >
           <MemberCarousel
-            onPress={() => {
-              setisModalVisible(true);
-            }}
-            initialIndex={1}
-            data={memberLevelArr}
+              onPress={() => {
+                setisModalVisible(true);
+              }}
+              initialIndex={1}
+              data={memberLevelArr}
           />
-        </View>
+        </View>)}
+
+
+
         <View style={{ width: '100%', marginTop: appSize(25) }}>
           <MenuBar
             iconImg={require('../../Assets/mine/icon1.png')}
@@ -266,15 +279,28 @@ function IndexView() {
           ]}
         >
           <View style={[GStyles.row, GStyles.ac, { marginBottom: 10 }]}>
-            <TurboImage
-              source={{ uri: userInfo?.avatar }}
-              style={{
-                width: appSize(64),
-                height: appSize(64),
-                borderRadius: appSize(32),
-              }}
-              resizeMode="cover"
-            />
+
+            {userInfo?.avatar? <TurboImage
+                source={{ uri: userInfo?.avatar }}
+                style={{
+                  width: appSize(64),
+                  height: appSize(64),
+                  borderRadius: appSize(32),
+                }}
+                resizeMode="cover"
+            />: <TurboImage
+                source={require('../../Assets/mine/avatar.png')}
+                style={{
+                  width: appSize(64),
+                  height: appSize(64),
+                  borderRadius: appSize(32),
+                }}
+                resizeMode="cover"
+                placeholder={{ thumbhash: require('./../../Assets/mine/avatar.png') }}
+            />}
+
+
+
 
             <View style={{ gap: 10, marginLeft: 10 }}>
               <Text>{userInfo?.username}</Text>

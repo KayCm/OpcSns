@@ -5,20 +5,22 @@ import {useNavigation} from "@react-navigation/native";
 import { useQuery } from '@tanstack/react-query';
 import { R_POST } from '../Services/NetRequestService.ts';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
 function AppInitial(props) {
 
     const nav = useNavigation()
 
     const appData = useSelector(state => state?.appData);
+    const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
+    const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 999);
     useEffect(()=>{
 
-        console.log('props',props)
-        console.log('appData',appData)
-
-        AsyncStorage.getAllKeys().then(keys => {
-            console.log('AsyncStorage Key:', keys);
-        });
+        R_POST('/open-api/mobile/publishConfig/status',{platformType:'ios'}).then(res=>{
+            console.log('res',res)
+            if (res?.code == 200){
+                setReviewStatus(res?.data?.publishStatus)
+            }
+        })
 
         if (appData?.token){
             global.token = appData.token;

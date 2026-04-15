@@ -15,10 +15,10 @@ function IndexView(props: any) {
                 { marginTop: appSize(10), fontSize: appSize(20) },
               ]}
             >
-              1. NEXA OPC平台是什么？
+              1. STARFIELD OPC平台是什么？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
-              NEXA是由浙江省创客服务协会打造的开放平台协作（OPC）系统，旨在连接创客、开发者、设计师与企业资源，提供从创意到商业化的一站式协同平台。
+              STARFIELD是由浙江省创客服务协会打造的开放平台协作（OPC）系统，旨在连接创客、开发者、设计师与企业资源，提供从创意到商业化的一站式协同平台。
             </Text>
 
             <Text
@@ -43,7 +43,7 @@ function IndexView(props: any) {
               3. 平台适合哪些人使用？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
-              NEXA适用于多类用户： {'\n'}创业者 / 创客（有想法但缺资源）
+              STARFIELD适用于多类用户： {'\n'}创业者 / 创客（有想法但缺资源）
               产品经理 /{'\n'}设计师 / 开发者（希望参与项目变现）
               {'\n'}企业（需要外部创新能力或项目孵化） 投资机构 /{'\n'}
               资源方（寻找优质项目）{' '}
@@ -58,7 +58,7 @@ function IndexView(props: any) {
               4. 和传统众包/外包平台有什么区别？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
-              NEXA不仅是“接单平台”，而是“协同孵化平台”：
+              STARFIELD不仅是“接单平台”，而是“协同孵化平台”：
               {'\n'}不只是任务交易，而是项目共创 {'\n'}
               支持长期协作，而非一次性交付 {'\n'}
               强调成果分成与商业变现，而非单次费用{' '}
@@ -73,7 +73,7 @@ function IndexView(props: any) {
               5. 如果我只有一个想法，没有团队可以吗？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
-              可以。NEXA的核心价值之一就是“补全能力”：
+              可以。STARFIELD的核心价值之一就是“补全能力”：
               平台会帮助你匹配产品经理、设计师、开发者等，快速组成一个临时或长期项目团队。
             </Text>
 
@@ -137,7 +137,7 @@ function IndexView(props: any) {
                 { marginTop: appSize(10), fontSize: appSize(20) },
               ]}
             >
-              10. 企业如何使用NEXA？
+              10. 企业如何使用STARFIELD？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
               企业可以通过平台： {'\n'}发布创新需求 {'\n'}寻找外部产品团队
@@ -153,7 +153,7 @@ function IndexView(props: any) {
               11. 和创客服务协会是什么关系？
             </Text>
             <Text style={{ marginTop: appSize(4), fontSize: appSize(14) }}>
-              NEXA是由浙江省创客服务协会发起并持续运营的核心平台，是协会推动“创客生态+产业协同”的重要基础设施。
+              STARFIELD是由浙江省创客服务协会发起并持续运营的核心平台，是协会推动“创客生态+产业协同”的重要基础设施。
             </Text>
 
             <Text

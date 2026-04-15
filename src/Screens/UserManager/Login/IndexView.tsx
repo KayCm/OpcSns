@@ -147,6 +147,15 @@ function IndexView(props) {
 
                     <TouchableOpacity onPress={()=>{
 
+                        if (!loginEmail){
+                            Alert.alert('请输入邮箱')
+                            return;
+                        }
+
+                        if (!loginPassword){
+                            Alert.alert('请输入密码')
+                            return;
+                        }
 
                         if (!agree){
                             setVisible(true)

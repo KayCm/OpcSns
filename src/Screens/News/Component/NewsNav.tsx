@@ -4,6 +4,8 @@ import GStyles, {appSize, NAVIGATOR_HEIGHT, TRUE_ONE_LINE} from "../../../Compon
 import IconSearch from "../../../Assets/Svgs/IconSearch";
 import IconAvatar from "../../../Assets/Svgs/IconAvatar";
 import { useNavigation } from '@react-navigation/native';
+import IconNext from "../../../Assets/Svgs/IconNext";
+import IconNexa from "../../../Assets/Svgs/IconNexa";
 
 function NewsNav() {
     const insets = useSafeAreaInsets()
@@ -28,7 +30,9 @@ function NewsNav() {
                     { height: NAVIGATOR_HEIGHT, width: '100%' },
                 ]}>
 
-                <Image resizeMode={'contain'} source={require('../../../Assets/Header/nexa.png')}  style={{width:appSize(100),height:appSize(24)}} />
+                {/*<Image resizeMode={'contain'} source={require('../../../Assets/Header/nexa.png')}  style={{width:appSize(100),height:appSize(24)}} />*/}
+
+                <IconNexa/>
 
                 <View style={[GStyles.row, GStyles.ac, GStyles.ac, {marginRight:appSize(10)}]}>
                     <TouchableOpacity onPress={()=>{

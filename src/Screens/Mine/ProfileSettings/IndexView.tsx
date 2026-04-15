@@ -5,13 +5,13 @@ import IconNext from "../../../Assets/Svgs/IconNext";
 import {useDispatch, useSelector} from "react-redux";
 import {logout, updateUserInfo} from "../../../Redux/persistedReducer";
 import {Asset, launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {useState} from "react";
+import React, {useState} from "react";
 import FormData from "form-data";
 import {R_POST} from "../../../Services/NetRequestService";
 import axios from "axios";
 import TurboImage from "react-native-turbo-image/src/TurboImage";
 import {useNavigation} from "@react-navigation/native";
-
+import Modal from "react-native-modal";
 
 function IndexView(props: any) {
 
@@ -24,7 +24,6 @@ function IndexView(props: any) {
     const nav = useNavigation()
 
     const [selectedImages, setSelectedImages] = useState<Asset[]>([]);
-
 
     const handleSelectFromGallery = async () => {
         const result = await launchImageLibrary({
@@ -102,8 +101,26 @@ function IndexView(props: any) {
         // }
     };
 
+    const cancelAcc = () => {
 
+        R_POST('/open-api/mobile/member/cancel',null).then(res=>{
 
+            if (res?.code == 200){
+                setShowDelete(false)
+                dispatch(logout(null));
+                props?.navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Login' }],
+                });
+            }else{
+                Alert.alert(res?.msg)
+            }
+
+        }).catch(err=>{
+
+        })
+
+    }
 
     const MenuBar = ({ title = 'title', LeftDom, onPress,style,showRightIcon=true }) => {
         return (
@@ -132,18 +149,61 @@ function IndexView(props: any) {
         );
     };
 
+    const [showDelete,setShowDelete] = useState(false)
+    const DeleteAccount = () => {
+        return (<Modal animationIn="fadeIn"
+                       animationOut="fadeOut"
+                       style={{margin: 0, padding: 0}} isVisible={showDelete}>
+            <View style={{flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center'}}>
+                <View style={[GStyles.jc, GStyles.ac, {
+                    paddingHorizontal: appSize(40),
+                    width: appSize(326),
+                    height: appSize(200),
+                    backgroundColor: '#fff'
+                }]}>
 
-    return (
+                    <Text style={[GStyles.ffh11]}>是否注销账户</Text>
+
+                    <Text style={{marginTop:appSize(20),textAlign:'center'}}>注销账号后,您的所有用户信息均被删除</Text>
+                    <Text style={{marginTop:appSize(10),textAlign:'center'}}>且账户上所有资产全部被删除</Text>
+
+                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(20)}]}>
+                        <TouchableOpacity onPress={()=>{
+                            setShowDelete(false)
+                        }} style={[GStyles.jc,GStyles.ac,{borderRadius:appSize(5),borderWidth:1,borderColor:'#A5885F',height:appSize(40),width:appSize(120)}]}>
+                            <Text style={{color:'#A5885F'}}>取消</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={()=>{
+                            cancelAcc()
+
+                        }} style={[GStyles.jc,GStyles.ac,{backgroundColor:'#A5885F',borderRadius:appSize(5),height:appSize(40),width:appSize(120)}]}>
+                            <Text style={{color:'#ffffff'}}>确定</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </View>
+            </View>
+        </Modal>)
+    }
+
+                return (
         <View style={{ flex: 1,backgroundColor:''}}>
             <NavHeader title={'个人资料'} />
             <View style={{}}>
                 <MenuBar onPress={()=>{
                     handleSelectFromGallery()
-                }} title={'头像'} LeftDom={<TurboImage
-                    source={{ uri:userInfo?.avatar}}
-                    style={{ width: appSize(44), height: appSize(44),borderRadius:appSize(22) }}
-                    resizeMode="cover"
-                />} />
+                }} title={'头像'} LeftDom={
+                    userInfo?.avatar? <TurboImage
+                        source={{ uri:userInfo?.avatar}}
+                        style={{ width: appSize(44), height: appSize(44),borderRadius:appSize(22) }}
+                        resizeMode="cover"
+                    />:<Image
+                        source={require('./../../../Assets/mine/avatar.png')}
+                        style={{borderWidth:2,borderColor:'#fff', width: appSize(44), height: appSize(44),borderRadius:appSize(22) }}
+                        resizeMode="cover"
+                    />
+                } />
 
 
                 <MenuBar onPress={()=>{
@@ -158,18 +218,13 @@ function IndexView(props: any) {
 
             <TouchableOpacity onPress={()=>{
 
-                dispatch(logout(null))
-
-                props?.navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Login' }],
-                });
-
+                setShowDelete(true)
             }} style={[GStyles.jc,GStyles.ac,{marginTop:100,width:'100%',height:64,backgroundColor:'#fff'}]}>
               <Text style={{color:'#F29E9E',fontSize:14}}>注销账户</Text>
             </TouchableOpacity>
 
 
+            <DeleteAccount />
 
         </View>
     );

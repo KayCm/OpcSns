@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {logout} from "../../../Redux/persistedReducer";
 import {useDispatch} from "react-redux";
+import {removeLastLoginInfo} from "../../../Components/Tools";
 
 function IndexView(props: any) {
 
@@ -126,6 +127,8 @@ function IndexView(props: any) {
           onPress={() => {
 
               dispatch(logout(null));
+
+              // removeLastLoginInfo()
 
               props?.navigation.reset({
                 index: 0,

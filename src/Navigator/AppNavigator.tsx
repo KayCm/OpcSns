@@ -37,7 +37,7 @@ const AppNavigator = () => {
             <Stack.Screen
               name="AppBottomTab"
               component={AppBottomTab}
-              options={{ headerShown: false, animation: 'slide_from_right' }}
+              options={{ headerShown: false, animation: 'fade' }}
             />
 
             <Stack.Screen

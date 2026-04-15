@@ -341,7 +341,8 @@ function IndexView({navigation}) {
                           setSelect(index);
                           setShowDetail(true);
                       }}
-                  />)
+                  >
+                  </AMapMarker>)
               })}
 
           </AMapView>)}
