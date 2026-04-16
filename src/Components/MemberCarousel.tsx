@@ -35,7 +35,7 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
 
                     <View style={[GStyles.row,{height:appSize(110)}]}>
                         <View style={[GStyles.row,GStyles.ac,{gap:appSize(10),paddingLeft:appSize(16),height:appSize(110),flex:1}]} >
-                            <Text style={[GStyles.ffh1,{color:index <= 1?'#000':'#FDE3B6'}]}>{item.text}</Text>
+                            <Text style={[GStyles.ffh1,{color:index <= 1?'#000':'#FDE3B6',fontSize:appSize(22)}]}>{item.text}</Text>
 
                             {index <= 1 &&(<View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(5),height:appSize(18),borderWidth:1,borderTopRightRadius:appSize(9),borderBottomRightRadius:appSize(9),borderTopLeftRadius:appSize(9)}]}>
                                 <Text style={{fontSize:appSize(12)}}>已开通</Text>

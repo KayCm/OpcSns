@@ -31,7 +31,7 @@ const STYLE = StyleSheet.create({
             android: {fontWeight:'600'}
         }),
         fontSize:appSize(18),
-        fontWeight:'500',
+        fontWeight:'600',
     },
 
     ffh2:{

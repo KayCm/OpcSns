@@ -162,9 +162,9 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
                 >
                 {Icon}
                 <Text style={{
-                    color: isFocused ? '#121212' : '#1C1C1E',
+                    color: isFocused ? '#1C1A17' : '#6E6E6E',
                     marginTop: 6,
-                    fontSize: 12,
+                    fontSize: appSize(12),
                     fontWeight: isFocused ? '600' : '400',
                   }}>
                   {label}

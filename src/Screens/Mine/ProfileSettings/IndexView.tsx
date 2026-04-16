@@ -210,7 +210,7 @@ function IndexView(props: any) {
                     //EditName
                     nav.navigate('EditName')
                 }} style={{}}  title={'昵称'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.username}</Text>} />
-                <MenuBar  title={'绑定账号'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.email}</Text>} />
+                <MenuBar  title={'账号'} LeftDom={<Text style={{color:'#5F5F5F'}}>{userInfo?.email}</Text>} />
                 <MenuBar title={'修改密码'} onPress={()=>{
                     nav.navigate('EditPwd')
                 }}  />

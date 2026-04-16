@@ -16,14 +16,13 @@ function IndexView({navigation,route}) {
     const Hearder = () => {
         return(<View style={[GStyles.jc,{height:appSize(64)}]}>
             <View style={[GStyles.row,GStyles.jc,GStyles.ac,{gap:appSize(30)}]} >
-                <Text style={[GStyles.ffb,{fontSize:24}]}>赚钱薪计划</Text>
+                <Text style={[GStyles.ffb,{fontSize:appSize(20)}]}>赚钱薪计划</Text>
             </View>
         </View> )}
 
     const InfoBar = () => {
 
         return(<View style={[GStyles.row,GStyles.ac,GStyles.ph16,{gap:appSize(10)}]}>
-
             {userInfo?.avatar? <TurboImage
                 source={{ uri:userInfo?.avatar}}
                 style={{ width: appSize(68), height: appSize(68),borderRadius:appSize(34) }}
@@ -100,7 +99,7 @@ function IndexView({navigation,route}) {
             <InfoBar />
             <FinanceBar />
 
-            <View style={{width:'100%',alignItems:'center',marginTop:appSize(10)}}>
+            <View style={{width:'100%',alignItems:'center',marginTop:appSize(10),marginBottom:appSize(10)}}>
                 <Text style={[GStyles.ffb,{color:'#a5885f'}]}>赚钱计划</Text>
                 {/*<Image sytle={{width:32.5,height:20,backgroundColor:'#123'}} source={require('../../Assets/Vip/union.png')} />*/}
             </View>
@@ -124,7 +123,7 @@ function IndexView({navigation,route}) {
                 Alert.alert('敬请期待！')
             }} style={{width:appSize(168)}}>
                 <Image source={item?.img} style={{width:appSize(168),height:appSize(94),borderRadius:appSize(5)}} />
-                <Text style={[GStyles.ffh11,{color:'#1C1A17',fontSize:appSize(14),marginTop:appSize(6)}]} numberOfLines={1}>{item?.title}</Text>
+                <Text style={[GStyles.ffh11,{color:'#1C1A17',fontSize:appSize(16),marginTop:appSize(6)}]} numberOfLines={1}>{item?.title}</Text>
                 <Text style={{fontSize:appSize(12),color:'#828282',marginTop:appSize(2)}}>{item?.desc}</Text>
             </TouchableOpacity>
         </View> )

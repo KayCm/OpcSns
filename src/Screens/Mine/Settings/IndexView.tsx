@@ -77,17 +77,19 @@ function IndexView(props: any) {
         {/*  LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}*/}
         {/*  showRightIcon={false}*/}
         {/*/>*/}
-        {/*<MenuBar*/}
-        {/*  title={'语言'}*/}
-        {/*  onPress={() => {}}*/}
-        {/*  style={{ backgroundColor: '#ffffff' }}*/}
-        {/*  LeftDom={*/}
-        {/*    <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>*/}
-        {/*      中文*/}
-        {/*    </Text>*/}
-        {/*  }*/}
-        {/*  showRightIcon={true}*/}
-        {/*/>*/}
+        <MenuBar
+          title={'语言'}
+          onPress={() => {
+              nav.navigate('Language')
+          }}
+          style={{ backgroundColor: '#ffffff' }}
+          LeftDom={
+            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
+              中文
+            </Text>
+          }
+          showRightIcon={true}
+        />
         <MenuBar
           onPress={() => {
             nav.navigate('Agreement', { type: 1 });

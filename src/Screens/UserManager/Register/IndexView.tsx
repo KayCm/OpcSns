@@ -227,7 +227,7 @@ function IndexView(props: any) {
                         />
                     </View>
 
-                    {reviewStatus == 1 && (<View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
+                    {(reviewStatus == 1 || Platform.OS == 'android') && (<View style={[GStyles.row,GStyles.ac,GStyles.ph12,{height:appSize(50),marginTop:appSize(20),width:'100%',borderColor:'#000',borderWidth:1}]}>
                         <Image source={require('../../../Assets/user/regIcon4.png')} style={{height:appSize(24),width:appSize(24)}} />
                         <TextInput
                             value={invCode}

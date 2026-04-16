@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-native-modal";
 import {Alert, Image, ImageBackground, Text, TouchableOpacity, View} from "react-native";
 import GStyles, {appSize} from "../../Components/GStyles";

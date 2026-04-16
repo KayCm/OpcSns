@@ -15,13 +15,15 @@ function NewsRenderRow({item,onPress}) {
 
                 <Text numberOfLines={2} ellipsizeMode="tail" style={[GStyles.ffh11,{color:COLORS.FONTBLACK,fontSize:appSize(14)}]}>{item?.item?.title?.replace(/\r?\n|\r/g, '')}</Text>
                 <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween]}>
-                    <Text style={{fontSize:appSize(12),color:'#909090'}}>{item?.item?.author}</Text>
+                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:5}]}>
+                        <Text style={{fontSize:appSize(13),color:'#909090'}}>{formatTimeAgo(item?.item?.onlineTime)}</Text>
+                    </View>
+
+                    <Text style={{fontSize:appSize(13),color:'#909090'}}>{item?.item?.author}</Text>
                     {/*<View style={[GStyles.jc,GStyles.ac,{height:20,paddingHorizontal: appSize(5),backgroundColor:'#F0EBE4',borderRadius:2}]}>*/}
                     {/*    <Text style={{color:'#A5885F'}}>已订阅</Text>*/}
                     {/*</View>*/}
-                    <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:5}]}>
-                        <Text style={{fontSize:appSize(12),color:'#909090'}}>{formatTimeAgo(item?.item?.onlineTime)}</Text>
-                    </View>
+
                 </View>
 
             </View>

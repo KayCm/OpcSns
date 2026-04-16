@@ -112,15 +112,15 @@ function Index({url,params,queryKey,renderHeader=null,renderRow=null,numColumns=
         if (!hasNextPage && allItems.length > 0) {
             return (
                 <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}>
-                    <Text style={{color:'#8a8a8a'}}>—— No More ——</Text>
+                    <Text style={{color:'#8a8a8a'}}>—— 没有更多 ——</Text>
                 </View>
             );
         }
         if (isFetchingNextPage) {
             return (
                 <View style={{width:'100%',justifyContent:'center',alignItems:'center'}}>
-                    <ActivityIndicator size="small" />
-                    <Text style={{color:'#8a8a8a'}}>Load More...</Text>
+                    {/*<ActivityIndicator size="small" />*/}
+                    <Text style={{color:'#8a8a8a'}}>加载更多...</Text>
                 </View>
             );
         }

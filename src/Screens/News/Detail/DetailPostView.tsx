@@ -317,7 +317,6 @@ function DetailPostView({route}) {
                 style={{
                   width: '100%',
                   aspectRatio: 16 / 9,
-                  borderRadius: 5,
                   marginTop: appSize(10),
                 }}
               />
@@ -327,11 +326,21 @@ function DetailPostView({route}) {
               <SwiperFlatList
                 autoplay={true}
                 autoplayDelay={5}
+                showPagination={true}
+                // paginationDefaultColor="#CCCCCC"      // 未激活的指示点颜色
+                // paginationActiveColor="#FFFFFF"
+                paginationStyle={{position: 'absolute',
+                    bottom: appSize(10)}}
+                paginationStyleItem={{
+                    width: appSize(10),
+                    height: appSize(10),
+                    borderRadius: appSize(5),   // 完全圆形
+                    marginHorizontal: appSize(8), // 指示点之间的间距
+                }}
                 autoplayLoop
                 loop
                 style={{
                   width: WINDOW_WIDTH - appSize(100),
-                  borderRadius: appSize(5),
                   marginTop: appSize(10),
                   height: appSize(200),
                 }}
@@ -352,6 +361,7 @@ function DetailPostView({route}) {
                     <TurboImage
                       source={{ uri: item?.fileUrl }}
                       // resizeMode={'c'}
+                        resizeMode={'cover'}
                       style={{
                         backgroundColor: '',
                         height: appSize(200),

@@ -52,7 +52,9 @@ function ActivityDetailView(props) {
     }
 
 // https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/avatar_20260403082919A021.png
-    var headerHtml = `<div><img src="${data?.data?.posterUrl}" style="border-radius: 5px" alt="" width="100%" height="200"><div style="font-size:1.75rem; font-weight:600; color:#000;">${data?.data?.activityName}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/time_20260403083710A023.png" alt="" width="18px" height="18px">活动时间:${data?.data?.activityTime||'进行中'}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/local_20260403083629A022.png" alt="" width="18px" height="18px">${data?.data?.address}</div><div style="color:#8a8a8a;height:22px;font-size:1rem;margin-top: 5px;display: flex;align-items: center;gap:4px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/avatar_20260403082919A021.png" alt="" width="18px" height="18px"> ${data?.data?.organizerName}</div><div style="color: #0faa3a;font-weight: bolder;height:22px;font-size:1.25rem;margin-top:10px">价格:${data?.data?.registrationFee}</div></div>`
+
+    // <div style="color: #0faa3a;font-weight: bolder;height:22px;font-size:1.25rem;margin-top:10px">价格:${data?.data?.registrationFee}</div>
+    var headerHtml = `<div><img src="${data?.data?.posterUrl}" style="border-radius: 5px" alt="" width="100%" height="200"><div style="font-size:1.35rem; font-weight:600;margin-top: 20px; color:#000;">${data?.data?.activityName}</div><div style="color:#8a8a8a;height:22px;font-size:0.85rem;margin-top:10px;display: flex;align-items: center;gap:6px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/time_20260403083710A023.png" alt="" width="16px" height="16px">活动时间:${data?.data?.activityTime||'进行中'}</div><div style="color:#8a8a8a;height:22px;font-size:0.85rem;margin-top: 10px;display: flex;align-items: center;gap:6px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/local_20260403083629A022.png" alt="" width="16px" height="16px">${data?.data?.address}</div><div style="color:#8a8a8a;height:22px;font-size:0.85rem;margin-top: 10px;display: flex;align-items: center;gap:6px"><img src="https://vps-sg-aws-opc.43046721.xyz/profile/upload/2026/04/03/avatar_20260403082919A021.png" alt="" width="16px" height="16px"> ${data?.data?.organizerName}</div></div>`
 
     const injectScript = () => {
         webViewRef.current.injectJavaScript(`
@@ -87,8 +89,8 @@ function ActivityDetailView(props) {
         return(<View style={[GStyles.jc,GStyles.ac,{width:'100%',height:appSize(64)+useSafeAreaInsets().bottom,backgroundColor:'#fff'}]}>
             <TouchableOpacity onPress={()=>{
                 Alert.alert('报名成功')
-            }} style={[GStyles.jc,GStyles.ac,{width:appSize(160),height:appSize(44),backgroundColor:'#a5885f',borderRadius:appSize(5)}]}>
-                <Text style={{color:'#fff'}}>立即报名</Text>
+            }} style={[GStyles.jc,GStyles.ac,{width:appSize(220),marginTop:-useSafeAreaInsets().bottom,height:appSize(44),backgroundColor:'#a5885f'}]}>
+                <Text style={{color:'#fff',fontSize:appSize(18)}}>立即报名</Text>
             </TouchableOpacity>
         </View>)
 

@@ -79,6 +79,7 @@ function IndexView({navigation}) {
     if (isPending)return null
     if (isLoading)return <Text>Loading</Text>
     if (error) return <Text>{error.message}</Text>
+    // if (!isSuccess) return <Text>Loading</Text>
 
     // useEffect(() => {
     //     if (isSuccess && data) {
@@ -330,19 +331,21 @@ function IndexView({navigation}) {
           }} ref={mapRef} style={{ flex: 1 }} >
               {mapArray.map((v, index) => {
 
-                  console.log(v)
+                  // console.log(v)
                   return(<AMapMarker
                       key={'title'+index}
                       position={{ latitude: v.latitude, longitude: v.longitude }}
                       zIndex={11}
+                      icon={index==select?require('../../Assets/map/marker_on.png'):require('../../Assets/map/marker_off.png')}
+                      flat={true}
+                      // children={(<Text>123</Text>)}
                       onPress={(e)=>{
                           // console.log('v',v)
                           const index = mapArray.findIndex(item => item.id === v.id);
                           setSelect(index);
                           setShowDetail(true);
                       }}
-                  >
-                  </AMapMarker>)
+                  ></AMapMarker>)
               })}
 
           </AMapView>)}

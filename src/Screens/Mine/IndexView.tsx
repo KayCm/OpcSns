@@ -32,6 +32,7 @@ import { useState } from 'react';
 
 import { VipModal } from './VipModal.tsx';
 import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
+import {COLORS} from "../../Components/Constant";
 
 function IndexView() {
   const insets = useSafeAreaInsets();
@@ -42,9 +43,7 @@ function IndexView() {
 
   const [isModalVisible, setisModalVisible] = useState(false);
 
-  // const changeLanguage = (lng) => {
-  //     i18n.changeLanguage(lng);
-  // };
+
 
   const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
   const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 0);
@@ -176,20 +175,13 @@ function IndexView() {
               <View style={[GStyles.row, GStyles.ac]}>
                 <Text
                   style={[
-                    GStyles.ffb,
-                    { color: '#000', fontSize: appSize(20) },
+                    GStyles.ffh11,
+                    { color: COLORS.FONTBLACK,fontWeight:'600', fontSize: appSize(20) },
                   ]}
                 >
                   {userInfo?.username}
                 </Text>
-                <Image
-                  source={require('../../Assets/mine/member.png')}
-                  style={{
-                    marginLeft: appSize(6),
-                    width: appSize(66),
-                    height: appSize(18),
-                  }}
-                />
+
               </View>
               <Text style={{ color: '#D8B789' }}>ID:{userInfo?.email}</Text>
             </View>
@@ -201,7 +193,7 @@ function IndexView() {
           </View>
         </TouchableOpacity>
 
-        {reviewStatus == 1 && (<View
+        {(reviewStatus == 1 || Platform.OS == 'android' ) && (<View
             style={{
               height: appSize(150),
               width: '100%',
@@ -263,101 +255,7 @@ function IndexView() {
     </ScrollView>
   );
 
-  return (
-    <View style={{ flex: 1, paddingTop: area.top }}>
-      <ScrollView style={[GStyles.ph12]}>
-        <TouchableOpacity
-          onPress={() => {
-            // console.log('userInfo',userInfo)
-            Nav.navigate('ProfileSettings');
-          }}
-          style={[
-            GStyles.row,
-            GStyles.ac,
-            GStyles.jcBetween,
-            { height: 80, width: '100%' },
-          ]}
-        >
-          <View style={[GStyles.row, GStyles.ac, { marginBottom: 10 }]}>
 
-            {userInfo?.avatar? <TurboImage
-                source={{ uri: userInfo?.avatar }}
-                style={{
-                  width: appSize(64),
-                  height: appSize(64),
-                  borderRadius: appSize(32),
-                }}
-                resizeMode="cover"
-            />: <TurboImage
-                source={require('../../Assets/mine/avatar.png')}
-                style={{
-                  width: appSize(64),
-                  height: appSize(64),
-                  borderRadius: appSize(32),
-                }}
-                resizeMode="cover"
-                placeholder={{ thumbhash: require('./../../Assets/mine/avatar.png') }}
-            />}
-
-
-
-
-            <View style={{ gap: 10, marginLeft: 10 }}>
-              <Text>{userInfo?.username}</Text>
-              <Text>2026-04-15</Text>
-            </View>
-          </View>
-          <IconNext />
-        </TouchableOpacity>
-
-        <View
-          style={{
-            height: 160 * 1.1,
-            width: '100%',
-          }}
-        >
-          <SimpleCarousel />
-        </View>
-
-        {/*<View*/}
-        {/*  style={[GStyles.jc, GStyles.ac, { width: '100%', height: 160 }]}*/}
-        {/*>*/}
-        {/*  <MemberCard />*/}
-        {/*</View>*/}
-
-        <MenuBar
-          title={t('profile.aboutUs')}
-          onPress={() => {
-            Nav.navigate('About');
-          }}
-        />
-        <MenuBar
-          title={t('profile.purchase')}
-          onPress={() => {
-            Nav.navigate('Purchase');
-          }}
-        />
-        <MenuBar
-          title={t('profile.faq')}
-          onPress={() => {
-            Nav.navigate('Faq');
-          }}
-        />
-        <MenuBar
-          title={t('profile.feedback')}
-          onPress={() => {
-            Nav.navigate('FeedBack');
-          }}
-        />
-        <MenuBar
-          title={t('profile.settings')}
-          onPress={() => {
-            Nav.navigate('Settings');
-          }}
-        />
-      </ScrollView>
-    </View>
-  );
 }
 
 export default IndexView;

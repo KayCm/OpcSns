@@ -28,6 +28,7 @@ import DetailPostView from "../Screens/News/Detail/DetailPostView";
 import EditPwdView from "../Screens/Mine/ProfileSettings/EditPwdView";
 import EditNameView from "../Screens/Mine/ProfileSettings/EditNameView";
 import AgreementView from '../Screens/UserManager/AgreementView.tsx';
+import LanguageView from "../Screens/Mine/Settings/LanguageView";
 
 const AppNavigator = () => {
     return (
@@ -151,6 +152,11 @@ const AppNavigator = () => {
             <Stack.Screen
               name="Settings"
               component={Settings}
+              options={{ headerShown: false, animation: 'slide_from_right' }}
+            />
+            <Stack.Screen
+              name="Language"
+              component={LanguageView}
               options={{ headerShown: false, animation: 'slide_from_right' }}
             />
           </Stack.Group>
