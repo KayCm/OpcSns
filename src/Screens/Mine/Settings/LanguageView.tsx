@@ -2,6 +2,10 @@ import {Image, Text, TouchableOpacity, View} from "react-native";
 import NavHeader from "../../../Components/NavHeader";
 import GStyles, {appSize, TRUE_ONE_LINE} from "../../../Components/GStyles";
 import {useTranslation} from "react-i18next";
+import React from "react";
+import VideoPlayer from 'react-native-video-controls';
+
+import { useVideoPlayer, VideoView } from 'react-native-video';
 
 function LanguageView() {
 
@@ -40,16 +44,44 @@ function LanguageView() {
     };
 
 
+    const player = useVideoPlayer(
+        'https://www.w3schools.com/html/mov_bbb.mp4',
+        (_player) => {
+            _player.play();
+        }
+    );
 
 
     return(<View style={{ flex: 1,backgroundColor:''}}>
         <NavHeader title={'选择语言'} />
-        <MenuBar title={'中文'} onPress={()=>{
-            changeLanguage('en')
-        }} LeftDom={<Image style={{height:appSize(18),width:appSize(18)}} source={require('../../../Assets/mine/xuanzhong.png')} />} showRightIcon={false} style={{marginTop:appSize(20), backgroundColor: '#ffffff' }} />
-        <MenuBar title={'English'} onPress={()=>{
-            changeLanguage('zh')
-        }}  showRightIcon={false} style={{ backgroundColor: '#ffffff' }} />
+
+
+
+        <VideoView
+            player={player}
+            style={{ width: '100%', aspectRatio: 16 / 9 }}
+            controls
+        />
+
+        {/*<MenuBar title={'中文'} onPress={()=>{*/}
+        {/*    changeLanguage('en')*/}
+        {/*}} LeftDom={<Image style={{height:appSize(18),width:appSize(18)}} source={require('../../../Assets/mine/xuanzhong.png')} />} showRightIcon={false} style={{marginTop:appSize(20), backgroundColor: '#ffffff' }} />*/}
+        {/*<MenuBar title={'English'} onPress={()=>{*/}
+        {/*    changeLanguage('zh')*/}
+        {/*}}  showRightIcon={false} style={{ backgroundColor: '#ffffff' }} />*/}
+
+
+        {/*<VideoPlayer*/}
+        {/*    source={{uri: 'https://vjs.zencdn.net/v/oceans.mp4'}}*/}
+        {/*    style={{*/}
+        {/*        width: '100%',*/}
+        {/*        // aspectRatio: 16 / 9,*/}
+        {/*    }}*/}
+        {/*/>*/}
+
+
+
+
     </View>)
 }
 
