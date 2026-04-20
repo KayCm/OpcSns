@@ -99,10 +99,20 @@ function IndexView(props) {
 
 
     return (<View style={{ flex: 1,paddingTop:insets.top}}>
+            <View style={[GStyles.ph12,{}]}>
+                <View style={[GStyles.jc,{height:appSize(44),width:'100%',backgroundColor:""}]} >
+                    <TouchableOpacity onPress={()=>{
+                        nav.goBack()
+                    }}>
+                        <Image source={require('../../../Assets/Header/goback.png')} style={{width:appSize(24),height:appSize(24)}} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+
 
             <View style={[GStyles.ph12,{}]}>
 
-                <View style={[GStyles.jc,GStyles.ac,{marginTop:appSize(106)-insets.top,width:'100%'}]}>
+                <View style={[GStyles.jc,GStyles.ac,{marginTop:appSize(106-44)-insets.top,width:'100%'}]}>
 
                     <IconNexa />
                 </View>
@@ -169,7 +179,6 @@ function IndexView(props) {
                             loginAct().then(res=>{
                                 setLoading(false)
                                 if (res.res){
-                                    getUserInfo()
                                     saveLastLoginInfo(loginEmail,true)
                                     nav.replace('AppBottomTab')
                                 }else{

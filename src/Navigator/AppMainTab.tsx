@@ -17,11 +17,15 @@ import { Shadow } from 'react-native-shadow-2';
 import {useTranslation} from "react-i18next";
 import enhanceScreen from "./enhanceScreen";
 import GStyles, {appSize, TRUE_ONE_LINE, WINDOW_WIDTH} from "../Components/GStyles";
+import {useSelector} from "react-redux";
 
 
 function AppBottomTabBar({ state, descriptors, navigation }) {
   // const { colors } = useTheme();
-  const { buildHref } = useLinkBuilder();
+
+    const userInfo = useSelector(state => state?.userInfo);
+
+    const { buildHref } = useLinkBuilder();
   const insets = useSafeAreaInsets();
     const { t } = useTranslation();
   return (
@@ -59,15 +63,28 @@ function AppBottomTabBar({ state, descriptors, navigation }) {
             const isFocused = state.index === index;
 
             const onPress = () => {
-              const event = navigation.emit({
-                type: 'tabPress',
-                target: route.key,
-                canPreventDefault: true,
-              });
 
-              if (!isFocused && !event.defaultPrevented) {
-                navigation.navigate(route.name, route.params);
-              }
+                console.log(userInfo)
+                console.log(label)
+
+                if (t('tabs.make') == label && !userInfo?.email){
+
+                    navigation.navigate('Login')
+
+                }else{
+
+                    const event = navigation.emit({
+                        type: 'tabPress',
+                        target: route.key,
+                        canPreventDefault: true,
+                    });
+
+                    if (!isFocused && !event.defaultPrevented) {
+                        navigation.navigate(route.name, route.params);
+                    }
+
+                }
+
             };
 
             const onLongPress = () => {

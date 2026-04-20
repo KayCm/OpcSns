@@ -5,7 +5,7 @@ import IconNext from '../../../Assets/Svgs/IconNext.tsx';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {logout} from "../../../Redux/persistedReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {removeLastLoginInfo} from "../../../Components/Tools";
 
 function IndexView(props: any) {
@@ -23,7 +23,10 @@ function IndexView(props: any) {
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  const MenuBar = ({ title = 'title', LeftDom, onPress,style,showRightIcon=true }) => {
+    const userInfo = useSelector(state => state?.userInfo);
+
+
+    const MenuBar = ({ title = 'title', LeftDom, onPress,style,showRightIcon=true }) => {
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -57,7 +60,14 @@ function IndexView(props: any) {
         <MenuBar
           title={'账号管理'}
           onPress={() => {
-              Nav.navigate('ProfileSettings');
+
+              if (userInfo?.email){
+                  Nav.navigate('ProfileSettings');
+              }else{
+                  Nav.navigate('Login');
+              }
+
+
           }}
           style={{
             backgroundColor: '#ffffff',
@@ -77,19 +87,19 @@ function IndexView(props: any) {
         {/*  LeftDom={<Switch value={isEnabled} onValueChange={toggleSwitch} />}*/}
         {/*  showRightIcon={false}*/}
         {/*/>*/}
-        <MenuBar
-          title={'语言'}
-          onPress={() => {
-              nav.navigate('Language')
-          }}
-          style={{ backgroundColor: '#ffffff' }}
-          LeftDom={
-            <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
-              中文
-            </Text>
-          }
-          showRightIcon={true}
-        />
+        {/*<MenuBar*/}
+        {/*  title={'语言'}*/}
+        {/*  onPress={() => {*/}
+        {/*      nav.navigate('Language')*/}
+        {/*  }}*/}
+        {/*  style={{ backgroundColor: '#ffffff' }}*/}
+        {/*  LeftDom={*/}
+        {/*    <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>*/}
+        {/*      中文*/}
+        {/*    </Text>*/}
+        {/*  }*/}
+        {/*  showRightIcon={true}*/}
+        {/*/>*/}
         <MenuBar
           onPress={() => {
             nav.navigate('Agreement', { type: 1 });
@@ -125,32 +135,39 @@ function IndexView(props: any) {
         {/*  showRightIcon={false}*/}
         {/*/>*/}
 
-        <TouchableOpacity
-          onPress={() => {
+          {userInfo?.email && ( <TouchableOpacity
+              onPress={() => {
 
-              dispatch(logout(null));
+                  dispatch(logout(null));
 
-              // removeLastLoginInfo()
+                  // removeLastLoginInfo()
 
-              props?.navigation.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-              });
+                  // props?.navigation.reset({
+                  //   index: 0,
+                  //   routes: [{ name: 'Login' }],
+                  // });
 
-          }}
-          style={[
-            GStyles.jc,
-            GStyles.ac,
-            {
-              marginTop: appSize(56),
-              height: appSize(64),
-              width: '100%',
-              backgroundColor: '#ffffff',
-            },
-          ]}
-        >
-          <Text style={[GStyles.ffh1, { color: '#FF6A6A' }]}>退出登录</Text>
-        </TouchableOpacity>
+                  props?.navigation.reset({
+                      index: 0,
+                      routes: [{ name: 'AppInitial' }],
+                  });
+
+              }}
+              style={[
+                  GStyles.jc,
+                  GStyles.ac,
+                  {
+                      marginTop: appSize(56),
+                      height: appSize(64),
+                      width: '100%',
+                      backgroundColor: '#ffffff',
+                  },
+              ]}
+          >
+              <Text style={[GStyles.ffh1, { color: '#FF6A6A' }]}>退出登录</Text>
+          </TouchableOpacity>)}
+
+
       </View>
     );
 }

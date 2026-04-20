@@ -32,9 +32,11 @@ function IndexView(props) {
         return <Text>error</Text>
     }
 
+    console.log("data?.data",data)
+
     const renderHeader = () => {
 
-        console.log(data?.data[0])
+        console.log(data?.data)
 
         // imageUrl
 

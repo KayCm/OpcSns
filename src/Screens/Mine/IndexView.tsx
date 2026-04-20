@@ -134,8 +134,16 @@ function IndexView() {
 
         <TouchableOpacity
           onPress={() => {
+
             // console.log('userInfo',userInfo)
-            Nav.navigate('ProfileSettings');
+
+            if (userInfo?.email){
+              Nav.navigate('ProfileSettings');
+            }else{
+              Nav.navigate('Login');
+            }
+
+
           }}
           style={[
             GStyles.row,
@@ -173,17 +181,20 @@ function IndexView() {
           >
             <View style={{ gap: appSize(4), marginLeft: 10 }}>
               <View style={[GStyles.row, GStyles.ac]}>
+
+
                 <Text
                   style={[
                     GStyles.ffh11,
                     { color: COLORS.FONTBLACK,fontWeight:'600', fontSize: appSize(20) },
                   ]}
                 >
-                  {userInfo?.username}
+                  {userInfo?.username ? userInfo?.username : '未登录'}
                 </Text>
 
               </View>
-              <Text style={{ color: '#D8B789' }}>ID:{userInfo?.email}</Text>
+
+              {userInfo?.email&&<Text style={{ color: '#D8B789' }}>ID:{userInfo?.email}</Text>}
             </View>
 
             <Image
@@ -237,7 +248,11 @@ function IndexView() {
             iconImg={require('../../Assets/mine/icon4.png')}
             title={t('profile.feedback')}
             onPress={() => {
-              Nav.navigate('FeedBack');
+              if (userInfo?.email){
+                Nav.navigate('FeedBack');
+              }else{
+                Nav.navigate('Login');
+              }
             }}
           />
           <MenuBar

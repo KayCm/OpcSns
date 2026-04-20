@@ -67,22 +67,37 @@ function IndexView() {
               NewsHeader({
                 BannerClick: value => {
 
-                  if (value?.linkTargetType == '1') {
-                    navigation.navigate('DetailPost', {
-                      item: { id: value?.linkValue },
-                    });
-                  } else {
-                    navigation.navigate('Detail', {
-                      item: { id: value?.linkValue },
-                    });
-                  }
+                    if (global.token){
+                        if (value?.linkTargetType == '1') {
+                            navigation.navigate('DetailPost', {
+                                item: { id: value?.linkValue },
+                            });
+                        } else {
+                            navigation.navigate('Detail', {
+                                item: { id: value?.linkValue },
+                            });
+                        }
+                    }else{
+
+                        navigation.navigate('Login')
+
+                    }
+
                 },
                 HotInfoClick: value => {
-                  if (value?.materialType == 'post') {
-                    navigation.navigate('DetailPost', { item: value });
-                  } else {
-                    navigation.navigate('Detail', { item: value });
-                  }
+
+                    if (global.token){
+                        if (value?.materialType == 'post') {
+                            navigation.navigate('DetailPost', { item: value });
+                        } else {
+                            navigation.navigate('Detail', { item: value });
+                        }
+                    }else{
+
+                        navigation.navigate('Login')
+
+                    }
+
                 },
               })
             }
@@ -92,11 +107,26 @@ function IndexView() {
                 onPress: item => {
                   // Nav.push('Detail',{item:item?.item})
                   // console.log(item?.item?.contentType)
-                  if (item?.item?.materialType == 'post') {
-                    navigation.navigate('DetailPost', { item: item?.item });
-                  } else {
-                    navigation.navigate('Detail', { item: item?.item });
-                  }
+
+
+                    if (global.token){
+                        if (item?.item?.materialType == 'post') {
+                            navigation.navigate('DetailPost', { item: item?.item });
+                        } else {
+                            navigation.navigate('Detail', { item: item?.item });
+                        }
+                    }else{
+
+                        navigation.navigate('Login')
+
+                    }
+
+
+                  // if (item?.item?.materialType == 'post') {
+                  //   navigation.navigate('DetailPost', { item: item?.item });
+                  // } else {
+                  //   navigation.navigate('Detail', { item: item?.item });
+                  // }
                 },
               })
             }
@@ -114,12 +144,22 @@ function IndexView() {
                   NewsRenderRow({
                     item: item,
                     onPress: item => {
+
+                        if (global.token){
+                            if (item?.item?.materialType == 'post') {
+                                navigation.navigate('DetailPost', { item: item?.item });
+                            } else {
+                                navigation.navigate('Detail', { item: item?.item });
+                            }
+                        }else{
+
+                            navigation.navigate('Login')
+
+                        }
+
+
                       // console.log(item?.item?.contentType)
-                      if (item?.item?.materialType == 'post') {
-                        navigation.navigate('DetailPost', { item: item?.item });
-                      } else {
-                        navigation.navigate('Detail', { item: item?.item });
-                      }
+
                     },
                   })
                 }

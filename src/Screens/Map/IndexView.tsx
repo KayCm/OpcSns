@@ -12,6 +12,7 @@ import {
   MapView as AMapView,
   Marker as AMapMarker,
 } from '../../Components/amap';
+import {useSelector} from "react-redux";
 
 
 // import {AMapSdk,MapView} from '../../Components/amap'
@@ -79,7 +80,7 @@ function IndexView({navigation}) {
     if (isPending)return null
     if (isLoading)return <Text>Loading</Text>
     if (error) return <Text>{error.message}</Text>
-    // if (!isSuccess) return <Text>Loading</Text>
+    // if (isSuccess) return <Text>Loading</Text>
 
     // useEffect(() => {
     //     if (isSuccess && data) {
@@ -89,20 +90,37 @@ function IndexView({navigation}) {
     //     }
     // }, [isSuccess, data]);
 
+    console.log('data:',data)
+
     var mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
+
+    const userInfo = useSelector(state => state?.userInfo);
 
 
     const wantGO = (id:string) => {
 
-        R_POST('/open-api/mobile/community/want',{communityId:id}).then(res=>{
-            refetch()
-        })
+        if (userInfo?.email){
+            R_POST('/open-api/mobile/community/want',{communityId:id}).then(res=>{
+                refetch()
+            })
+        }else {
+            navigation.navigate('Login');
+        }
+
+
+
     }
 
     const BeenGo = (id:string) => {
-        R_POST('/open-api/mobile/community/visited',{communityId:id}).then(res=>{
-            refetch()
-        })
+
+        if (userInfo?.email){
+            R_POST('/open-api/mobile/community/visited',{communityId:id}).then(res=>{
+                refetch()
+            })
+        }else {
+            navigation.navigate('Login');
+        }
+
     }
 
     const evaluate = (id,rating) => {
@@ -187,7 +205,14 @@ function IndexView({navigation}) {
                     <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan3_on.png')} />
                     <Text style={{color:'#000'}}>已评价</Text>
                 </View>):(<TouchableOpacity onPress={()=>{
-                    setisModalVisible(true)
+
+
+                    if (userInfo?.email){
+                        setisModalVisible(true)
+                    }else {
+                        navigation.navigate('Login');
+                    }
+
                 }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
                     <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan3.png')} />
                     <Text style={{color:'#fff'}}>评价</Text>

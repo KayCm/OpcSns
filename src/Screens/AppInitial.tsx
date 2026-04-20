@@ -22,21 +22,21 @@ function AppInitial(props) {
             }
         })
 
-        if (appData?.token){
+        // if (appData?.token){
             global.token = appData.token;
             // nav.replace('AppBottomTab')
             nav.reset({
                 index: 0,
                 routes: [{ name: 'AppBottomTab' }],
             });
-        }else {
-            // nav.replace('Login')
-            nav.reset({
-                index: 0,
-                routes: [{ name: 'Login' }],
-            });
-
-        }
+        // }else {
+        //     // nav.replace('Login')
+        //     nav.reset({
+        //         index: 0,
+        //         routes: [{ name: 'Login' }],
+        //     });
+        //
+        // }
 
     },[appData])
 

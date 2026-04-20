@@ -12,6 +12,8 @@ function NewsHeader({BannerClick,HotInfoClick}) {
 
     // /open-api/mobile/home/banner/list
 
+
+
     const { isPending, isError, data:bannerDatra, error,isSuccess } = useQuery({
         queryKey: ['banner'],
         queryFn: ()=> R_POST('/open-api/mobile/home/banner/list'),
@@ -61,11 +63,11 @@ function NewsHeader({BannerClick,HotInfoClick}) {
     const News2 = () => {
 
 
-        // console.log('topData',topData)
+        // console.log('topData',topData){0
         //
         // return null
         const result = [];
-        for (let i = 0; i < topData?.data.length;i += 2) {
+        for (let i = 0; i < topData?.data?.length;i += 2) {
 
             const obj = {};
             obj['id'] = i;
@@ -73,6 +75,7 @@ function NewsHeader({BannerClick,HotInfoClick}) {
             result.push(obj);
 
         }
+
 
         // console.log('result',result)
 

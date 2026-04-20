@@ -5,12 +5,16 @@ import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../Services/NetRequestService";
 import WebView from "react-native-webview";
 import {useRef} from "react";
+import {useSelector} from "react-redux";
 
 function ActivityDetailView(props) {
 
    // const userInfo = useSelector(state => state?.userInfo);
 
     const webViewRef = useRef(null)
+
+    const userInfo = useSelector(state => state?.userInfo);
+
 
     // String('events'+route?.params?.id.toString())
 
@@ -88,7 +92,14 @@ function ActivityDetailView(props) {
 
         return(<View style={[GStyles.jc,GStyles.ac,{width:'100%',height:appSize(64)+useSafeAreaInsets().bottom,backgroundColor:'#fff'}]}>
             <TouchableOpacity onPress={()=>{
-                Alert.alert('报名成功')
+
+                if (userInfo?.email){
+                    Alert.alert('报名成功')
+                }else{
+                    navigation.navigate('Login')
+                }
+
+
             }} style={[GStyles.jc,GStyles.ac,{width:appSize(220),marginTop:-useSafeAreaInsets().bottom,height:appSize(44),backgroundColor:'#a5885f'}]}>
                 <Text style={{color:'#fff',fontSize:appSize(18)}}>立即报名</Text>
             </TouchableOpacity>

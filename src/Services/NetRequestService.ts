@@ -191,14 +191,14 @@ function _FETCH(url, param = {}, options = {},showLog=false) {
 
         axiosInstance.request(aoh_opts).then((res)=>{
 
-            if (showLog){
+            // if (showLog){
                 console.log('NetService------------------->>') //headers  data
                 console.log(url)
                 console.log(aoh_opts.headers)
                 console.log(params)
                 console.log(res.data)
                 console.log('<<-------------------NetService')
-            }
+            // }
 
             const {data} = res;
             const {rh_res, rh_err} = responseHandler(data);
@@ -209,6 +209,8 @@ function _FETCH(url, param = {}, options = {},showLog=false) {
 
             console.log('NetService err------------------->>') //headers  data
             console.log(url)
+            console.log(aoh_opts.headers)
+            console.log(params)
             console.log(err)
             console.log('<<-------------------err NetService')
             // const {errMsg} = errorHandler(err);

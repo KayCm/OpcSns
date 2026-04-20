@@ -157,7 +157,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({
         return(<TouchableOpacity onPress={()=>{
            if (onPress)onPress(data)
         }} style={[GStyles.jcBetween,{height:appSize(62),...style}]}>
-            <Text numberOfLines={2} style={[GStyles.ffb,{fontSize: appSize(14),color:COLORS.FONTBLACK,lineHeight: 20,fontWeight: '800' }]}>
+            <Text numberOfLines={2} style={[GStyles.ffb,{fontSize: appSize(14),color:COLORS.FONTBLACK,fontWeight: '800' }]}>
                 <View style={{
                     backgroundColor: index%2==0?'#A88A84':'#788A90',
                     // borderRadius: 10,
