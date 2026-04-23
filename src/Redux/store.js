@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {persistStore,persistReducer} from 'redux-persist';
 import {particleSliceReducer} from './persistedReducer';
 import {MMKVLoader} from "react-native-mmkv-storage";
-const storage = new MMKVLoader().initialize();
+export const storage = new MMKVLoader().initialize();
 export const persistConfig = {
   key: 'root',
   storage: storage,

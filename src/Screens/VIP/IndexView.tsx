@@ -111,7 +111,7 @@ function IndexView(props) {
           onPress={() => {
             // ActivityDetailView organizerAvatar
 
-              console.log(item)
+              // console.log(item)
             navigation.push('ActivityDetail', { id: item?.id });
           }}
           key={item?.id}
@@ -134,8 +134,8 @@ function IndexView(props) {
             <Text style={[GStyles.ffh11,{fontSize: appSize(14),color:COLORS.FONTBLACK, marginTop: appSize(4) }]} numberOfLines={1}>
               {item?.activityName}
             </Text>
-            <Text style={{ marginTop: appSize(1),fontSize:appSize(12), color: '#8a8a8a' }}>
-              {item?.createTime.split(' ')[0]}
+            <Text style={{ marginTop: appSize(5),fontSize:appSize(12), color: '#8a8a8a' }}>
+              {item?.activityTime?.split(' ')[0]}
             </Text>
           </View>
         </TouchableOpacity>

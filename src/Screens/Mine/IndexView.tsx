@@ -3,11 +3,8 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   Image,
   Platform,
-  Button,
-  ImageBackground,
   Alert,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -16,23 +13,18 @@ import GStyles, {
   TRUE_ONE_LINE,
   WINDOW_WIDTH,
 } from '../../Components/GStyles';
-import { Shadow } from 'react-native-shadow-2';
 import { useTranslation } from 'react-i18next';
-import IconNext from '../../Assets/Svgs/IconNext';
 import { useNavigation } from '@react-navigation/native';
-import CarouselWithScale from './Card.tsx';
-import ReanimatedCarousel from './Card.tsx';
-import Carousel from './Card.tsx';
-import SimpleCarousel from './Card.tsx';
 import MineViewModel from './MineViewModel';
 import TurboImage from 'react-native-turbo-image/src/TurboImage';
 import LinearGradient from 'react-native-linear-gradient';
 import { MemberCarousel } from '../../Components/MemberCarousel';
-import { useState } from 'react';
-
+import React, { useState } from 'react';
 import { VipModal } from './VipModal.tsx';
 import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
 import {COLORS} from "../../Components/Constant";
+import Modal from "react-native-modal";
+import {R_GET} from "../../Services/NetRequestService";
 
 function IndexView() {
   const insets = useSafeAreaInsets();
@@ -42,8 +34,6 @@ function IndexView() {
   const { t } = useTranslation();
 
   const [isModalVisible, setisModalVisible] = useState(false);
-
-
 
   const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
   const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 0);
@@ -79,11 +69,11 @@ function IndexView() {
           />
           <Text
             style={[
-              GStyles.ffssb,
+              // GStyles.ffssb,
               {
                 color: '#1C1A17',
-                fontSize: appSize(15),
-                marginTop: Platform.OS == 'ios' ? -appSize(4) : 0,
+                fontSize: appSize(16),
+                // marginTop: Platform.OS == 'ios' ? -appSize(4) : 0,
                 fontWeight: '500',
                 marginLeft: appSize(8),
               },
@@ -118,7 +108,53 @@ function IndexView() {
     },
   ];
 
+  const [servImg,setServImg] = useState('')
+  const getInvService = () => {
+    R_GET('/open-api/mobile/customerService/default',null).then(res=>{
+      if (res?.code==200){
+        setServImg(res?.data?.qrCodeUrl)
 
+        setTimeout(()=>{
+          SetShowInv(true)
+        },100)
+      }else{
+        Alert.alert(res?.msg)
+      }
+    }).catch(err=>{
+      Alert.alert(err?.msg)
+    })
+
+  }
+
+  const [showInv,SetShowInv] = useState(false)
+  const InvCodeAlert = () => {
+    return(<Modal animationIn="fadeIn"
+                  animationOut="fadeOut"
+                  style={{margin:0,padding:0}} isVisible={showInv}>
+      <View style={{ flex: 1, padding: 0, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(40),width:appSize(326),height:appSize(326),backgroundColor:'#fff'}]}>
+          <Text>获取激活码</Text>
+          <TurboImage source={{uri:servImg}} style={[GStyles.row,GStyles.ac,{marginTop:appSize(20),height:appSize(124),width:appSize(124),backgroundColor:''}]} />
+
+          <Text style={{marginTop:appSize(20)}}>扫码添加客服微信进行购买</Text>
+
+          <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(20)}]}>
+            <TouchableOpacity onPress={()=>{
+              SetShowInv(false)
+            }} style={[GStyles.jc,GStyles.ac,{borderRadius:appSize(5),borderWidth:1,borderColor:'#A5885F',height:appSize(40),width:appSize(120)}]}>
+              <Text style={{color:'#A5885F'}}>取消</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={()=>{
+              SetShowInv(false)
+            }} style={[GStyles.jc,GStyles.ac,{backgroundColor:'#A5885F',borderRadius:appSize(5),height:appSize(40),width:appSize(120)}]}>
+              <Text style={{color:'#ffffff'}}>确定</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>)
+  }
 
 
   return (
@@ -194,7 +230,7 @@ function IndexView() {
 
               </View>
 
-              {userInfo?.email&&<Text style={{ color: '#D8B789' }}>ID:{userInfo?.email}</Text>}
+              {userInfo?.email&&<Text style={{ color: '#D8B789' }}>ID:{userInfo?.memberId}</Text>}
             </View>
 
             <Image
@@ -214,9 +250,12 @@ function IndexView() {
           <MemberCarousel
               onPress={() => {
                 setisModalVisible(true);
+
+                // setisModalVisible(false)
               }}
               initialIndex={1}
               data={memberLevelArr}
+              userInfo={userInfo}
           />
         </View>)}
 
@@ -264,9 +303,18 @@ function IndexView() {
           />
         </View>
       </View>
-      <VipModal isModalVisible={isModalVisible} onDismiss={()=>{
+      <VipModal selectNum={1} isModalVisible={isModalVisible} onDismiss={()=>{
         setisModalVisible(false)
+      }} onPress={(type)=>{
+        setisModalVisible(false)
+        setTimeout(()=>{
+          getInvService()
+        },1000)
+
+
       }} />
+
+      <InvCodeAlert />
     </ScrollView>
   );
 

@@ -24,7 +24,7 @@ function NavHeader({ onPressLeft = null, title = 'Title',showLeft=true, showClos
                   <Image source={require('../Assets/Header/goback.png')} style={{width:appSize(24),height:appSize(24)}} />
               </TouchableOpacity>
 
-              <Text style={GStyles.ffh1}>{title}</Text>
+              <Text style={{fontSize:appSize(18),fontWeight:'600'}}>{title}</Text>
 
 
               <View style={{width:appSize(24)}} />

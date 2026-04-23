@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import Animated from 'react-native-reanimated';
 import PagerView from 'react-native-pager-view';
 import DynamicWidthTabMenu from '../../Components/TabMenu';
-import { useEffect, useRef } from 'react';
+import {useEffect, useRef, useState} from 'react';
 // import DataList2 from '../../Components/DataList2/Index';
 import { useQuery } from '@tanstack/react-query';
 import { R_POST } from '../../Services/NetRequestService';
@@ -13,13 +13,35 @@ import NewsRenderRow from './Component/NewsRenderRow';
 import DataList3 from "../../Components/DataList3/Index";
 import { useNavigation } from '@react-navigation/native';
 import TopTabMenu from "../../Components/TopTabMenu";
+import {storage} from "../../Redux/store";
 // const AnimatedPagerView = Animated.createAnimatedComponent(PagerView);
 
 function IndexView() {
 
-  const pagerRef = useRef(null);
-  const menuRef = useRef(null);
-  const navigation = useNavigation()
+    const pagerRef = useRef(null);
+    const menuRef = useRef(null);
+    const navigation = useNavigation()
+
+
+    const [readList,setReadList] = useState([])
+
+    const saveUserList = (id) => {
+        var arr = storage.getArray('readListKey');
+
+        if (arr){
+            arr.push(id)
+        }else{
+            arr = [id]
+        }
+        console.log(arr)
+        setReadList(arr)
+        storage.setArray('readListKey',arr);
+    };
+
+    useEffect(()=>{
+        var arr = storage.getArray('readListKey');
+        setReadList(arr)
+    },[])
 
     const { isPending, isError, data,isLoading, error } = useQuery({
         queryKey: ['tagList'],
@@ -47,12 +69,6 @@ function IndexView() {
           }}
         />
 
-          {/*<TopTabMenu tabs={[{ id: 0, tagName: '今日热点' }, ...data?.data]} onTabChange={(index)=>{*/}
-
-          {/*    pagerRef.current?.setPage(index);*/}
-
-          {/*}} />*/}
-
         <PagerView
           ref={pagerRef}
           onPageSelected={e => {
@@ -66,7 +82,6 @@ function IndexView() {
             renderHeader={() =>
               NewsHeader({
                 BannerClick: value => {
-
                     if (global.token){
                         if (value?.linkTargetType == '1') {
                             navigation.navigate('DetailPost', {
@@ -104,29 +119,20 @@ function IndexView() {
             renderRow={item =>
               NewsRenderRow({
                 item: item,
+                  readList:readList,
                 onPress: item => {
                   // Nav.push('Detail',{item:item?.item})
                   // console.log(item?.item?.contentType)
-
-
                     if (global.token){
+                        saveUserList( item?.item?.id)
                         if (item?.item?.materialType == 'post') {
                             navigation.navigate('DetailPost', { item: item?.item });
                         } else {
                             navigation.navigate('Detail', { item: item?.item });
                         }
                     }else{
-
                         navigation.navigate('Login')
-
                     }
-
-
-                  // if (item?.item?.materialType == 'post') {
-                  //   navigation.navigate('DetailPost', { item: item?.item });
-                  // } else {
-                  //   navigation.navigate('Detail', { item: item?.item });
-                  // }
                 },
               })
             }
@@ -143,23 +149,19 @@ function IndexView() {
                 renderRow={item =>
                   NewsRenderRow({
                     item: item,
+                      readList:readList,
                     onPress: item => {
 
                         if (global.token){
+                            saveUserList( item?.item?.id)
                             if (item?.item?.materialType == 'post') {
                                 navigation.navigate('DetailPost', { item: item?.item });
                             } else {
                                 navigation.navigate('Detail', { item: item?.item });
                             }
                         }else{
-
                             navigation.navigate('Login')
-
                         }
-
-
-                      // console.log(item?.item?.contentType)
-
                     },
                   })
                 }

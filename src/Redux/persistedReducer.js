@@ -13,6 +13,7 @@ const initialState = {
     username:null,
     uuid: null,
     token: null,
+    packageType:null
   },
   appData: {
     language: 0, // 1 eng,2 spa,3 kr,4 jp,5 zh-tw
@@ -52,6 +53,11 @@ const particleSlice = createSlice({
             state.userInfo.username = payload?.username;
             state.userInfo.token = payload?.token;
             state.userInfo.uuid = payload?.uuid;
+            state.userInfo.currentPackage = payload?.currentPackage;
+            state.userInfo.packageType = payload?.packageType;
+            state.userInfo.status = payload?.status;
+            state.userInfo.memberId = payload?.memberId;
+            state.userInfo.source = payload?.source;
             return state;
         },
         updateToken: (state,param) => {

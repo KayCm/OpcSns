@@ -25,8 +25,8 @@ const getLanguage = () => {
 i18n.use(initReactI18next) // 将 i18n 实例传递给 react-i18next
     .init({
         resources,
-        lng: getLanguage(), // 初始语言
-        fallbackLng: 'en', // 回退语言
+        lng: 'zh',// getLanguage(), // 初始语言
+        fallbackLng: 'zh', // 回退语言
         interpolation: {
             escapeValue: false, // React 已经安全转义
         },

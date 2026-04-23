@@ -29,9 +29,9 @@ const vip2Arr = [
 ];
 
 
-export const VipModal = ({ isModalVisible=false,onDismiss }) => {
+export const VipModal = ({ isModalVisible=false,selectNum=0,onDismiss ,onPress}) => {
   // const [isModalVisible, setisModalVisible] = useState(true);
-  const [modalVipNum, setModalVipNum] = useState(0);
+  const [modalVipNum, setModalVipNum] = useState(selectNum);
 
   return (
     <Modal style={{ margin: 0, padding: 0 }} isVisible={isModalVisible}>
@@ -241,15 +241,15 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                   style={[
                     GStyles.jc,
                     GStyles.ac,
-                    { height: appSize(56), width: appSize(170) },
+                    { height: appSize(56), width: appSize(200) },
                   ]}
                   source={require('../../Assets/mine/vipBottomBg1.png')}
                 >
-                  <View style={[GStyles.row]}>
+                  <View style={[GStyles.row, {}]}>
                     <Text
                       style={[
                         GStyles.ffh11,
-                        { color: '#000', fontSize: appSize(14) },
+                        { color: '#000',marginTop:appSize(5), fontSize: appSize(14) },
                       ]}
                     >
                       优惠价:¥
@@ -259,23 +259,22 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                         GStyles.ffh11,
                         {
                           color: '#000',
-                          fontSize: appSize(30),
-                          marginTop: -appSize(10),
+                          fontSize: appSize(24),
                         },
                       ]}
                     >
-                      29.9
+                      29.9/年
                     </Text>
                   </View>
                 </ImageBackground>
                 <TouchableOpacity
                   onPress={() => {
-
+                      if (onPress)onPress(0)
                   }}
                   style={[GStyles.jc, GStyles.ac, { flex: 1 }]}
                 >
                   <Text style={[GStyles.ffh11, { color: '#fff' }]}>
-                    确认协议并支付
+                      添加客户开通
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -365,7 +364,7 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                   style={[
                     GStyles.jc,
                     GStyles.ac,
-                    { height: appSize(56), width: appSize(170) },
+                    { height: appSize(56), width: appSize(200) },
                   ]}
                   source={require('../../Assets/mine/vipBottomBg.png')}
                 >
@@ -373,7 +372,7 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                     <Text
                       style={[
                         GStyles.ffh11,
-                        { color: '#000', fontSize: appSize(14) },
+                        { color: '#000',marginTop:appSize(5), fontSize: appSize(14) },
                       ]}
                     >
                       优惠价:¥
@@ -383,23 +382,22 @@ export const VipModal = ({ isModalVisible=false,onDismiss }) => {
                         GStyles.ffh11,
                         {
                           color: '#000',
-                          fontSize: appSize(30),
-                          marginTop: -appSize(10),
+                          fontSize: appSize(24),
                         },
                       ]}
                     >
-                      199
+                      1999/年
                     </Text>
                   </View>
                 </ImageBackground>
                 <TouchableOpacity
                   onPress={() => {
-
+                      if (onPress)onPress(1)
                   }}
                   style={[GStyles.jc, GStyles.ac, { flex: 1 }]}
                 >
                   <Text style={[GStyles.ffh11, { color: '#fff' }]}>
-                    确认协议并支付
+                    添加客户开通
                   </Text>
                 </TouchableOpacity>
               </View>

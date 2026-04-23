@@ -62,7 +62,7 @@ function IndexView(props: any) {
             if (await sendVerificationCode()){
                 countdownRef.current?.start();
             }else{
-                Alert.alert('验证码发送错误')
+                //Alert.alert('验证码发送错误')
             }
         } catch (error) {
             Alert.alert('发送失败', '请稍后重试');
@@ -122,7 +122,6 @@ function IndexView(props: any) {
             }else{
                 Alert.alert(res?.msg)
             }
-            console.log(res.code)
         }).catch(err=>{
             Alert.alert(err?.msg)
         })
@@ -244,8 +243,6 @@ function IndexView(props: any) {
                         </TouchableOpacity>
                     </View>)}
 
-
-
                     <Text style={{color:'#6E6E6E',marginTop:appSize(20)}}>密码必须是8-20字符，必须包括英文大写字母，英文小写字母、数字、特殊字符其中2类</Text>
 
                     <TouchableOpacity onPress={()=>{
@@ -328,8 +325,6 @@ function IndexView(props: any) {
                 </View>
                 <View style={[GStyles.row, GStyles.ph12, {width: '100%', backgroundColor: '#fff', marginTop: 10, borderRadius: 5,},]}>
                     <TextInput value={invCode} onChangeText={setInvCode}  placeholder={'InviteCode'} style={{height: 44}}/>
-
-
                 </View>
 
                 <TouchableOpacity onPress={submitRegister} style={[GStyles.jc,GStyles.ac,{marginTop:20,borderRadius:5,height:44,backgroundColor:'#123'}]}>

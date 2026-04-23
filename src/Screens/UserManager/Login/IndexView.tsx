@@ -202,9 +202,9 @@ function IndexView(props) {
                         <TouchableOpacity onPress={()=>setAgree(!agree)} style={{}}>
                             <Image source={agree?require('../../../Assets/user/checkBox_on.png'):require('../../../Assets/user/checkBox_off.png')} style={{height:appSize(18),width:appSize(18),borderRadius:appSize(9)}} />
                         </TouchableOpacity>
-                        <Text style={{color:'#8a8a8a'}}>{' '}我已阅读并同意<Text style={{color:'#000'}} onPress={()=>{
+                        <Text style={{color:'#8a8a8a',fontSize:appSize(14)}}>{' '}我已阅读并同意<Text style={{color:'#000',fontSize:appSize(14)}} onPress={()=>{
                           nav.navigate('Agreement', { type: 2 });
-                        }}>《用户协议》</Text>和<Text style={{color:'#000'}} onPress={()=>{
+                        }}>《用户协议》</Text>和<Text style={{color:'#000',fontSize:appSize(14)}} onPress={()=>{
                             nav.navigate('Agreement', { type: 1 });
                         }}>《隐私协议》</Text></Text>
 

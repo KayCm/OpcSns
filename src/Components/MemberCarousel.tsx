@@ -13,7 +13,7 @@ const SIDE_PREVIEW = (screenWidth - IMAGE_WIDTH) / 2; // 侧边预显的宽度
 
 
 
-export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
+export const MemberCarousel = ({ data, initialIndex = 0 ,onPress,userInfo}) => {
     // 计算每个 item 的布局（用于 initialScrollIndex 精确滚动）
     const getItemLayout = (_, index) => ({
         length: IMAGE_WIDTH + SPACING, // 每个 item 占用的总宽度
@@ -23,9 +23,25 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
 
 
     // 核心：renderItem 方法，渲染单张图片
-    const renderItem = ({ item,index}) => (
+    const renderItem = ({ item,index}) => {
 
-        <TouchableOpacity activeOpacity={1} onPress={onPress} style={[styles.imageContainer, { width: IMAGE_WIDTH }]}>
+
+        var txt = '未开通'
+
+        if (userInfo?.email){
+            if (index==0 && userInfo?.packageType>=1){
+                txt = '已开通'
+            }else if (index==1 && userInfo?.packageType==2){
+                txt = '已开通'
+            }else{
+                txt = ''
+            }
+        }
+
+
+
+
+        return(<TouchableOpacity activeOpacity={1} onPress={onPress} style={[styles.imageContainer, { width: IMAGE_WIDTH }]}>
 
             <LinearGradient start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
@@ -37,9 +53,10 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
                         <View style={[GStyles.row,GStyles.ac,{gap:appSize(10),paddingLeft:appSize(16),height:appSize(110),flex:1}]} >
                             <Text style={[GStyles.ffh1,{color:index <= 1?'#000':'#FDE3B6',fontSize:appSize(22)}]}>{item.text}</Text>
 
-                            {index <= 1 &&(<View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(5),height:appSize(18),borderWidth:1,borderTopRightRadius:appSize(9),borderBottomRightRadius:appSize(9),borderTopLeftRadius:appSize(9)}]}>
-                                <Text style={{fontSize:appSize(12)}}>已开通</Text>
+                            {(index<=1 && txt !='')  && (<View style={[GStyles.jc,GStyles.ac,{paddingHorizontal:appSize(5),height:appSize(18),borderWidth:1,borderTopRightRadius:appSize(9),borderBottomRightRadius:appSize(9),borderTopLeftRadius:appSize(9)}]}>
+                                <Text style={{fontSize:appSize(12)}}>{txt}</Text>
                             </View>)}
+
 
                         </View>
                         <Image source={item.icon} style={{width:appSize(110),height:appSize(110)}}/>
@@ -52,12 +69,10 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
                         </View>
                     </View>):(<View style={[GStyles.row,{}]}>
                         <View style={[GStyles.jc,{flex:1,paddingLeft:appSize(16)}]}>
-                            <Text style={{color:'#000'}}>您已开通OPC NEWS会员</Text>
+                            <Text style={{color:'#000'}}>您{txt?txt:'未开通'}OPC NEWS会员</Text>
                         </View>
                         <View style={[GStyles.ac,{width:appSize(110)}]}>
-                            <TouchableOpacity onPress={()=>{
-
-                            }} style={[GStyles.jc,GStyles.ac,{height:appSize(25),width:appSize(74),backgroundColor:'#000'}]} >
+                            <TouchableOpacity onPress={onPress} style={[GStyles.jc,GStyles.ac,{height:appSize(25),width:appSize(74),backgroundColor:'#000'}]} >
                                 <Text style={{color:'#fff'}}>查看详情</Text>
                             </TouchableOpacity>
                         </View>
@@ -71,8 +86,9 @@ export const MemberCarousel = ({ data, initialIndex = 0 ,onPress}) => {
 
             </LinearGradient>
 
-        </TouchableOpacity>
-    );
+        </TouchableOpacity>)
+
+    };
 
     return (
         <View style={styles.container}>

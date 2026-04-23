@@ -45,7 +45,12 @@ function IndexView(props: any) {
           },
         ]}
       >
-        <Text style={{ fontSize: appSize(14), fontWeight: '600' }}>{title}</Text>
+        <Text style={{
+            color: '#1C1A17',
+            fontSize: appSize(16),
+            // marginTop: Platform.OS == 'ios' ? -appSize(4) : 0,
+            fontWeight: '500',
+        }}>{title}</Text>
         <View style={[GStyles.row, GStyles.jc, GStyles.ac]}>
           {LeftDom}
           {showRightIcon&&(<Image source={require('../../../Assets/mine/icon-right.png')} style={{height:appSize(24),width:appSize(25)}} />)}
@@ -119,7 +124,7 @@ function IndexView(props: any) {
           style={{ backgroundColor: '#ffffff' }}
           LeftDom={
             <Text style={{ color: '#5F5F5F', fontSize: appSize(14) }}>
-              1.2.3
+              1.0.1
             </Text>
           }
           showRightIcon={false}

@@ -25,14 +25,13 @@ const starOutline = require('../../Assets/map/score_off.png');
 function IndexView({navigation}) {
 
     const insets = useSafeAreaInsets();
-
+    const userInfo = useSelector(state => state?.userInfo);
     const [showDetail, setShowDetail] = useState(false);
     const [select, setSelect] = useState('');
     const [isModalVisible,setisModalVisible] = useState(false)
     const mapRef = useRef(null);
     const [score, setScore] = useState(3);
     const [nameShow,SetNameShow] = useState(false)
-
     const LATITUDE = 30;
     const LONGITUDE = 120;
     const initialCamera = {
@@ -45,7 +44,6 @@ function IndexView({navigation}) {
     altitude: 3000000,
     zoom: 10,
     };
-
 
     const moveTo =(latitude,longitude)=>{
 
@@ -80,7 +78,7 @@ function IndexView({navigation}) {
     if (isPending)return null
     if (isLoading)return <Text>Loading</Text>
     if (error) return <Text>{error.message}</Text>
-    // if (isSuccess) return <Text>Loading</Text>
+    if (!isSuccess) return <Text>Loading</Text>
 
     // useEffect(() => {
     //     if (isSuccess && data) {
@@ -89,13 +87,10 @@ function IndexView({navigation}) {
     //         androidMoveTo(0)
     //     }
     // }, [isSuccess, data]);
-
-    console.log('data:',data)
+    //
+    // console.log('data:',data)
 
     var mapArray = Object.values(data?.data).reduce((acc, curr) => acc.concat(curr), []);
-
-    const userInfo = useSelector(state => state?.userInfo);
-
 
     const wantGO = (id:string) => {
 
@@ -167,10 +162,12 @@ function IndexView({navigation}) {
             <View style={[GStyles.row,GStyles.flexEnd,{height:appSize(28),width:'100%',gap:appSize(10)}]}>
 
 
-                {!visited && (wantToGo?(<View style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),borderWidth:1,backgroundColor:''}]}>
+                {!visited && (wantToGo?(<TouchableOpacity onPress={()=>{
+                    wantGO(id)
+                }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),borderWidth:1,backgroundColor:''}]}>
                     <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan1_on.png')} />
                     <Text style={{color:'#000'}}>已想去</Text>
-                </View>):(<TouchableOpacity onPress={()=>{
+                </TouchableOpacity>):(<TouchableOpacity onPress={()=>{
                     wantGO(id)
                 }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
                     <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan1.png')} />
@@ -178,17 +175,16 @@ function IndexView({navigation}) {
                 </TouchableOpacity>))}
 
 
-                {visited ?(<View style={[GStyles.row,GStyles.jcBetween,GStyles.ac,{paddingHorizontal:appSize(6),height:appSize(28),gap:appSize(4),width:appSize(76*2),borderWidth:1,backgroundColor:''}]}>
+                {visited ?(<TouchableOpacity onPress={()=>{
+                    BeenGo(id)
+                }} style={[GStyles.row,GStyles.jcBetween,GStyles.ac,{paddingHorizontal:appSize(6),height:appSize(28),gap:appSize(4),width:appSize(76*2),borderWidth:1,backgroundColor:''}]}>
                     <View style={[GStyles.row,GStyles.ac]}>
                         <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan2_on.png')} />
                         <Text style={{color:'#000'}}>已去过</Text>
                     </View>
-
-
-
                     <Text style={{color:'#A5885F',fontSize:appSize(11)}}>{visitTime.split(' ',1)}</Text>
 
-                </View>):(<TouchableOpacity onPress={()=>{
+                </TouchableOpacity>):(<TouchableOpacity onPress={()=>{
                     BeenGo(id)
                 }} style={[GStyles.row,GStyles.jc,GStyles.ac,{height:appSize(28),gap:appSize(4),width:appSize(76),backgroundColor:'#000'}]}>
                     <Image style={{height:appSize(18),width:appSize(18)}} source={require('../../Assets/map/xiangkan2.png')} />

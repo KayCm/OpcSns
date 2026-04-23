@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import NavHeader from "../../../Components/NavHeader";
 import GStyles, { appSize } from '../../../Components/GStyles.ts';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 import {R_POST} from "../../../Services/NetRequestService";
 
@@ -17,7 +17,13 @@ function IndexView(props: any) {
 
   const [feedText, setFeedText] = React.useState<string>('');
 
+  const [loginEmail,setLoginEmail] = React.useState<string>('');
+
     const userInfo = useSelector(state => state?.userInfo);
+
+    useEffect(()=>{
+        setLoginEmail(userInfo.email)
+    },[])
 
     const sendFeed = () => {
 
@@ -78,7 +84,12 @@ function IndexView(props: any) {
 
               <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.pv20,GStyles.ph12,{marginTop:appSize(10),backgroundColor:'#fff'}]}>
                   <Text style={[GStyles.ffh11,{fontSize:appSize(18)}]}>您的邮箱</Text>
-                  <Text>{userInfo.email}</Text>
+                  <TextInput
+                      value={loginEmail}
+                      onChangeText={setLoginEmail}
+                      placeholder={'请输入邮箱'}
+
+                      style={{textAlign:'right',height: appSize(44),marginLeft:appSize(12),width:appSize(200)}}/>
               </View>
 
             <TouchableOpacity

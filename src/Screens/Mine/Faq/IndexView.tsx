@@ -11,8 +11,8 @@ function IndexView(props: any) {
           <View style={{paddingBottom:appSize(44), paddingHorizontal: appSize(12) }}>
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                // GStyles.ffh11,
+                { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               1. STARFIELD OPC平台是什么？
@@ -23,8 +23,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               2. OPC具体指什么？
@@ -36,8 +36,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               3. 平台适合哪些人使用？
@@ -51,8 +51,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               4. 和传统众包/外包平台有什么区别？
@@ -66,8 +66,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               5. 如果我只有一个想法，没有团队可以吗？
@@ -79,8 +79,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               6. 平台如何保障项目质量？
@@ -93,8 +93,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               7. 如何实现盈利或变现？
@@ -107,8 +107,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               8. 是否需要付费使用平台？
@@ -121,8 +121,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               9. 是否有成功案例？
@@ -133,8 +133,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               10. 企业如何使用STARFIELD？
@@ -146,8 +146,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               11. 和创客服务协会是什么关系？
@@ -158,8 +158,8 @@ function IndexView(props: any) {
 
             <Text
               style={[
-                GStyles.ffh11,
-                { marginTop: appSize(10), fontSize: appSize(20) },
+                  // GStyles.ffh11,
+                  { marginTop: appSize(10),fontWeight:'600', fontSize: appSize(20) },
               ]}
             >
               12. 如何加入平台？

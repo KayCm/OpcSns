@@ -9,9 +9,6 @@ import Modal from 'react-native-modal'
 function CommunityListView({navigation,route}) {
 
 
-    console.log(route?.params?.list?.data)
-
-
     const List = () => {
 
         let dom = []
@@ -19,15 +16,15 @@ function CommunityListView({navigation,route}) {
         Object.entries(route?.params?.list?.data).forEach(([key, value]) => {
             console.log(key, value);
 
-            dom.push(<View key={key} style={{backgroundColor:'#fff',marginTop:appSize(10),paddingHorizontal:appSize(10),paddingVertical:appSize(10)}}>
-                <Text style={{fontSize:appSize(24)}}>{key}</Text>
-                <View>
+            dom.push(<View key={key} style={{backgroundColor:'#fff',marginTop:appSize(10),paddingHorizontal:appSize(16),paddingVertical:appSize(10)}}>
+                <Text style={{fontSize:appSize(24),paddingVertical:appSize(5),color:'#1C1A17'}}>{key}</Text>
+                <View style={{marginTop:appSize(10)}}>
                     {value.map((v,i)=>{
                         return(<TouchableOpacity onPress={()=>{
                             if (route?.params?.click)route?.params?.click(v)
                             navigation.goBack()
-                        }} style={{borderWidth:0,paddingVertical:appSize(20)}} key={i}>
-                            <Text style={[GStyles.ffh11,{marginLeft:appSize(12),fontSize:appSize(14)}]}>{v.name}</Text>
+                        }} style={{borderWidth:0,paddingVertical:appSize(10)}} key={i}>
+                            <Text style={{fontWeight:'600',fontSize:appSize(16),color:'#1C1A17'}}>{v.name}</Text>
                         </TouchableOpacity>)
                     })}
                 </View>
@@ -42,7 +39,7 @@ function CommunityListView({navigation,route}) {
 
 
     return(<View style={{flex:1}}>
-        <NavHeader title={'社区列表'} />
+        <NavHeader title={'选择社区'} />
         {/*<FlashList renderItem={renderRow} data={route?.params?.list} />*/}
 
         <ScrollView>
