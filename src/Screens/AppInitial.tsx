@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { R_POST } from '../Services/NetRequestService.ts';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
+import {LoginViewModel} from "./UserManager/Login/LoginViewModel";
 function AppInitial(props) {
 
     const nav = useNavigation()
@@ -13,6 +14,9 @@ function AppInitial(props) {
     const appData = useSelector(state => state?.appData);
     const appSettings = new MMKVLoader().withInstanceID("appSettings").initialize();
     const [reviewStatus, setReviewStatus] = useMMKVStorage('isReview', appSettings, 999);
+
+    const {getUserInfo} = LoginViewModel()
+
     useEffect(()=>{
 
         R_POST('/open-api/mobile/publishConfig/status',{platformType:'ios'}).then(res=>{
@@ -22,21 +26,15 @@ function AppInitial(props) {
             }
         })
 
-        // if (appData?.token){
+        if (appData?.token) {
             global.token = appData.token;
-            // nav.replace('AppBottomTab')
-            nav.reset({
-                index: 0,
-                routes: [{ name: 'AppBottomTab' }],
-            });
-        // }else {
-        //     // nav.replace('Login')
-        //     nav.reset({
-        //         index: 0,
-        //         routes: [{ name: 'Login' }],
-        //     });
-        //
-        // }
+            getUserInfo()
+        }
+
+        nav.reset({
+            index: 0,
+            routes: [{ name: 'AppBottomTab' }],
+        });
 
     },[appData])
 

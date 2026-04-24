@@ -1,5 +1,9 @@
 // utils/storage.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TurboImage from 'react-native-turbo-image';
+import  NitroFS  from 'react-native-nitro-fs'
+// import CameraRoll from '@react-native-camera-roll/camera-roll';
+import { CameraRoll } from "@react-native-camera-roll/camera-roll";
 
 /**
  * 格式化时间显示
@@ -102,5 +106,70 @@ export const removeLastLoginInfo = async () => {
         await AsyncStorage.removeItem(LAST_LOGIN_KEY);
     } catch (error) {
         console.error('清除失败', error);
+    }
+};
+
+
+/**
+ * 保存图片到系统相册的完整函数
+ * @param {string} imageUrl - 网络图片的完整URL
+ * @returns {Promise<void>}
+ */
+export const saveImageToGallery = async (imageUrl) => {
+    let tempFilePath = null;
+    try {
+        // ---- 步骤 1：可选权限请求（根据实际情况自行实现）----
+        // 省略具体权限请求代码，建议参考 react-native-permissions 的官方文档
+
+        // ---- 步骤 2：可选预加载以优化网络 ----
+        try {
+            await TurboImage.prefetch([{ uri: imageUrl }]);
+            console.log('[TurboImage] 图片已成功预加载');
+        } catch (prefetchError) {
+            console.warn('[TurboImage] 预加载失败，将继续尝试直接下载:', prefetchError.message);
+        }
+
+        console.log('NitroFS',NitroFS)
+        // ---- 步骤 3：使用 NitroFS 下载到临时目录 ----
+        const fileName = `temp_image_${Date.now()}.jpg`;
+        const downloadDir = NitroFS.CACHE_DIR;    // 使用缓存目录存储临时文件
+        const fullPath = `${downloadDir}/${fileName}`;
+
+        console.log(`[NitroFS] 开始下载到临时路径: ${fullPath}`);
+        await NitroFS.downloadFile(imageUrl, /* 目标本地路径 */ fullPath, (downloadedBytes, totalBytes) => {
+            const progress = (downloadedBytes / totalBytes) * 100;
+            console.log(`下载进度: ${progress.toFixed(2)}%`);
+        });
+        tempFilePath = fullPath;
+        console.log('[NitroFS] 下载成功');
+        console.log('CameraRoll',CameraRoll);
+        console.log('fullPath',fullPath);
+
+        // ---- 步骤 4：保存到系统相册 ----
+        console.log('[CameraRoll] 开始保存');
+        await CameraRoll.save(tempFilePath, {
+            type: 'photo',
+            album: 'Startfield' // 可选，指定保存到特定相册
+        });
+        console.log('[CameraRoll] 保存成功');
+
+        return true
+
+    } catch (error) {
+        // ---- 错误处理----
+        console.error('保存图片过程中发生错误:', error);
+
+        return false
+        // 提示用户：保存失败，请重试...
+    } finally {
+        // ---- 步骤 5：清理临时文件 ----
+        if (tempFilePath) {
+            try {
+                await NitroFS.unlink(tempFilePath);
+                console.log('[Cleanup] 临时文件已清理');
+            } catch (cleanupError) {
+                console.warn('[Cleanup] 临时文件清理失败:', cleanupError.message);
+            }
+        }
     }
 };

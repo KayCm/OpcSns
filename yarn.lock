@@ -1424,6 +1424,11 @@
   dependencies:
     idb "8.0.3"
 
+"@react-native-camera-roll/camera-roll@^7.10.2":
+  version "7.10.2"
+  resolved "https://registry.yarnpkg.com/@react-native-camera-roll/camera-roll/-/camera-roll-7.10.2.tgz#af2234f60f0b55aff9afb60888ce7f0669d52593"
+  integrity sha512-XgJQJDFUycmqSX+MH7vTcRigQwEIQNLIu1GvOngCZRwlSV2mF61UzeruSmmHwkBcGnHZFXkKg9fil0FQVfyglw==
+
 "@react-native-community/cli-clean@20.1.0":
   version "20.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-clean/-/cli-clean-20.1.0.tgz#c60a8f909c4269cabb785b47e43af4f8cd3fef3b"
@@ -5892,6 +5897,13 @@ react-native-modal@^14.0.0-rc.1:
   dependencies:
     react-native-animatable "1.4.0"
 
+react-native-nitro-fs@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/react-native-nitro-fs/-/react-native-nitro-fs-0.8.2.tgz#34c2f6e0dd3c9997610bb0116249dc0e1638d56e"
+  integrity sha512-N9Pev8dxntsOE1KuJMtEyYsAFU8qZIY+eddsEF/mTcsBPKrC+ndSTXreoCHEE03p0GZF0uYRMISjWnW1d5xKXg==
+  dependencies:
+    react-native-safe-area-context "^5.6.2"
+
 react-native-nitro-modules@^0.35.2:
   version "0.35.2"
   resolved "https://registry.yarnpkg.com/react-native-nitro-modules/-/react-native-nitro-modules-0.35.2.tgz#75fbcd42a73d93540c0069d42098d9dc6c12ea7e"
@@ -5910,7 +5922,7 @@ react-native-reanimated@^4.2.2:
     react-native-is-edge-to-edge "^1.2.1"
     semver "^7.7.3"
 
-react-native-safe-area-context@^5.7.0:
+react-native-safe-area-context@^5.6.2, react-native-safe-area-context@^5.7.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-5.7.0.tgz#035699d5ec17fefb98cc1fa44a9ec852c7d530d0"
   integrity sha512-/9/MtQz8ODphjsLdZ+GZAIcC/RtoqW9EeShf7Uvnfgm/pzYrJ75y3PV/J1wuAV1T5Dye5ygq4EAW20RoBq0ABQ==

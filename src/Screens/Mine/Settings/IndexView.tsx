@@ -145,7 +145,9 @@ function IndexView(props: any) {
 
                   dispatch(logout(null));
 
-                  // removeLastLoginInfo()
+                  global.token = ''
+
+                  removeLastLoginInfo()
 
                   // props?.navigation.reset({
                   //   index: 0,

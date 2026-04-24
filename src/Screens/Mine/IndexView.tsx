@@ -25,6 +25,7 @@ import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
 import {COLORS} from "../../Components/Constant";
 import Modal from "react-native-modal";
 import {R_GET} from "../../Services/NetRequestService";
+import {saveImageToGallery} from "../../Components/Tools";
 
 function IndexView() {
   const insets = useSafeAreaInsets();
@@ -137,8 +138,20 @@ function IndexView() {
           <TurboImage source={{uri:servImg}} style={[GStyles.row,GStyles.ac,{marginTop:appSize(20),height:appSize(124),width:appSize(124),backgroundColor:''}]} />
 
           <Text style={{marginTop:appSize(20)}}>扫码添加客服微信进行购买</Text>
+          <TouchableOpacity style={{paddingVertical:appSize(10),paddingTop:appSize(20),backgroundColor:''}} onPress={async () => {
 
-          <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(20)}]}>
+            if (await saveImageToGallery(servImg)){
+              Alert.alert('保存成功')
+            }else{
+              Alert.alert('保存失败')
+            }
+
+          }}>
+            <Text style={{}}>下载二维码</Text>
+          </TouchableOpacity>
+
+
+          <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(10)}]}>
             <TouchableOpacity onPress={()=>{
               SetShowInv(false)
             }} style={[GStyles.jc,GStyles.ac,{borderRadius:appSize(5),borderWidth:1,borderColor:'#A5885F',height:appSize(40),width:appSize(120)}]}>
@@ -154,6 +167,36 @@ function IndexView() {
         </View>
       </View>
     </Modal>)
+  }
+
+  const MemberLevelDom = () => {
+
+    switch (userInfo?.packageType) {
+      case 1:{
+        return(<View style={{marginLeft:appSize(5),backgroundColor:'#1C1A17',height:appSize(18),borderTopRightRadius:appSize(9),borderTopLeftRadius:appSize(9),borderBottomRightRadius:appSize(9),paddingHorizontal:appSize(8),flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+          <Image style={{height:appSize(12),width:appSize(12)}} source={require('../../Assets/mine/VIPICON.png')} />
+          <Text style={{marginLeft:appSize(4),color:'#D8B789',fontSize:appSize(11)}}>会员</Text>
+        </View>)
+      }
+      case 2:{
+        return(<View style={{marginLeft:appSize(5),backgroundColor:'#1C1A17',height:appSize(18),borderTopRightRadius:appSize(9),borderTopLeftRadius:appSize(9),borderBottomRightRadius:appSize(9),paddingHorizontal:appSize(8),flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+          <Image style={{height:appSize(12),width:appSize(12)}} source={require('../../Assets/mine/VIPICON.png')} />
+          <Text style={{marginLeft:appSize(4),color:'#D8B789',fontSize:appSize(11)}}>精英会员</Text>
+        </View>)
+      }
+      case 3:{
+        return(<View style={{marginLeft:appSize(5),backgroundColor:'#1C1A17',height:appSize(18),borderTopRightRadius:appSize(9),borderTopLeftRadius:appSize(9),borderBottomRightRadius:appSize(9),paddingHorizontal:appSize(8),flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+          <Image style={{height:appSize(12),width:appSize(12)}} source={require('../../Assets/mine/VIPICON.png')} />
+          <Text style={{marginLeft:appSize(4),color:'#D8B789',fontSize:appSize(11)}}>钻石会员</Text>
+        </View>)
+      }
+
+      default:
+        return null
+
+    }
+
+
   }
 
 
@@ -212,26 +255,26 @@ function IndexView() {
           {/*  }}*/}
           {/*  resizeMode="cover"*/}
           {/*/>*/}
-          <View
-            style={[GStyles.row, GStyles.ac, GStyles.jcBetween, { flex: 1 }]}
-          >
+          <View style={[GStyles.row, GStyles.ac, GStyles.jcBetween, { flex: 1 }]}>
+
+
             <View style={{ gap: appSize(4), marginLeft: 10 }}>
               <View style={[GStyles.row, GStyles.ac]}>
-
-
-                <Text
-                  style={[
+                <Text style={[
                     GStyles.ffh11,
                     { color: COLORS.FONTBLACK,fontWeight:'600', fontSize: appSize(20) },
-                  ]}
-                >
+                  ]}>
                   {userInfo?.username ? userInfo?.username : '未登录'}
                 </Text>
 
+                {MemberLevelDom()}
+
               </View>
 
-              {userInfo?.email&&<Text style={{ color: '#D8B789' }}>ID:{userInfo?.memberId}</Text>}
+              {userInfo?.email&&<Text style={{ color: '#909090' }}>ID:{userInfo?.memberId}</Text>}
             </View>
+
+
 
             <Image
               source={require('../../Assets/mine/hugeicon.png')}
@@ -309,7 +352,7 @@ function IndexView() {
         setisModalVisible(false)
         setTimeout(()=>{
           getInvService()
-        },1000)
+        },300)
 
 
       }} />

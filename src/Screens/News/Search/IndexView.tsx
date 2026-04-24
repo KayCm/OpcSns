@@ -1,19 +1,40 @@
 import {Image, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import NavHeader from "../../../Components/NavHeader";
 import GStyles, {appSize} from "../../../Components/GStyles";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {R_POST} from "../../../Services/NetRequestService";
 import NewsRenderRow from "../Component/NewsRenderRow";
 import {useNavigation} from "@react-navigation/native";
 import { FlashList } from '@shopify/flash-list';
+import {COLORS} from "../../../Components/Constant";
+import {storage} from "../../../Redux/store";
 
 function IndexView() {
   const [searchWord, setSearchWord] = useState('');
-  const [keyWord, setkeyWord] = useState('');
+  const [orderByColumn, setOrderByColumn] = useState('online_time');
   const [ListData,setsListData] = useState([]);
 
+
   const navigation = useNavigation();
+
+
+    const [readList,setReadList] = useState([])
+    const saveUserList = (id) => {
+        var arr = storage.getArray('readListKey');
+        if (arr){
+            arr.push(id)
+        }else{
+            arr = [id]
+        }
+        console.log(arr)
+        setReadList(arr)
+        storage.setArray('readListKey',arr);
+    };
+    useEffect(()=>{
+        var arr = storage.getArray('readListKey');
+        setReadList(arr)
+    },[])
 
   const { isPending, isLoading, isError, data, error } = useQuery({
     queryKey: [String('hotword_list')],
@@ -33,19 +54,19 @@ function IndexView() {
 
   // /open-api/mobile/search
 
-  const searchKeyword = (searchKey) => {
+  const searchKeyword = (searchKey,order) => {
 
+    setOrderByColumn(order)
 
     R_POST('/open-api/mobile/search', {
       pageNum: 1,
-      pageSize: 20,
+      pageSize: 50,
       keyword: searchKey,
-      orderByColumn: 'online_time',
+      orderByColumn: order,
       isAsc: false,
     })
       .then(data => {
         console.log('data', data);
-
         setsListData(data?.data);
       })
       .catch(err => {});
@@ -89,7 +110,12 @@ function IndexView() {
           />
           <TextInput
             value={searchWord}
-            onChangeText={setSearchWord}
+            onChangeText={(e)=>{
+                setSearchWord(e)
+                if (!e){
+                    setsListData([])
+                }
+            }}
             placeholder={'请输入搜索词'}
             style={{
               height: appSize(44),
@@ -100,7 +126,7 @@ function IndexView() {
 
         <TouchableOpacity
           onPress={() => {
-            searchKeyword(searchWord);
+            searchKeyword(searchWord,'online_time');
           }}
           style={[
             GStyles.jc,
@@ -116,36 +142,55 @@ function IndexView() {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          paddingHorizontal: appSize(12),
-          marginTop: appSize(20),
-          flexWrap: 'wrap',
-          flexDirection: 'row',
-          gap: appSize(10),
-        }}
-      >
-        {data?.data?.map((value, index, arr) => {
-          return (
-            <TouchableOpacity
-              onPress={() => {
-                // setkeyWord(value?.keyword);
+        {searchWord ? (<View style={{paddingHorizontal:appSize(12),paddingVertical:appSize(10),paddingTop:appSize(20),flexDirection:'row',alignItems:'center',height:appSize(36)}}>
 
-                searchKeyword(value?.keyword);
-              }}
-              key={index}
-              style={{
-                borderRadius: appSize(3),
-                paddingHorizontal: appSize(10),
-                paddingVertical: appSize(4),
-                backgroundColor: '#ECECEC',
-              }}
-            >
-              <Text style={{ color: '#7C7C7C' }}>{value?.keyword}</Text>
+            <TouchableOpacity onPress={()=>{
+                // setOrderByColumn('online_time')
+                searchKeyword(searchWord,'online_time');
+            }} style={{borderBottomColor:orderByColumn=='online_time'?'#A5885F':'#00000000',borderBottomWidth:appSize(4),paddingHorizontal:appSize(12),height:appSize(36),justifyContent:'center',alignItems:'center'}}>
+                <Text style={[GStyles.ffh11,{fontSize:orderByColumn=='online_time'?appSize(20):appSize(16),color:orderByColumn=='online_time'?'#A5885F':COLORS.FONTBLACK}]}>最新</Text>
             </TouchableOpacity>
-          );
-        })}
-      </View>
+
+            <TouchableOpacity onPress={()=>{
+                // setOrderByColumn('view_count')
+                searchKeyword(searchWord,'view_count');
+            }}  style={{borderBottomColor:orderByColumn=='view_count'?'#A5885F':'#00000000',borderBottomWidth:appSize(4),height:appSize(36),paddingHorizontal:appSize(12),justifyContent:'center',alignItems:'center'}}>
+                <Text style={[GStyles.ffh11,{fontSize:orderByColumn=='view_count'?appSize(20):appSize(16),color:orderByColumn=='view_count'?'#A5885F':COLORS.FONTBLACK}]}>最热</Text>
+            </TouchableOpacity>
+
+        </View>):(<View
+            style={{
+                paddingHorizontal: appSize(12),
+                marginTop: appSize(20),
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+                gap: appSize(10),
+            }}
+        >
+            {data?.data?.map((value, index, arr) => {
+                return (
+                    <TouchableOpacity
+                        onPress={() => {
+                            setSearchWord(value?.keyword);
+                            searchKeyword(value?.keyword,'online_time');
+                        }}
+                        key={index}
+                        style={{
+                            borderRadius: appSize(3),
+                            paddingHorizontal: appSize(10),
+                            paddingVertical: appSize(4),
+                            backgroundColor: '#ECECEC',
+                        }}
+                    >
+                        <Text style={{ color: '#7C7C7C' }}>{value?.keyword}</Text>
+                    </TouchableOpacity>
+                );
+            })}
+        </View>)}
+
+
+
+
 
       {ListData && (
         <View style={{ backgroundColor: '', flex: 1, marginTop: appSize(10) }}>
@@ -153,13 +198,19 @@ function IndexView() {
             renderItem={item =>
               NewsRenderRow({
                 item: item,
+                  readList:readList,
                 onPress: item => {
                   // console.log(item?.item?.contentType)
-                  if (item?.item?.materialType == 'post') {
-                    navigation.navigate('DetailPost', { item: item?.item });
-                  } else {
-                    navigation.navigate('Detail', { item: item?.item });
-                  }
+                    if (global.token){
+                        saveUserList( item?.item?.id)
+                        if (item?.item?.materialType == 'post') {
+                            navigation.navigate('DetailPost', { item: item?.item });
+                        } else {
+                            navigation.navigate('Detail', { item: item?.item });
+                        }
+                    }else{
+                        navigation.navigate('Login')
+                    }
                 },
               })
             }

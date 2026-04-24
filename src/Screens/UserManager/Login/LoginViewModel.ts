@@ -34,17 +34,12 @@ export const LoginViewModel = () => {
     }
 
     const getUserInfo = async () => {
-
         let url = '/open-api/mobile/member/getMemberInfo'
-
         const res = await R_POST(url, {})
-
         if (res?.code == 200 && res?.data){
             dispatch(updateUserInfo(res?.data))
         }
-
-        console.log('userInfo',res)
-
+        console.log('userInfo:',res)
     }
 
     return{

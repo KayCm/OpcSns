@@ -22,6 +22,7 @@ import {COLORS} from "../../../Components/Constant";
 import {R_GET, R_POST} from "../../../Services/NetRequestService";
 import TurboImage from "react-native-turbo-image";
 import {MMKVLoader, useMMKVStorage} from "react-native-mmkv-storage";
+import {saveImageToGallery} from "../../../Components/Tools";
 
 function IndexView(props: any) {
 
@@ -139,6 +140,17 @@ function IndexView(props: any) {
                     <TurboImage source={{uri:servImg}} style={[GStyles.row,GStyles.ac,{marginTop:appSize(20),height:appSize(124),width:appSize(124),backgroundColor:''}]} />
 
                     <Text style={{marginTop:appSize(20)}}>扫码添加客服微信进行购买</Text>
+                    <TouchableOpacity style={{paddingVertical:appSize(10),paddingTop:appSize(20),backgroundColor:''}} onPress={async () => {
+
+                        if (await saveImageToGallery(servImg)){
+                            Alert.alert('保存成功')
+                        }else{
+                            Alert.alert('保存失败')
+                        }
+
+                    }}>
+                        <Text style={{}}>下载二维码</Text>
+                    </TouchableOpacity>
 
                     <View style={[GStyles.row,GStyles.ac,GStyles.jc,{gap:appSize(10),marginTop:appSize(20)}]}>
                         <TouchableOpacity onPress={()=>{

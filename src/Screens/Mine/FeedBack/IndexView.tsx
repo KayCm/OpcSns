@@ -11,6 +11,7 @@ import GStyles, { appSize } from '../../../Components/GStyles.ts';
 import React, {useEffect} from 'react';
 import {useSelector} from "react-redux";
 import {R_POST} from "../../../Services/NetRequestService";
+import {COLORS} from "../../../Components/Constant";
 
 function IndexView(props: any) {
 
@@ -83,13 +84,12 @@ function IndexView(props: any) {
             </View>
 
               <View style={[GStyles.row,GStyles.ac,GStyles.jcBetween,GStyles.pv20,GStyles.ph12,{marginTop:appSize(10),backgroundColor:'#fff'}]}>
-                  <Text style={[GStyles.ffh11,{fontSize:appSize(18)}]}>您的邮箱</Text>
+                  <Text style={[{fontSize:appSize(16),color:COLORS.FONTBLACK}]}>您的邮箱</Text>
                   <TextInput
                       value={loginEmail}
                       onChangeText={setLoginEmail}
                       placeholder={'请输入邮箱'}
-
-                      style={{textAlign:'right',height: appSize(44),marginLeft:appSize(12),width:appSize(200)}}/>
+                      style={{textAlign:'right',height: appSize(44),color:COLORS.FONTBLACK,marginLeft:appSize(12),width:appSize(200)}}/>
               </View>
 
             <TouchableOpacity

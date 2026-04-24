@@ -260,6 +260,7 @@ export const VipModal = ({ isModalVisible=false,selectNum=0,onDismiss ,onPress})
                         {
                           color: '#000',
                           fontSize: appSize(24),
+                            marginLeft:appSize(5)
                         },
                       ]}
                     >
@@ -383,6 +384,7 @@ export const VipModal = ({ isModalVisible=false,selectNum=0,onDismiss ,onPress})
                         {
                           color: '#000',
                           fontSize: appSize(24),
+                            marginLeft:appSize(5)
                         },
                       ]}
                     >
